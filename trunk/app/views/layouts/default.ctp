@@ -116,6 +116,8 @@
                             modal: false,
                             autoOpen: false
                         });
+
+                        $("#msginfo").css('style', 'display: none');
                     });
 
                 </script>
@@ -183,6 +185,14 @@
                         <!--fim bloco de exibição das mensagens-->
                     </table>
                     <div id="dialog" title="Carregando..."></div>
+                    <div id="msginfo" style="z-index:10000;position:absolute;top:100px;right:35%;left:35%" class="ui-widget">
+                        <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                            <br>
+                            <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                                    <?php $session->flash();?>
+                            <br>
+                        </div>
+                    </div>
                     <span><input type="hidden" value="<?php echo $this->webroot;?>"></span>
                     <div style="padding:8px">
                             <?php echo $content_for_layout; ?>

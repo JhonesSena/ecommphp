@@ -1,6 +1,7 @@
 <?php
 
 App::import('Controller', 'Shopps');
+App::import('Core', 'HttpSocket');
 class AjaxController extends AppController {
 
     var $name = 'Ajax';
@@ -94,6 +95,20 @@ class AjaxController extends AppController {
         }
         $this->set(compact('resumo', 'total', 'totalProduto', 'frete', 'errosFrete', 'resumoDesconto', 'descontoTotal', 'totalSemDesconto'));
         $this->render('json', 'ajax', '/shopps/atualizaQtde');
+    }
+
+    function validaCep($cep){
+        $this->layout = 'ajax';
+        Configure::delete('debug');
+        $params['formato'] = 'xml';
+        $params['cep'] = preg_replace('/[^0-9]/', '', $cep);
+        $url = "http://cep.republicavirtual.com.br/web_cep.php";
+        $HttpSocket = new HttpSocket();
+        $results = $HttpSocket->get($url, $params);
+        $results = $this->xmlToArray($results);
+//        $this->set(compact($results));
+        print json_encode($results);
+        $this->render('json', 'ajax', '/ajax/json');
     }
 }
 ?>
