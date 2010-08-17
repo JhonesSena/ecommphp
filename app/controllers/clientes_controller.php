@@ -2,7 +2,7 @@
 class ClientesController extends AppController {
 
 	var $name = 'Clientes';
-	var $helpers = array('Html', 'Form');
+	var $helpers = array('Html', 'Form', 'Jquery');
 
 	function index() {
 		$this->Cliente->recursive = 0;
@@ -28,8 +28,7 @@ class ClientesController extends AppController {
 			}
 		}
 		$estados = $this->Cliente->Estado->find('list');
-		$grupoAcessos = $this->Cliente->GrupoAcesso->find('list');
-		$this->set(compact('estados', 'grupoAcessos'));
+		$this->set(compact('estados'));
 	}
 
 	function edit($id = null) {
