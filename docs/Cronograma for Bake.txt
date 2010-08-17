@@ -1,0 +1,80 @@
+
+Possíveis Models baseado em seu atual banco de dados:
+
+
+1. Situacao [v] [cc]
+	hasmany: Venda, SituacaoPedido
+	
+2. SituacaoPedido[v] [cc]
+	belongsto: Situacao, Pedido
+	
+3. Pedido[v] [c]
+	hasone:Venda
+	hasmany: ItensPedido, ClientePedido, SituacaoPedido
+
+4. Estado
+	hasmany: Cidade
+
+5. Cidade[v] [c]
+	belongsto: Estado
+	hasmany: Cliente, Agencia
+
+6. Cor[v] [cc]
+	hasmany: ProdutoCor
+
+7. Grupo[v] [cc]
+	hasmany: Produto
+
+8. Linha[v] [cc]
+	hasmany: Produto
+
+9. ItensPedido
+	belongto: Pedido, Produto
+
+10. ProdutoCor
+	belongto: Produto, Cor
+
+11. Produto[v] [cc]
+	hasmany: ProdutoCor, Imagem, ItensPedido
+	belongsto: Linha, Grupo
+
+12. Imagem[v] [cc]
+	belongsto: Produto
+
+13. Banco[v] [cc]
+	hasmany: Bloqueto, Agencia
+
+14. Bloqueto[v] [cc]
+	belongsto: Banco
+	hasmany: Cedente
+
+15. Agencia [v] [cc]
+	belongsto: Banco, Cidade
+	hasmany: Cedente
+
+16. ClienteFisico
+	hasone: Cliente
+
+17. ClienteJuridico
+	hasone: Cliente
+
+18. ClientePedido[v] [c]
+	belongsto: Pedido, Cliente
+
+19. Cliente[v] [c]
+	hasone: ClienteFisico, ClienteJuridico, Cedente
+	belongsto: Cidade
+	hasmany: Boleto	
+
+20. Cedente[v] [cc]
+	hasone: Cliente
+	belobgsto: Bloqueto, Agencia
+	hasmany: Boleto
+
+21. Venda[v] [c]
+	hasone: Pedido, Boleto
+	balongsto: Situacao
+	
+22. Boleto
+	hasmany: Venda
+	belongsto: Cliente, Cedente

@@ -1,0 +1,1 @@
+http://www.correios.com.br/encomendas/precos/calculo.cfm?servico=40010&&resposta=xml&&cepOrigem=47700000&&cepDestino=48420000&&peso=5

@@ -1,0 +1,11 @@
+incluir:
+
+preço
+cubagem
+caixa
+obs geral produto
+
+
+excluir
+linha 
+metragem
