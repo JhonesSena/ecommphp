@@ -14,27 +14,21 @@
         $.ajax({
             type: "get",
             async: true,
-            beforeSend: function(){
-                $('#dialog').html("<div style='text-align:center;' ><img src='<?php echo $this->webroot;?>img/ajax_preloader.gif'/></div>");
-                $('#dialog').dialog('open');
-            },
-            complete: function(){
-                $('#dialog').dialog('close');
-            },
             error: function(){
                 location.href="";
             },
             url: '<?php echo $this->webroot;?>ajax/validaCep/'+cep,
             dataType: 'json',
             success: function(json){
-                $('#flashMessage').html("A escolha de usuário interno, implica na digitação de uma senha.");
-                $('#msginfo').fadeIn(500);
-                setTimeout("$('#msginfo').fadeOut(500)",4000);
-                
                 var result = eval(json);
                 if(result['webservicecep']['resultado'] > 0){
                     $("#cidade").val(result['webservicecep']['cidade']);
                     $("#validaCep").val(result['webservicecep']['resultado']);
+                }
+                else{
+                    $('#flashMessage').html("O CEP digitado é inválido.");
+                    $('#msginfo').fadeIn(500);
+                    setTimeout("$('#msginfo').fadeOut(500)",4000);
                 }
             }
         });
@@ -77,17 +71,17 @@
 		        
         <table cellspacing="0" class="details">
         	<?php
-		echo $jquery->input('telefone',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('email',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('logradouro',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('telefone',array('class'=>'validadeRequired validateTelefone','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('email',array('class'=>'validadeRequired validateEmail', 'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('logradouro',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('cep',array('id'=>'cep','class'=>'validateRequired validateCEP','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('bairro',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('cidade',array('id'=>'cidade','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('estado_id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('login',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('senha',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('user_id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('ativo',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('bairro',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('cidade',array('class'=>'validadeRequired','id'=>'cidade','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('estado_id',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('login',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('senha',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('user_id',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('ativo',array('type'=>'hidden', 'value'=>1,'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 	?>
         <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
                 </tr>
