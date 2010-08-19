@@ -10,6 +10,10 @@
         });
     });
 
+    $(document).ready(function(){
+        analisaTipoPessoa();
+    });
+
     function validaCep(cep){
         $.ajax({
             type: "get",
@@ -32,6 +36,10 @@
                 }
             }
         });
+    }
+
+    function analisaTipoPessoa(){
+        alert($("#tipo_pessoa").attr('checked'));
     }
 </script>
 
@@ -68,19 +76,23 @@
 				</div>
 			</div>
 			<?}?>
-		        
+        <div style="margin-left: 155px;" align="left"><? echo $jquery->input('tipo_pessoa',array('tipo_pessoa','type'=>'radio', 'legend'=>false, 'label'=>'Cliente', 'options'=>$tipoCliente, 'value'=>'f','error' => false,'div'=>false));?></div>
         <table cellspacing="0" class="details">
         	<?php
-		echo $jquery->input('telefone',array('class'=>'validadeRequired validateTelefone','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('email',array('class'=>'validadeRequired validateEmail', 'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('logradouro',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('cep',array('id'=>'cep','class'=>'validateRequired validateCEP','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('bairro',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('cidade',array('class'=>'validadeRequired','id'=>'cidade','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('estado_id',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('login',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('senha',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('user_id',array('class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+
+                echo $jquery->input('nome',array('class'=>'validadeRequired','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('nome_fantasia',array('name'=>'data[PessoaJuridica][nome_fantasia]','class'=>'validadeRequired pessoaJuridica','alt'=>'Nome Fantasia','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('cnpj',array('name'=>'data[PessoaJuridica][cnpj]','class'=>'validadeRequired validateCNPJ pessoaJuridica','alt'=>'CNPJ','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('cpf',array('name'=>'data[PessoaFisica][cpf]','class'=>'validadeRequired validateCPF pessoaFisica','alt'=>'CPF','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('telefone',array('class'=>'validadeRequired validateTelefone','alt'=>'Telefone','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('email',array('class'=>'validadeRequired validateEmail','alt'=>'Email', 'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('logradouro',array('class'=>'validadeRequired','alt'=>'Logradouro','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('cep',array('id'=>'cep','class'=>'validateRequired validateCEP','alt'=>'Cep','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('bairro',array('class'=>'validadeRequired','alt'=>'Bairro','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('cidade',array('class'=>'validadeRequired','id'=>'cidade','alt'=>'Cidade','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('estado_id',array('class'=>'validadeRequired','alt'=>'Estado', 'empty'=>'Selecione','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('senha',array('class'=>'validadeRequired', 'type'=>'password','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('redigite_senha',array('class'=>'validadeRequired', 'type'=>'password','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('ativo',array('type'=>'hidden', 'value'=>1,'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 	?>
         <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>

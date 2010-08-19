@@ -28,7 +28,8 @@ class ClientesController extends AppController {
 			}
 		}
 		$estados = $this->Cliente->Estado->find('list');
-		$this->set(compact('estados'));
+                $tipoCliente = array('f'=>'Pessoa Física', 'j'=>'Pessoa Jurídica');
+		$this->set(compact('estados', 'tipoCliente'));
 	}
 
 	function edit($id = null) {
