@@ -580,16 +580,16 @@
                         fieldname :E.showAs
                     })
                 }
-                if (B.minlength(F, 8) && B.maxlength(F, 8)) {
+                if (B.minlength(F, 10) && B.maxlength(F,10)) {
                     E.firesSuccess()
                 } else {
                     return E.firesError("length", {
                         fieldname :E.showAs,
-                        length :8
+                        length :10
                     })
                 }
             },
-            mask :"9999-9999"
+            mask :"(99)9999-9999"
         };
         C.filter(".validateTelefone").trule().addRule(
         D.validateTelefone);
