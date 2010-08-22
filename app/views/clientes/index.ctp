@@ -108,9 +108,6 @@
                                         <th><?php echo $paginator->sort('bairro');?></th>
                                         <th><?php echo $paginator->sort('cidade');?></th>
                                         <th><?php echo $paginator->sort('estado_id');?></th>
-                                        <th><?php echo $paginator->sort('login');?></th>
-                                        <th><?php echo $paginator->sort('senha');?></th>
-                                        <th><?php echo $paginator->sort('user_id');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </thead> 
@@ -125,9 +122,6 @@
                                         <th><?php echo $paginator->sort('bairro');?></th>
                                         <th><?php echo $paginator->sort('cidade');?></th>
                                         <th><?php echo $paginator->sort('estado_id');?></th>
-                                        <th><?php echo $paginator->sort('login');?></th>
-                                        <th><?php echo $paginator->sort('senha');?></th>
-                                        <th><?php echo $paginator->sort('user_id');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </tfoot> 
@@ -170,16 +164,7 @@
 			<?php echo $cliente['Estado']['nome']; ?>
 		</td>
 		<td>
-			<?php echo $cliente['Cliente']['login']; ?>
-		</td>
-		<td>
-			<?php echo $cliente['Cliente']['senha']; ?>
-		</td>
-		<td>
-			<?php echo $cliente['User']['nome']; ?>
-		</td>
-		<td>
-			<?php echo $cliente['Cliente']['ativo']; ?>
+			<?php if($cliente['Cliente']['ativo']) echo 'Sim'; else 'Não' ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

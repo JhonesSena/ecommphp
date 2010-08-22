@@ -1,5 +1,5 @@
 
-<? echo $jquery->init_date(); ?>
+
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
@@ -12,7 +12,7 @@
 <div id="tabpanel">
     <ul>
         <li>
-			<a href="#tab1"><span><?php echo __("Novo SituacaoPedido",true) ?></span></a>
+			<a href="#tab1"><span><?php echo __("Nova Situacao de Pedido",true) ?></span></a>
 			</li>
 	
     </ul>
@@ -42,9 +42,8 @@
 		        
         <table cellspacing="0" class="details">
         	<?php
-		echo $jquery->input('pedido_id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('data',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('situacao_id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('nome',array('class'=>'validateRequired', 'alt'=>'Nome', 'label'=>'Nome*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('ativo',array('type'=>'hidden','value'=>1,'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 	?>
         <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
                 </tr>

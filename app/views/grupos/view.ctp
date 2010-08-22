@@ -23,7 +23,7 @@
 
 <div id="tabpanel">
     <ul>
-        <li><a href="#tab1"><span><?php echo __("Visualizar Grupo",true) ?></span></a></li><li><a href="#tab2"><span>Produtos</span></a></li></ul>
+        <li><a href="#tab1"><span><?php echo __("Visualizar Grupo",true) ?></span></a></li></ul>
     <div id="tab1">
         <table cellspacing="0" class="details">
             		<tr><td class="left"><?php __('Id'); ?></td><td class="right">		
@@ -33,47 +33,5 @@
             
         </table>
     </div>
-    
-    
-            
-    <div id="tab2">
-            <?php if (!empty($grupo['Produto'])):?>
-            <table id="myTable2" class="tablesorter" cellspacing="1"> 
-            <thead> 
-               <tr>
-                <th><?php __('Id'); ?></th><th><?php __('Codigo'); ?></th><th><?php __('Titulo'); ?></th><th><?php __('Linha Id'); ?></th><th><?php __('Grupo Id'); ?></th><th><?php __('Metragem'); ?></th><th><?php __('Pacote'); ?></th><th><?php __('Peso'); ?></th><th><?php __('Ativo'); ?></th>                </tr>
-            </thead> 
-            <tfoot> 
-                <tr>
-                <th><?php __('Id'); ?></th><th><?php __('Codigo'); ?></th><th><?php __('Titulo'); ?></th><th><?php __('Linha Id'); ?></th><th><?php __('Grupo Id'); ?></th><th><?php __('Metragem'); ?></th><th><?php __('Pacote'); ?></th><th><?php __('Peso'); ?></th><th><?php __('Ativo'); ?></th>                </tr>
-            </tfoot> 
-            <tbody>
-    <?php
-                    $i = 0;
-                    foreach ($grupo['Produto'] as $produto):
-                            $class = null;
-                            if ($i++ % 2 == 0) {
-                                    $class = ' class="altrow"';
-                            }
-                    ?>
-<tr<?php echo $class;?>><td><?php echo $produto['id'];?></td>
-<td><?php echo $produto['codigo'];?></td>
-<td><?php echo $produto['titulo'];?></td>
-<td><?php echo $produto['linha_id'];?></td>
-<td><?php echo $produto['grupo_id'];?></td>
-<td><?php echo $produto['metragem'];?></td>
-<td><?php echo $produto['pacote'];?></td>
-<td><?php echo $produto['peso'];?></td>
-<td><?php if ($produto['ativo']==1) echo 'Sim'; else echo 'Não';?></td>
-</tr>
-	<?php endforeach;?>            </tbody>
-            </table>
-    <?php endif; ?>
-
-            
-    
-    </div>
-        
-    
     
 </div>

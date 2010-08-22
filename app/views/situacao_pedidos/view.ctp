@@ -27,8 +27,9 @@
     <div id="tab1">
         <table cellspacing="0" class="details">
             		<tr><td class="left"><?php __('Id'); ?></td><td class="right">		
-			<?php echo $situacaoPedido['SituacaoPedido']['id']; ?></td></tr>		<tr><td class="left"><?php __('Pedido'); ?></td><td class="right"><?php echo $situacaoPedido['Pedido']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Data'); ?></td><td class="right">		
-			<?php echo $situacaoPedido['SituacaoPedido']['data']; ?></td></tr>		<tr><td class="left"><?php __('Situacao'); ?></td><td class="right"><?php echo $situacaoPedido['Situacao']['nome']; ?></td></tr>            
+			<?php echo $situacaoPedido['SituacaoPedido']['id']; ?></td></tr>		<tr><td class="left"><?php __('Nome'); ?></td><td class="right">		
+			<?php echo $situacaoPedido['SituacaoPedido']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Ativo'); ?></td><td class="right">		
+			<?php echo $situacaoPedido['SituacaoPedido']['ativo']; ?></td></tr>            
             
         </table>
     </div>

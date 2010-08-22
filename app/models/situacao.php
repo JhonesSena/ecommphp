@@ -20,5 +20,22 @@ class Situacao extends AppModel {
 		)
 	);
 
+        function afterFind($results) {
+
+        if(isset($results)) {
+            foreach ($results as $key => $val) {
+                if (isset($val['Situacao']['ativo'])) {
+
+                    if($results[$key]['Situacao']['ativo']) {
+                        $results[$key]['Situacao']['ativo'] = 'Sim';
+                    }
+                    else
+                        $results[$key]['Situacao']['ativo'] = 'Não';
+                }
+            }
+        }
+        return $results;
+    }
+
 }
 ?>

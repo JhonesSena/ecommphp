@@ -100,7 +100,6 @@
             <thead> 
                <tr>
 				    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
                                         <th><?php echo $paginator->sort('nome');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
@@ -108,7 +107,6 @@
             <tfoot> 
                 <tr>
 					<th style="width:20px"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
                                         <th><?php echo $paginator->sort('nome');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
@@ -127,9 +125,6 @@
 						<td align="center" style="padding: 0px 0px 0px 0px">
 							<input type="checkbox" class="chk" value="<?=$situacao['Situacao']['id']?>">
 						</td>
-							<td>
-			<?php echo $situacao['Situacao']['id']; ?>
-		</td>
 		<td>
 			<?php echo $html->link($situacao['Situacao']['nome'], array('action'=>'view', $situacao['Situacao']['id']), array('class'=>'ctxmenu','id'=>$situacao['Situacao']['id'])); ?>
 		</td>

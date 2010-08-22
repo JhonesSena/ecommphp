@@ -54,7 +54,6 @@ class AppController extends Controller {
         $this->Auth->loginError = "Login inválido."; // mensagem de erro
         $this->Auth->authError = "Área restrita, por favor faça login."; // mensagem de acesso restrito
         $this->Auth->usuario = "teste";
-
     }
 
     function isAuthorized () {

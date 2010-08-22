@@ -6,7 +6,7 @@ class AjaxController extends AppController {
 
     var $name = 'Ajax';
     var $helpers = array('Html', 'Form', 'Jquery');
-    var $uses = array('Produto', 'Imagem', 'Item');
+    var $uses = array('Produto', 'Imagem', 'Item', 'Estado');
 
     function delete_imagem_for_produto($idImg = null, $idProduto = null) {
         $this->layout = 'ajax';
@@ -106,7 +106,14 @@ class AjaxController extends AppController {
         $HttpSocket = new HttpSocket();
         $results = $HttpSocket->get($url, $params);
         $results = $this->xmlToArray($results);
-//        $this->set(compact($results));
+        $estado = $this->Estado->find('list', array('fields'=>'Estado.id','conditions'=>array('Estado.sigla'=>$results['webservicecep']['uf'])));
+        foreach ($estado as $value){
+            $estado = $value;
+        }
+        if($estado)
+            $results['webservicecep']['estado'] = $estado;
+        else
+            $results['webservicecep']['estado'] = '';
         print json_encode($results);
         $this->render('json', 'ajax', '/ajax/json');
     }
