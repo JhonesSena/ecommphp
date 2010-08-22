@@ -73,7 +73,7 @@
                             <ul class="dropdown_ul">
                                 <li class="dropdown_li"><a href="<?php echo $this->webroot;?>cores/index">Cores</a></li>
                                 <li class="dropdown_li"><a href="<?php echo $this->webroot;?>situacao_pedidos/index">Situações de Pedido</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>situacao/index">Situações de Venda</a></li>
+                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>situacoes/index">Situações de Venda</a></li>
                             </ul>
                         </dd>
                     </dl>

@@ -58,7 +58,7 @@
 </script>
 
 <div class="toolbar">
-	<?php echo $html->link(__('Novo Cor',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	
+	<?php echo $html->link(__('Nova Cor',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>
 	
 	<?
 	$total = $paginator->counter(array('format' => '%pages%', true));

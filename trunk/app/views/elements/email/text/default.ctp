@@ -22,4 +22,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 ?>
-<?php echo $content; ?>
+<?php //echo $content; ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+    <body>
+        <?php echo $content_for_layout; ?>
+    </body>
+</html>

@@ -58,7 +58,7 @@
 </script>
 
 <div class="toolbar">
-	<?php echo $html->link(__('Novo SituacaoPedido',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>/situacaopedidos/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
+	<?php echo $html->link(__('Nova Situacao de Pedido',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>/situacaopedidos/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
 	
 	<?
 	$total = $paginator->counter(array('format' => '%pages%', true));
@@ -100,19 +100,15 @@
             <thead> 
                <tr>
 				    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
-                                        <th><?php echo $paginator->sort('pedido_id');?></th>
-                                        <th><?php echo $paginator->sort('data');?></th>
-                                        <th><?php echo $paginator->sort('situacao_id');?></th>
+                                        <th><?php echo $paginator->sort('nome');?></th>
+                                        <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </thead> 
             <tfoot> 
                 <tr>
 					<th style="width:20px"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
-                                        <th><?php echo $paginator->sort('pedido_id');?></th>
-                                        <th><?php echo $paginator->sort('data');?></th>
-                                        <th><?php echo $paginator->sort('situacao_id');?></th>
+                                        <th><?php echo $paginator->sort('nome');?></th>
+                                        <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </tfoot> 
             <tbody> 
@@ -130,16 +126,10 @@
 							<input type="checkbox" class="chk" value="<?=$situacaoPedido['SituacaoPedido']['id']?>">
 						</td>
 							<td>
-			<?php echo $situacaoPedido['SituacaoPedido']['id']; ?>
+			<?php echo $html->link($situacaoPedido['SituacaoPedido']['nome'], array('action'=>'view', $situacaoPedido['SituacaoPedido']['id']), array('class'=>'ctxmenu','id'=>$situacaoPedido['SituacaoPedido']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $situacaoPedido['Pedido']['nome']; ?>
-		</td>
-		<td>
-			<?php echo $situacaoPedido['SituacaoPedido']['data']; ?>
-		</td>
-		<td>
-			<?php echo $situacaoPedido['Situacao']['nome']; ?>
+			<?php echo $situacaoPedido['SituacaoPedido']['ativo']; ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
