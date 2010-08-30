@@ -43,7 +43,7 @@ class CoresController extends AppController {
 
     function edit($id = null) {
         if (!$id && empty($this->data)) {
-            $this->Session->setFlash(__('Invalid Cor', true));
+            $this->Session->setFlash(__('Cor', true));
             $this->redirect(array('action'=>'index'));
         }
         if (!empty($this->data)) {

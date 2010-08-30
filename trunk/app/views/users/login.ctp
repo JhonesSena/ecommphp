@@ -14,7 +14,7 @@
 
     </ul>
     <div id="tab1">
-        <? if($session->check('Message.flash')) $session->flash() ?>
+        <? if($session->check('Message.flash')) $session->flash(); ?>
         <?php $session->flash('auth')?>
         <?php echo $jquery->create('User', array('controller'=>'users','action'=>'login'));?>
 

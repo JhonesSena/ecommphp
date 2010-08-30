@@ -35,28 +35,6 @@
     });
 </script>
 
-<script>
-	function selecionados(){
-		chs = $(".chk").get();
-		saida = "";
-		for(i=0;i<chs.length;i++){
-			saida = chs[i].checked?saida+","+chs[i].value:saida;
-		}
-		return saida.substring(1,saida.length);
-	}
-	function selecionarTodos(){
-		chs = $(".chk").get();
-		saida = "";
-		for(i=0;i<chs.length;i++){
-			if(chs[i].checked){
-				chs[i].checked=false;
-			}else{
-				chs[i].checked=true;
-			}
-		}
-	}
-</script>
-
 <div class="toolbar">
 	<?php echo $html->link(__('Novo Bloqueto',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>/bloquetos/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
 	
@@ -81,15 +59,6 @@
 	?>
 	</div>
 
-
-<div class="contextMenu" id="contextMenuList">
-    <ul style="font-size:12px">
-      <li id="view"><img src="<?php echo $this->webroot;?>css/img/visualizar.gif"/>Visualizar</li>
-      <li id="edit"><img src="<?php echo $this->webroot;?>css/img/edit.gif"/>Editar</li>
-      <li id="delete"><img src="<?php echo $this->webroot;?>css/img/delete.gif"/>Excluir</li>
-    </ul>
-</div>
-
 <div id="tabpanel">
     <ul>
         <li><a href="#tab1"><span><?php echo __("Listar Bloquetos",true) ?></span></a></li>
@@ -99,22 +68,18 @@
         <table id="myTable" class="tablesorter" cellspacing="1"> 
             <thead> 
                <tr>
-				    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
                                         <th><?php echo $paginator->sort('banco_id');?></th>
-                                        <th><?php echo $paginator->sort('local_pagamento');?></th>
                                         <th><?php echo $paginator->sort('carteira');?></th>
+                                        <th><?php echo $paginator->sort('local_pagamento');?></th>
                                         <th><?php echo $paginator->sort('tipo');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </thead> 
             <tfoot> 
                 <tr>
-					<th style="width:20px"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
                                         <th><?php echo $paginator->sort('banco_id');?></th>
-                                        <th><?php echo $paginator->sort('local_pagamento');?></th>
                                         <th><?php echo $paginator->sort('carteira');?></th>
+                                        <th><?php echo $paginator->sort('local_pagamento');?></th>
                                         <th><?php echo $paginator->sort('tipo');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
@@ -130,20 +95,14 @@
             ?>
 	<tr<?php echo $class;?>>
 
-						<td align="center" style="padding: 0px 0px 0px 0px">
-							<input type="checkbox" class="chk" value="<?=$bloqueto['Bloqueto']['id']?>">
-						</td>
-							<td>
-			<?php echo $bloqueto['Bloqueto']['id']; ?>
-		</td>
 		<td>
 			<?php echo $bloqueto['Banco']['nome']; ?>
 		</td>
-		<td>
-			<?php echo $bloqueto['Bloqueto']['local_pagamento']; ?>
+                <td>
+			<?php echo $bloqueto['Bloqueto']['carteira']; ?>
 		</td>
 		<td>
-			<?php echo $bloqueto['Bloqueto']['carteira']; ?>
+			<?php echo $bloqueto['Bloqueto']['local_pagamento']; ?>
 		</td>
 		<td>
 			<?php echo $bloqueto['Bloqueto']['tipo']; ?>
