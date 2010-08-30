@@ -96,7 +96,7 @@
 	<tr<?php echo $class;?>>
 
 		<td>
-			<?php echo $bloqueto['Banco']['nome']; ?>
+                    <?php echo $html->link($bloqueto['Banco']['nome'], array('action'=>'view', $bloqueto['Bloqueto']['id']), array('class'=>'ctxmenu','id'=>$bloqueto['Bloqueto']['id'])); ?>
 		</td>
                 <td>
 			<?php echo $bloqueto['Bloqueto']['carteira']; ?>

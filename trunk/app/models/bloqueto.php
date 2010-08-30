@@ -30,5 +30,22 @@ class Bloqueto extends AppModel {
 		)
 	);
 
+        function afterFind($results) {
+
+        if(isset($results)) {
+            foreach ($results as $key => $val) {
+                if (isset($val['Bloqueto']['ativo'])) {
+
+                    if($results[$key]['Bloqueto']['ativo']) {
+                        $results[$key]['Bloqueto']['ativo'] = 'Sim';
+                    }
+                    else
+                        $results[$key]['Bloqueto']['ativo'] = 'Não';
+                }
+            }
+        }
+        return $results;
+    }
+
 }
 ?>
