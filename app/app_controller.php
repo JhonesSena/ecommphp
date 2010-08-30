@@ -42,7 +42,7 @@ class AppController extends Controller {
     //var $components = array('Firephp');
     var $paginate = array('limit' => 10);
     var $redirect = "";
-    var $components = array('Session','Auth');
+    var $components = array('Session','Auth','Email');
 
     function beforeFilter() {
         Security::setHash('sha1'); // substitua pelo hash que está usando
@@ -57,6 +57,8 @@ class AppController extends Controller {
         $this->Auth->authError = "Área restrita, por favor faça login."; // mensagem de acesso restrito
         $clienteSession = $this->Session->read('Cliente');
         $this->set(compact('clienteSession'));
+        if(empty($clienteSession['User']['group_id']))
+            $this->layout = 'cliente';
     }
 
     function isAuthorized () {
@@ -267,6 +269,44 @@ class AppController extends Controller {
         $results['calculo_precos']['dados_postais']['peso'] += $pesoFinal;
         $results['calculo_precos']['dados_postais']['preco_postal'] += $valorFinal;
         return $results;
+    }
+
+    function enviarEmail($nameFrom, $from, $subject, $msg, $to, $nameTo, $replyTo=null) {
+//        $Emailc->SMTPAuth = false;
+        /* SMTP Options */
+        $this->Email->smtpOptions = array(
+                'port' => '465',//587
+                'timeout' => '40',
+                'host' => 'ssl://smtp.ig.com.br',
+                'username' => 'smtp.envio@ig.com.br',
+                'password' => 'bocazul1234',
+                'client' => 'smtp.ig.com.br');
+
+        /* Define a forma de entrega */
+        $this->Email->delivery = 'smtp';
+
+        $this->Email->sendAs = 'html'; // html, text, both
+//        $this->set('conteudo', $msg); // especifica variavel da mensagem para o template
+        $this->Email->layout = 'default'; // views/elements/email/html/contact.ctp
+//        $this->Email->template = 'default';
+//
+//        //set view variables as normal
+//        $this->set('from', $name);
+//        $this->set('msg', $msg);
+        $this->Email->to = $nameTo . '<' . $to . '>';
+        $this->Email->subject = $subject;
+        $this->Email->replyTo = $replyTo;
+        $this->Email->from = $nameFrom . '<' . $from .'>';
+
+        if ( $this->Email->send($msg) ) {
+            return true;
+
+        } else {
+            return false;
+        }
+
+//        $this->redirect(array('controller'=>'clientes','action'=>'add'));
+
     }
 
 }

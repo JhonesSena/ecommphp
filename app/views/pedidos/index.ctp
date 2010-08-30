@@ -18,27 +18,6 @@
     });
 </script>
 
-<!-- ContextMenu -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.ctxmenu').contextMenu('contextMenuList', {
-            bindings: {
-                'view': function(t) {
-                    location.href="<?php echo $html->url(array('action'=>'view'))?>/"+t.id;
-                },
-                'edit': function(t) {
-                    location.href="<?php echo $html->url(array('action'=>'edit'))?>/"+t.id;
-                },
-                'delete': function(t) {
-                    if(confirm("Deseja realmente apagar?")){
-                        location.href="<?php echo $html->url(array('action'=>'delete'))?>/"+t.id;
-                    }
-                }
-            }
-        });
-    });
-</script>
-
 <script>
     function selecionados(){
         chs = $(".chk").get();
@@ -138,20 +117,16 @@
         <table id="myTable" class="tablesorter" cellspacing="1"> 
             <thead> 
                 <tr>
-                    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
                     <th><?php echo $paginator->sort('número');?></th>
                     <th><?php echo $paginator->sort('data');?></th>
-                    <th><?php echo $paginator->sort('valor_frete');?></th>
                     <th><?php echo $paginator->sort('situacao_id');?></th>
                     <th><?php echo $paginator->sort('boleto');?></th>
                 </tr>
             </thead> 
             <tfoot> 
                 <tr>
-                    <th style="width:20px"></th>
                     <th><?php echo $paginator->sort('número');?></th>
                     <th><?php echo $paginator->sort('data');?></th>
-                    <th><?php echo $paginator->sort('valor_frete');?></th>
                     <th><?php echo $paginator->sort('situacao_id');?></th>
                     <th><?php echo $paginator->sort('boleto');?></th>
                 </tr>
@@ -166,18 +141,11 @@
                     }
                     ?>
                 <tr<?php echo $class;?>>
-
-                    <td align="center" style="padding: 0px 0px 0px 0px">
-                        <input type="checkbox" class="chk" value="<?=$pedido['Pedido']['id']?>">
-                    </td>
                     <td>
-                            <?php echo $html->link($pedido['Pedido']['id'], array('action'=>'view', $pedido['Pedido']['id']), array('class'=>'ctxmenu','id'=>$pedido['Pedido']['id'])); ?>
+                            <?php echo $html->link($pedido['Pedido']['id'], array('action'=>'view', $pedido['Pedido']['id']), array('id'=>$pedido['Pedido']['id'])); ?>
                     </td>
                     <td>
                             <?php echo $pedido['Pedido']['created']; ?>
-                    </td>
-                    <td>
-                            <?php echo 'R$ '.$pedido['Pedido']['valor_frete']; ?>
                     </td>
                     <td>
                             <?php echo $pedido['SituacaoPedido']['nome']; ?>

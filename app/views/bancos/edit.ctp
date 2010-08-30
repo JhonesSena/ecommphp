@@ -17,7 +17,7 @@
 	
     </ul>
     <div id="tab1">
-        <?php echo $form->create('Banco');?>
+        <?php echo $form->create('Banco', array('type'=>'file'));?>
 		
 			<? if(!empty($jquery->validationErrors)){ ?>
 			<div class="ui-widget">
@@ -43,9 +43,9 @@
         <table cellspacing="0" class="details">
         	<?php
 		echo $jquery->input('id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('nome',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('codigo_compensacao',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('imagem',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('codigo_compensacao',array('class'=>'validateRequired', 'alt'=>'Código de Compensação', 'label'=>'Código Compensação*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('nome',array('class'=>'validateRequired', 'alt'=>'Nome', 'label'=>'Nome*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('logo',array('class'=>'validateRequired', 'alt'=>'Logo','type'=>'file','label'=>'','error' => false,'div'=>false,'before' => '<tr><td class="left">Arquivo*','after' => '</td></tr>','between' => '</td><td class="right">'));
 	?>
         <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
                 </tr>
