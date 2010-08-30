@@ -35,30 +35,9 @@
     });
 </script>
 
-<script>
-	function selecionados(){
-		chs = $(".chk").get();
-		saida = "";
-		for(i=0;i<chs.length;i++){
-			saida = chs[i].checked?saida+","+chs[i].value:saida;
-		}
-		return saida.substring(1,saida.length);
-	}
-	function selecionarTodos(){
-		chs = $(".chk").get();
-		saida = "";
-		for(i=0;i<chs.length;i++){
-			if(chs[i].checked){
-				chs[i].checked=false;
-			}else{
-				chs[i].checked=true;
-			}
-		}
-	}
-</script>
 
 <div class="toolbar">
-	<?php echo $html->link(__('Novo Agencia',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>/agencias/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
+	<?php echo $html->link(__('Nova Agencia',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>/agencias/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
 	
 	<?
 	$total = $paginator->counter(array('format' => '%pages%', true));
@@ -99,11 +78,8 @@
         <table id="myTable" class="tablesorter" cellspacing="1"> 
             <thead> 
                <tr>
-				    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
                                         <th><?php echo $paginator->sort('codigo');?></th>
-                                        <th><?php echo $paginator->sort('codigo_cedente');?></th>
-                                        <th><?php echo $paginator->sort('logradouro');?></th>
+                                        <th><?php echo $paginator->sort('conta_corrente');?></th>
                                         <th><?php echo $paginator->sort('bairro');?></th>
                                         <th><?php echo $paginator->sort('cidade_id');?></th>
                                         <th><?php echo $paginator->sort('telefone');?></th>
@@ -113,11 +89,8 @@
             </thead> 
             <tfoot> 
                 <tr>
-					<th style="width:20px"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
                                         <th><?php echo $paginator->sort('codigo');?></th>
-                                        <th><?php echo $paginator->sort('codigo_cedente');?></th>
-                                        <th><?php echo $paginator->sort('logradouro');?></th>
+                                        <th><?php echo $paginator->sort('conta_corrente');?></th>
                                         <th><?php echo $paginator->sort('bairro');?></th>
                                         <th><?php echo $paginator->sort('cidade_id');?></th>
                                         <th><?php echo $paginator->sort('telefone');?></th>
@@ -136,26 +109,17 @@
             ?>
 	<tr<?php echo $class;?>>
 
-						<td align="center" style="padding: 0px 0px 0px 0px">
-							<input type="checkbox" class="chk" value="<?=$agencia['Agencia']['id']?>">
-						</td>
-							<td>
-			<?php echo $agencia['Agencia']['id']; ?>
-		</td>
-		<td>
-			<?php echo $agencia['Agencia']['codigo']; ?>
+                <td>
+			<?php echo $html->link($agencia['Agencia']['codigo'], array('action'=>'view', $agencia['Agencia']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $agencia['Agencia']['codigo_cedente']; ?>
 		</td>
 		<td>
-			<?php echo $agencia['Agencia']['logradouro']; ?>
-		</td>
-		<td>
 			<?php echo $agencia['Agencia']['bairro']; ?>
 		</td>
 		<td>
-			<?php echo $agencia['Cidade']['nome']; ?>
+			<?php echo $agencia['Agencia']['cidade']; ?>
 		</td>
 		<td>
 			<?php echo $agencia['Agencia']['telefone']; ?>

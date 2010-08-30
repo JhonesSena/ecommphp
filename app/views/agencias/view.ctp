@@ -23,7 +23,12 @@
 
 <div id="tabpanel">
     <ul>
-        <li><a href="#tab1"><span><?php echo __("Visualizar Agencia",true) ?></span></a></li><li><a href="#tab2"><span>Cedentes</span></a></li></ul>
+        <li><a href="#tab1"><span><?php echo __("Visualizar Agencia",true) ?></span></a></li>
+        <?php if (!empty($agencia['Cedente'])):?>
+            <li><a href="#tab2"><span>Cedentes</span></a></li>
+        <?php endif;?>
+    </ul>
+        
     <div id="tab1">
         <table cellspacing="0" class="details">
             		<tr><td class="left"><?php __('Id'); ?></td><td class="right">		
@@ -31,7 +36,7 @@
 			<?php echo $agencia['Agencia']['codigo']; ?></td></tr>		<tr><td class="left"><?php __('Codigo Cedente'); ?></td><td class="right">		
 			<?php echo $agencia['Agencia']['codigo_cedente']; ?></td></tr>		<tr><td class="left"><?php __('Logradouro'); ?></td><td class="right">		
 			<?php echo $agencia['Agencia']['logradouro']; ?></td></tr>		<tr><td class="left"><?php __('Bairro'); ?></td><td class="right">		
-			<?php echo $agencia['Agencia']['bairro']; ?></td></tr>		<tr><td class="left"><?php __('Cidade'); ?></td><td class="right"><?php echo $agencia['Cidade']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Telefone'); ?></td><td class="right">		
+			<?php echo $agencia['Agencia']['bairro']; ?></td></tr>		<tr><td class="left"><?php __('Cidade'); ?></td><td class="right"><?php echo $agencia['Agencia']['cidade']; ?></td></tr>		<tr><td class="left"><?php __('Telefone'); ?></td><td class="right">
 			<?php echo $agencia['Agencia']['telefone']; ?></td></tr>		<tr><td class="left"><?php __('Banco'); ?></td><td class="right"><?php echo $agencia['Banco']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Ativo'); ?></td><td class="right">		
 			<?php echo $agencia['Agencia']['ativo']; ?></td></tr>            
             
