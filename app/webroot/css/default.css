@@ -98,7 +98,39 @@ div.selectmultiple hr{
     width:70%;
 }
 
+.detailsLogin {
+    font-family:arial;
+    /*background-color: #F5F5F5;*/
+    margin:10px 0pt 15px;
+    font-size: 8pt;
+    text-align: left;
+    width:100%;
+}
 
+.detailsLogin th{
+    font-size: 10pt;
+    background-color: #E6EEEE;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+}
+
+.detailsLogin .left{
+    font-size: 9pt;
+    font-weight: bold;
+    padding: 4px;
+    text-align: right;
+    width: 40%;
+}
+
+.detailsLogin .right{
+    font-size: 10pt;
+    padding: 4px;
+    width:60%;
+}
+
+.links a{
+    color: blue;
+}
 
 .panel1{
     margin-left:8px
@@ -190,6 +222,35 @@ a.linkbutton:hover {
     *padding-top:4px;
 
     padding-bottom:18px;
+
+}
+
+.formloginbtn {
+
+    -moz-border-radius: 5px; -webkit-border-radius: 5px;
+    cursor:pointer;
+    height:15px;
+    border: 1px solid #92A6B5;
+    background-color: #D7F4E;
+    color: #2e6e9e;
+    font-weight: bold;
+    font-size: 9px;
+    background-repeat:no-repeat;
+    margin-top: 2px;
+    margin-left: 5px;
+    padding-bottom: 14px;
+
+}
+
+.formloginbtnIe {
+
+    cursor:pointer;
+    height:20px;
+    border: 1px solid #92A6B5;
+    background-color: #D7F4E;
+    color: #2e6e9e;
+    font-weight: bold;
+    font-size: 10px;
 
 }
 

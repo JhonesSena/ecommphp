@@ -1,19 +1,31 @@
 <?php
 
-App::import('Controller', 'Shopps');
 
 class PedidosController extends AppController {
 
     var $name = 'Pedidos';
     var $helpers = array('Html', 'Form', 'Jquery');
-    var $uses = array('Pedido','ItensPedido', 'Preco');
+    var $uses = array('Pedido','ItensPedido', 'Preco', 'ClientePedido');
     var $paginate = array(
-            'order'=>array('Pedido.id'=>'desc')
+            'order'=>array('Pedido.id'=>'desc'),
+            'joins'=>array(
+                array(
+                        'table' => 'cliente_pedidos',
+                        'alias' => 'ClientePedido',
+                        'type' => 'LEFT',
+                        'conditions' => array(
+                                        'ClientePedido.pedido_id = Pedido.id',
+                        )
+
+                )
+            )
     );
 
     function index() {
         $this->Pedido->recursive = 1;
-        $this->set('pedidos', $this->paginate());
+        $pedidos = $this->paginate(array('ClientePedido.cliente_id'=>25));
+//        print_r($pedidos);
+        $this->set('pedidos', $pedidos);//array('ClientePedido.cliente_id'=>$clienteSession['Cliente']['id'], 'Pedido.ativo'=>true)
     }
 
     function view($id = null) {
@@ -95,9 +107,6 @@ class PedidosController extends AppController {
     }
 
     function add() {
-        $s = new ShoppsController();
-        $s->constructClasses();
-
         $carrinhoSession = $this->Session->read('carrinho');
         $i = 0;
         $totalPeso = 0;
@@ -114,7 +123,8 @@ class PedidosController extends AppController {
                 }
             }
         }
-        $frete = $s->calculaFrete('40010', '42700000', '44002024', ($totalPeso/1000));
+        $clienteSession = $this->Session->read('Cliente');
+        $frete = $this->calculaFrete('40010', '42700000', $clienteSession['Cliente']['cep'], ($totalPeso/1000));
         if(!isset($frete['calculo_precos']['erro']['codigo'])) {
             $frete['calculo_precos']['erro']['codigo'] = '7';
             $frete['calculo_precos']['erro']['descricao'] = 'Não foi possível conectar ao serviço do correio.';
@@ -128,13 +138,29 @@ class PedidosController extends AppController {
         $this->data['Pedido']['situacao_pedido_id'] = 2;
 
         if (!empty($this->data)) {
+            $this->Pedido->begin();
             $this->Pedido->create();
-            if ($this->Pedido->saveAll($this->data)) {
-                $this->Session->setFlash(__('O Pedido foi finalizado com sucesso!', true));
-                $this->Session->del('carrinho');
-                $this->redirect(array('action'=>'index'));
+            if ($this->Pedido->saveAll($this->data, array('atomic'=>false, 'validate'=>'first'))) {
+                $idPedido = $this->Pedido->id;
+                $this->data['ClientePedido']['cliente_id'] = $clienteSession['Cliente']['id'];
+                $this->data['ClientePedido']['pedido_id'] = $idPedido;
+                unset($this->data['Pedido']);
+                unset($this->data['ItensPedido']);
+                if($this->ClientePedido->save($this->data)){
+                    $this->Pedido->commit();
+                    $this->Session->setFlash(__('O Pedido foi finalizado com sucesso!', true));
+                    $this->Session->del('carrinho');
+                    $this->redirect(array('action'=>'view', $idPedido));
+                }
+                else{
+                    $this->Pedido->rollback();
+                    $this->Session->setFlash(__('O Pedido não pôde ser finalizado. Por favor, tente novamente.', true));
+                    $this->redirect(array('controller'=>'shopps','action'=>'carrinho', 'true'));
+                }
+                
 
             } else {
+                $this->Pedido->rollback();
                 $this->Session->setFlash(__('O Pedido não pôde ser finalizado. Por favor, tente novamente.', true));
                 $this->redirect(array('controller'=>'shopps','action'=>'carrinho', 'true'));
             }
