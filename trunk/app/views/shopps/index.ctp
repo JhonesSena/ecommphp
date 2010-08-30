@@ -29,7 +29,7 @@
         });
 
         $('#verCarrinho').click(function(){
-            location.href = "<?php echo $html->url(array('action'=>'carrinho', 'true'))?>";
+            location.href = "<?php echo $html->url(array('action'=>'visualizarCarrinho'))?>";
 //            window.location = $('#webroot').val()+"shopps/carrinho";
         });
 

@@ -38,6 +38,19 @@ class Pedido extends AppModel {
                             'exclusive' => '',
                             'finderQuery' => '',
                             'counterQuery' => ''
+            ),
+            'ClientePedido' => array(
+                            'className' => 'ClientePedido',
+                            'foreignKey' => 'pedido_id',
+                            'dependent' => false,
+                            'conditions' => '',
+                            'fields' => '',
+                            'order' => '',
+                            'limit' => '',
+                            'offset' => '',
+                            'exclusive' => '',
+                            'finderQuery' => '',
+                            'counterQuery' => ''
             )
     );
 
@@ -56,6 +69,12 @@ class Pedido extends AppModel {
 
                     if(!empty($results[$key]['Pedido']['valor_frete'])) {
                         $results[$key]['Pedido']['valor_frete'] = str_replace('.', ',', $results[$key]['Pedido']['valor_frete']);
+                    }
+                }
+                if (isset($val['Pedido']['created'])) {
+
+                    if(!empty($results[$key]['Pedido']['created'])) {
+                        $results[$key]['Pedido']['created'] = $this->formataDateTime($results[$key]['Pedido']['created']);
                     }
                 }
 //                if (isset($val['Pedido']['created'])) {

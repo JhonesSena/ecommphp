@@ -34,6 +34,8 @@
  * @package       cake
  * @subpackage    cake.app
  */
+App::import('Core', 'HttpSocket');
+
 class AppController extends Controller {
 
     //Habilite para debug
@@ -53,7 +55,8 @@ class AppController extends Controller {
         $this->Auth->logoutRedirect = array('admin'=>true, 'controller' => 'users', 'action' => 'logout'); // controlador e action de logout
         $this->Auth->loginError = "Login inválido."; // mensagem de erro
         $this->Auth->authError = "Área restrita, por favor faça login."; // mensagem de acesso restrito
-        $this->Auth->usuario = "teste";
+        $clienteSession = $this->Session->read('Cliente');
+        $this->set(compact('clienteSession'));
     }
 
     function isAuthorized () {
@@ -222,6 +225,48 @@ class AppController extends Controller {
             $it->next();
         }
         return false;
+    }
+
+    function calculaFrete($codServico = '40010', $cepOrigem, $cepDestino, $peso) {
+//        $cepOrigem = "42700-000";
+//        $cepDestino = "48420-000";
+//        $peso = "6";
+        $params['resposta'] = 'xml';
+        $params['servico'] = $codServico;
+        $params['cepOrigem'] = preg_replace('/[^0-9]/', '', $cepOrigem);
+        $params['cepDestino'] = preg_replace('/[^0-9]/', '', $cepDestino);
+        $params['peso'] = $peso;
+
+        $resto = 0;
+        $caixas = 0;
+
+        if($peso > 30) {
+            $caixas = (int)($peso / 30);
+            $resto = $peso - ($caixas * 30);
+        }
+        else
+            $resto = $peso;
+        $url = "http://www.correios.com.br/encomendas/precos/calculo.cfm";
+        $HttpSocket = new HttpSocket();
+        $valorFinal = 0;
+        $pesoFinal = 0;
+        if($caixas > 0) {
+            for($i = 0; $i < $caixas; $i++) {
+                $params['peso'] = 30;//Peso máximo permitido
+                $results = $HttpSocket->get($url, $params);
+                $results = $this->xmlToArray($results);
+                $pesoFinal += $results['calculo_precos']['dados_postais']['peso'];
+                $valorFinal += $results['calculo_precos']['dados_postais']['preco_postal'];
+            }
+        }
+        if($resto > 0) {
+            $params['peso'] = $resto;
+            $results = $HttpSocket->get($url, $params);
+            $results = $this->xmlToArray($results);
+        }
+        $results['calculo_precos']['dados_postais']['peso'] += $pesoFinal;
+        $results['calculo_precos']['dados_postais']['preco_postal'] += $valorFinal;
+        return $results;
     }
 
 }

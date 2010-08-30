@@ -10,6 +10,14 @@ class ShoppsController extends AppController {
             'order'=>array('Produto.descricao'=>'asc')
     );
 
+    function beforeFilter () {
+        // executa o beforeFilter do AppController
+        parent::beforeFilter();
+        // adicione ao método allow as actions que quer permitir sem o usuário estar logado
+        $this->Auth->allow('index');
+        $this->Auth->allow('carrinho');
+    }
+
     function index($grupo_id = '') {
 //        $this->layout = 'cliente';
 
@@ -22,6 +30,13 @@ class ShoppsController extends AppController {
         $grupos = $this->Grupo->find('list');
         $grupo = $grupo_id;
         $this->set(compact('produtos', 'grupos', 'grupo'));
+    }
+
+    function visualizarCarrinho(){
+        $compact = $this->carrinho(true);
+        $this->set($compact);
+        $this->render('carrinho');
+
     }
 
     function carrinho($view = false) {
@@ -101,7 +116,10 @@ class ShoppsController extends AppController {
                     $totalSemDesconto += number_format($preco, 2) * $somaItens ;
                     $totalProduto += $subtotal;
                 }
-                $frete = $this->calculaFrete('40010', '42700000', '44002024', ($pesoTotal/1000));
+                $clienteSession = $this->Session->read('Cliente');
+
+
+                $frete = $this->calculaFrete('40010', '42700000', $clienteSession['Cliente']['cep'], ($pesoTotal/1000));
                 if(!isset($frete['calculo_precos']['erro']['codigo'])) {
                     $frete['calculo_precos']['erro']['codigo'] = '7';
                     $frete['calculo_precos']['erro']['descricao'] = 'Não foi possível conectar ao serviço do correio.';
@@ -214,49 +232,6 @@ class ShoppsController extends AppController {
             $this->set(compact('results'));
             $this->render('json', 'ajax', '/ajax/json');
         }
-    }
-
-
-    function calculaFrete($codServico = '40010', $cepOrigem, $cepDestino, $peso) {
-//        $cepOrigem = "42700-000";
-//        $cepDestino = "48420-000";
-//        $peso = "6";
-        $params['resposta'] = 'xml';
-        $params['servico'] = $codServico;
-        $params['cepOrigem'] = preg_replace('/[^0-9]/', '', $cepOrigem);
-        $params['cepDestino'] = preg_replace('/[^0-9]/', '', $cepDestino);
-        $params['peso'] = $peso;
-
-        $resto = 0;
-        $caixas = 0;
-
-        if($peso > 30) {
-            $caixas = (int)($peso / 30);
-            $resto = $peso - ($caixas * 30);
-        }
-        else
-            $resto = $peso;
-        $url = "http://www.correios.com.br/encomendas/precos/calculo.cfm";
-        $HttpSocket = new HttpSocket();
-        $valorFinal = 0;
-        $pesoFinal = 0;
-        if($caixas > 0) {
-            for($i = 0; $i < $caixas; $i++) {
-                $params['peso'] = 30;//Peso máximo permitido
-                $results = $HttpSocket->get($url, $params);
-                $results = $this->xmlToArray($results);
-                $pesoFinal += $results['calculo_precos']['dados_postais']['peso'];
-                $valorFinal += $results['calculo_precos']['dados_postais']['preco_postal'];
-            }
-        }
-        if($resto > 0) {
-            $params['peso'] = $resto;
-            $results = $HttpSocket->get($url, $params);
-            $results = $this->xmlToArray($results);
-        }
-        $results['calculo_precos']['dados_postais']['peso'] += $pesoFinal;
-        $results['calculo_precos']['dados_postais']['preco_postal'] += $valorFinal;
-        return $results;
     }
 
     function limparCarrinho() {

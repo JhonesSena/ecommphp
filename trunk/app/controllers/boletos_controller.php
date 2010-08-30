@@ -73,6 +73,7 @@ class BoletosController extends AppController {
         $p->constructClasses();
 
         $valor = $p->view($id);
+        $clienteSession = $this->Session->read('Cliente');
 //        print_r($valor);exit;
 
         // ------------------------- DADOS DINÂMICOS DO SEU CLIENTE PARA A GERAÇÃO DO BOLETO (FIXO OU VIA GET) -------------------- //
@@ -87,16 +88,16 @@ class BoletosController extends AppController {
         $valor_boleto=number_format($valor_cobrado+$taxa_boleto, 2, ',', '');
 
         $dadosboleto["nosso_numero"] = "87654";
-        $dadosboleto["numero_documento"] = "27.030195.10";	// Num do pedido ou do documento
+        $dadosboleto["numero_documento"] = $id;	// Num do pedido ou do documento
         $dadosboleto["data_vencimento"] = $data_venc; // Data de Vencimento do Boleto - REGRA: Formato DD/MM/AAAA
         $dadosboleto["data_documento"] = date("d/m/Y"); // Data de emissão do Boleto
         $dadosboleto["data_processamento"] = date("d/m/Y"); // Data de processamento do boleto (opcional)
         $dadosboleto["valor_boleto"] = $valor_boleto; 	// Valor do Boleto - REGRA: Com vírgula e sempre com duas casas depois da virgula
 
         // DADOS DO SEU CLIENTE
-        $dadosboleto["sacado"] = "Nome do seu Cliente";
-        $dadosboleto["endereco1"] = "Endereço do seu Cliente";
-        $dadosboleto["endereco2"] = "Cidade - Estado -  CEP: 00000-000";
+        $dadosboleto["sacado"] = $clienteSession['Cliente']['nome'];//"Nome do seu Cliente";
+        $dadosboleto["endereco1"] = $clienteSession['Cliente']['logradouro'];//"Endereço do seu Cliente";
+        $dadosboleto["endereco2"] = $clienteSession['Cliente']['cidade'].' - '.$clienteSession['Estado']['nome'].' - CEP: '.$clienteSession['Cliente']['cep'];//"Cidade - Estado -  CEP: 00000-000";
 
         // INFORMACOES PARA O CLIENTE
         $dadosboleto["demonstrativo1"] = "Pagamento de Compra na Loja Nonononono";
@@ -110,8 +111,8 @@ class BoletosController extends AppController {
         $dadosboleto["instrucoes4"] = "&nbsp; Emitido pelo sistema Projeto BoletoPhp - www.boletophp.com.br";
 
         // DADOS OPCIONAIS DE ACORDO COM O BANCO OU CLIENTE
-        $dadosboleto["quantidade"] = "10";
-        $dadosboleto["valor_unitario"] = "10";
+        $dadosboleto["quantidade"] = "";
+        $dadosboleto["valor_unitario"] = "";
         $dadosboleto["aceite"] = "N";
         $dadosboleto["especie"] = "R$";
         $dadosboleto["especie_doc"] = "DM";
@@ -121,12 +122,12 @@ class BoletosController extends AppController {
 
 
         // DADOS DA SUA CONTA - BANCO DO BRASIL
-        $dadosboleto["agencia"] = "9999"; // Num da agencia, sem digito
-        $dadosboleto["conta"] = "99999"; 	// Num da conta, sem digito
+        $dadosboleto["agencia"] = "3463"; // Num da agencia, sem digito
+        $dadosboleto["conta"] = "9036"; 	// Num da conta, sem digito
 
         // DADOS PERSONALIZADOS - BANCO DO BRASIL
-        $dadosboleto["convenio"] = "7777777";  // Num do convênio - REGRA: 6 ou 7 ou 8 dígitos
-        $dadosboleto["contrato"] = "999999"; // Num do seu contrato
+        $dadosboleto["convenio"] = "1500323";  // Num do convênio - REGRA: 6 ou 7 ou 8 dígitos
+        $dadosboleto["contrato"] = "017943755"; // Num do seu contrato
         $dadosboleto["carteira"] = "18";
         $dadosboleto["variacao_carteira"] = "-019";  // Variação da Carteira, com traço (opcional)
 
@@ -154,11 +155,11 @@ class BoletosController extends AppController {
 
 
         // SEUS DADOS
-        $dadosboleto["identificacao"] = "BoletoPhp - Código Aberto de Sistema de Boletos";
+        $dadosboleto["identificacao"] = "O pagamento deste boleto também poderá ser efetuado nos terminais de Auto-Atendimento BB";
         $dadosboleto["cpf_cnpj"] = "";
-        $dadosboleto["endereco"] = "Coloque o endereço da sua empresa aqui";
-        $dadosboleto["cidade_uf"] = "Cidade / Estado";
-        $dadosboleto["cedente"] = "Coloque a Razão Social da sua empresa aqui";
+        $dadosboleto["endereco"] = "";//"Coloque o endereço da sua empresa aqui";
+        $dadosboleto["cidade_uf"] = "";//"Cidade / Estado";
+        $dadosboleto["cedente"] = "";//"Coloque a Razão Social da sua empresa aqui";
 
 
         //Dados para geração do código em barras

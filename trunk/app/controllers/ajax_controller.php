@@ -8,6 +8,14 @@ class AjaxController extends AppController {
     var $helpers = array('Html', 'Form', 'Jquery');
     var $uses = array('Produto', 'Imagem', 'Item', 'Estado');
 
+    function beforeFilter () {
+        // executa o beforeFilter do AppController
+        parent::beforeFilter();
+        // adicione ao método allow as actions que quer permitir sem o usuário estar logado
+        $this->Auth->allow('*');
+//        print_r($this->Auth);
+    }
+
     function delete_imagem_for_produto($idImg = null, $idProduto = null) {
         $this->layout = 'ajax';
         Configure::delete('debug');

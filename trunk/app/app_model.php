@@ -37,18 +37,30 @@
  * @subpackage    cake.app
  */
 class AppModel extends Model {
-	var $displayField = 'nome';
-        var $actsAs   = array('transaction');
+    var $displayField = 'nome';
+    var $actsAs   = array('transaction');
 
 
-        function formataDateTime($dateTime){
-            $explode = explode(' ', $dateTime);
-            $data = $explode[0];
-            $hora = $explode[1];
+    function formataDateTime($dateTime) {
+        $explode = explode(' ', $dateTime);
+        $data = $explode[0];
+        $hora = $explode[1];
 
-            $explodeData = explode('-', $data);
-            $data = $explodeData[2].'-'.$explodeData[1].'-'.$explodeData[0];
-            return $data.' '.$hora;
-        }
+        $explodeData = explode('-', $data);
+        $data = $explodeData[2].'-'.$explodeData[1].'-'.$explodeData[0];
+        return $data.' '.$hora;
+    }
+
+//    public function dateTimeFormate($datetimeString) {
+//        $retorno = explode(" ", $datetimeString);
+//        if (preg_match("~:~", $retorno[0])) {
+//            $hora = explode(":", $retorno[0]);
+//            $data = $this->dateFormate($retorno[1]);
+//        } else {
+//            $hora = explode(":", $retorno[1]);
+//            $data = $this->formataDateTime($retorno[0]);
+//        }
+//        return $data . " " . $hora[0] . ":" . $hora[1] . ":" . $hora[2];
+//    }
 }
 ?>

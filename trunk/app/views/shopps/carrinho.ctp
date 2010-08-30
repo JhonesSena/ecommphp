@@ -123,8 +123,8 @@
 </script>
 
 <div class="toolbar">
-    <?php echo $html->link(__('Limpar Carrinho', true), array('action'=>'limparCarrinho'), array('class'=>'linkbutton linkbtn btn_delete'), sprintf(__('Deseja realmente limpar o carrinho?', true))); ?>
-    <?php echo $html->link(__('Voltar', true), array('action'=>'index'),array('class'=>'linkbutton linkbtn btn_list')); ?>
+    <?php echo $html->link(__('Continuar compra', true), array('action'=>'index'),array('class'=>'linkbutton linkbtn btn_list')); ?>
+    <?php echo $html->link(__('Limpar carrinho', true), array('action'=>'limparCarrinho'), array('class'=>'linkbutton linkbtn btn_delete'), sprintf(__('Deseja realmente limpar o carrinho?', true))); ?>
     <?php echo $html->link(__('Fechar pedido', true), array('controller'=>'pedidos','action'=>'add'), array('class'=>'linkbutton linkbtn btn_salvar'), sprintf(__('Deseja realmente fechar o pedido?', true))); ?>
 </div>
 <div id="tabpanel">

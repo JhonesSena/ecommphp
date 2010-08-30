@@ -58,24 +58,22 @@
                       <div id="instructions">
                     -->
 
-                    <div id="instr_content">
+                    <div id="instr_content" style="text-align: left;">
                         <p>
-				O pagamento deste boleto tamb&eacute;m poder&aacute; ser efetuado
-				nos terminais de Auto-Atendimento BB.
+				Imprima em impressora jato de tinta (ink jet) ou laser
+                                    em qualidade normal ou alta Não use modo econômico.
                         </p>
 
-                        <h2>Instru&ccedil;&otilde;es</h2>
+                        <h2>Instruções</h2>
                         <ol>
                             <li>
-				Imprima em impressora jato de tinta (ink jet) ou laser, em
-				qualidade normal ou alta. N&atilde;o use modo econ&ocirc;mico.
+				Utilize folha A4 (210 x 297 mm) ou Carta (216 x 279 mm) e
+                                    margens mínimas à esquerda e à direita do formulário..
                                 <p class="notice">Por favor, configure margens esquerda e direita
 				para 17mm.</p>
                             </li>
                             <li>
-				Utilize folha A4 (210 x 297 mm) ou Carta (216 x 279 mm) e margens
-				m&iacute;nimas &agrave; esquerda e &agrave; direita do
-				formul&aacute;rio.
+				Corte na linha indicada. Não rasure, risque, fure ou dobre a região onde se encontra o código de barras.
                             </li>
                             <li>
 				Corte na linha indicada. N&atilde;o rasure, risque, fure ou dobre
@@ -406,7 +404,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="barcode">
+                    <div class="barcode" style="margin-left: 0px; text-align:left;">
                         <p style="font-size: 0px;">
                             <?php echo $html->image('/img/p.png', array('align'=>'center','height'=>$altura, 'width'=>$fino, 'border'=>0));?>
                             <?php echo $html->image('/img/b.png', array('align'=>'center','height'=>$altura, 'width'=>$fino, 'border'=>0));?>
