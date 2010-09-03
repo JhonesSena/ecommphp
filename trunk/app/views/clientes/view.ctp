@@ -58,24 +58,24 @@
                     <tr>
                         <th colspan="2">Detalhes<th>
                     </tr>
-            <?php if (!empty($cliente['ClienteFisico'])):?>
-            		<tr><td class="left"><?php __('Id');?></td><td class="right"><?php echo $cliente['ClienteFisico']['id'];?></td></tr>		<tr><td class="left"><?php __('Cliente Id');?></td><td class="right"><?php echo $cliente['ClienteFisico']['cliente_id'];?></td></tr>		<tr><td class="left"><?php __('Nome');?></td><td class="right"><?php echo $cliente['ClienteFisico']['nome'];?></td></tr>		<tr><td class="left"><?php __('Cpf');?></td><td class="right"><?php echo $cliente['ClienteFisico']['cpf'];?></td></tr>                    
+            <?php if (!empty($cliente['PessoaFisica'])):?>
+            		<tr><td class="left"><?php __('Id');?></td><td class="right"><?php echo $cliente['PessoaFisica']['id'];?></td></tr>		<tr><td class="left"><?php __('Cliente Id');?></td><td class="right"><?php echo $cliente['PessoaFisica']['cliente_id'];?></td></tr>		<tr><td class="left"><?php __('Nome');?></td><td class="right"><?php echo $cliente['PessoaFisica']['nome'];?></td></tr>		<tr><td class="left"><?php __('Cpf');?></td><td class="right"><?php echo $cliente['PessoaFisica']['cpf'];?></td></tr>
                 </table>
                 <?php endif; ?>
             
-                <?php echo $html->link(__('Editar Cliente Fisico', true), array('controller'=> 'cliente_fisicos', 'action'=>'edit', $cliente['ClienteFisico']['id']),array('class'=>'linkbutton linkbtn btn_edit')); ?>
+                <?php echo $html->link(__('Editar Cliente Fisico', true), array('controller'=> 'cliente_fisicos', 'action'=>'edit', $cliente['PessoaFisica']['id']),array('class'=>'linkbutton linkbtn btn_edit')); ?>
             </div>
                         <div id="tab4">
                  <table cellspacing="0" class="details">
                     <tr>
                         <th colspan="2">Detalhes<th>
                     </tr>
-            <?php if (!empty($cliente['ClienteJuridico'])):?>
-            		<tr><td class="left"><?php __('Id');?></td><td class="right"><?php echo $cliente['ClienteJuridico']['id'];?></td></tr>		<tr><td class="left"><?php __('Cliente Id');?></td><td class="right"><?php echo $cliente['ClienteJuridico']['cliente_id'];?></td></tr>		<tr><td class="left"><?php __('Nome Fantasia');?></td><td class="right"><?php echo $cliente['ClienteJuridico']['nome_fantasia'];?></td></tr>		<tr><td class="left"><?php __('Razao Social');?></td><td class="right"><?php echo $cliente['ClienteJuridico']['razao_social'];?></td></tr>		<tr><td class="left"><?php __('Cnpj');?></td><td class="right"><?php echo $cliente['ClienteJuridico']['cnpj'];?></td></tr>                    
+            <?php if (!empty($cliente['PessoaJuridica'])):?>
+            		<tr><td class="left"><?php __('Id');?></td><td class="right"><?php echo $cliente['PessoaJuridica']['id'];?></td></tr>		<tr><td class="left"><?php __('Cliente Id');?></td><td class="right"><?php echo $cliente['PessoaJuridica']['cliente_id'];?></td></tr>		<tr><td class="left"><?php __('Nome Fantasia');?></td><td class="right"><?php echo $cliente['PessoaJuridica']['nome_fantasia'];?></td></tr>		<tr><td class="left"><?php __('Razao Social');?></td><td class="right"><?php echo $cliente['PessoaJuridica']['razao_social'];?></td></tr>		<tr><td class="left"><?php __('Cnpj');?></td><td class="right"><?php echo $cliente['PessoaJuridica']['cnpj'];?></td></tr>
                 </table>
                 <?php endif; ?>
             
-                <?php echo $html->link(__('Editar Cliente Juridico', true), array('controller'=> 'cliente_juridicos', 'action'=>'edit', $cliente['ClienteJuridico']['id']),array('class'=>'linkbutton linkbtn btn_edit')); ?>
+                <?php echo $html->link(__('Editar Cliente Juridico', true), array('controller'=> 'cliente_juridicos', 'action'=>'edit', $cliente['PessoaJuridica']['id']),array('class'=>'linkbutton linkbtn btn_edit')); ?>
             </div>
             
             

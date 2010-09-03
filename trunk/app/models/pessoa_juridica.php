@@ -1,7 +1,7 @@
 <?php
-class ClienteFisico extends AppModel {
+class PessoaJuridica extends AppModel {
 
-	var $name = 'ClienteFisico';
+	var $name = 'PessoaJuridica';
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $belongsTo = array(
