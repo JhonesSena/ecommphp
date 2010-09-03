@@ -30,16 +30,16 @@ class Cliente extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'ClienteFisico' => array(
-			'className' => 'ClienteFisico',
+		'PessoaFisica' => array(
+			'className' => 'PessoaFisica',
 			'foreignKey' => 'cliente_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
-		'ClienteJuridico' => array(
-			'className' => 'ClienteJuridico',
+		'PessoaJuridica' => array(
+			'className' => 'PessoaJuridica',
 			'foreignKey' => 'cliente_id',
 			'dependent' => false,
 			'conditions' => '',

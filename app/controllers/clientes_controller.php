@@ -52,6 +52,15 @@ class ClientesController extends AppController {
             if($this->data['User']['password'] == $this->data['Cliente']['redigite_senha']) {
                 $this->Cliente->create();
                 if ($this->Cliente->saveAll($this->data)) {
+                    if($this->data['Cliente']['tipo_pessoa']=='f'){
+                        $this->data['PessoaFisica']['cliente_id'] = $this->Cliente->id;
+                        $this->PessoaFisica->save($this->data);
+                    }
+                    else{
+                        $this->data['PessoaFisica']['cliente_id'] = $this->Cliente->id;
+                        $this->PessoaJuridica->save($this->data);
+                    }
+                    
                     if($this->enviarEmail($nameFrom, $from, $subject, $msg, $to, $nameTo))
                         $this->Session->setFlash(__('O link de confirmação de cadastro, foi enviada para seu email.', true));
                     else

@@ -35,30 +35,10 @@
     });
 </script>
 
-<script>
-	function selecionados(){
-		chs = $(".chk").get();
-		saida = "";
-		for(i=0;i<chs.length;i++){
-			saida = chs[i].checked?saida+","+chs[i].value:saida;
-		}
-		return saida.substring(1,saida.length);
-	}
-	function selecionarTodos(){
-		chs = $(".chk").get();
-		saida = "";
-		for(i=0;i<chs.length;i++){
-			if(chs[i].checked){
-				chs[i].checked=false;
-			}else{
-				chs[i].checked=true;
-			}
-		}
-	}
-</script>
-
 <div class="toolbar">
-	<?php echo $html->link(__('Novo Cedente',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>/cedentes/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
+        <?php if(empty($cedentes)):?>
+            <?php echo $html->link(__('Novo Cedente',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>
+        <?php endif;?>
 	
 	<?
 	$total = $paginator->counter(array('format' => '%pages%', true));
@@ -99,20 +79,16 @@
         <table id="myTable" class="tablesorter" cellspacing="1"> 
             <thead> 
                <tr>
-				    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
+                                        <th><?php echo $paginator->sort('nome');?></th>
                                         <th><?php echo $paginator->sort('conta_corrente');?></th>
-                                        <th><?php echo $paginator->sort('cliente_id');?></th>
                                         <th><?php echo $paginator->sort('agencia_id');?></th>
                                         <th><?php echo $paginator->sort('bloqueto_id');?></th>
                                     </tr>
             </thead> 
             <tfoot> 
                 <tr>
-					<th style="width:20px"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
+                                        <th><?php echo $paginator->sort('nome');?></th>
                                         <th><?php echo $paginator->sort('conta_corrente');?></th>
-                                        <th><?php echo $paginator->sort('cliente_id');?></th>
                                         <th><?php echo $paginator->sort('agencia_id');?></th>
                                         <th><?php echo $paginator->sort('bloqueto_id');?></th>
                                     </tr>
@@ -127,24 +103,17 @@
                     }
             ?>
 	<tr<?php echo $class;?>>
-
-						<td align="center" style="padding: 0px 0px 0px 0px">
-							<input type="checkbox" class="chk" value="<?=$cedente['Cedente']['id']?>">
-						</td>
-							<td>
-			<?php echo $cedente['Cedente']['id']; ?>
+		<td>
+			<?php echo $html->link($cedente['Cliente']['nome'], array('action'=>'view',$cedente['Cedente']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $cedente['Cedente']['conta_corrente']; ?>
 		</td>
 		<td>
-			<?php echo $cedente['Cliente']['nome']; ?>
+			<?php echo $cedente['Agencia']['codigo']; ?>
 		</td>
 		<td>
-			<?php echo $cedente['Agencia']['nome']; ?>
-		</td>
-		<td>
-			<?php echo $cedente['Bloqueto']['nome']; ?>
+			<?php echo $cedente['Bloqueto']['carteira']; ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

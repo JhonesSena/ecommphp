@@ -74,6 +74,10 @@
                                 <li class="dropdown_li"><a href="<?php echo $this->webroot;?>cores/index">Cores</a></li>
                                 <li class="dropdown_li"><a href="<?php echo $this->webroot;?>situacao_pedidos/index">Situações de Pedido</a></li>
                                 <li class="dropdown_li"><a href="<?php echo $this->webroot;?>situacoes/index">Situações de Venda</a></li>
+                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>bancos/index">Bancos</a></li>
+                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>bloquetos/index">Bloquetos</a></li>
+                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>cedentes/index">Cedentes</a></li>
+                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>agencias/index">Agências</a></li>
                             </ul>
                         </dd>
                     </dl>
@@ -118,6 +122,11 @@
                         });
 
                         $('.mensagem').hide();
+                        if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)){
+                            $('#btnForm').addClass('formloginbtnIe');
+                        }
+                        else
+                            $('#btnForm').addClass('formloginbtn');
                     });
 
                 </script>
@@ -151,7 +160,25 @@
                     </div>
                             <?php }?>
 
-
+                    <!--
+                    <?php //if(empty ($clienteSession)){?>
+                        <div style="font-size: 8px; text-align: left;">
+                            <?php //echo $form->create('User', array('controller'=>'users','action'=>'login', 'style'=>'height:16px;'));?>
+                            <table cellspacing="0" class="details">
+                                    <?php
+                                    //echo $form->input('username',array('size'=>'50','label'=>'Email:','error' => false,'div'=>false));
+                                    //echo " ".$form->input('password',array('label'=>'Senha:','error' => false,'div'=>false));
+                                 ?>
+                                    <?php //echo $form->submit(__('Login',true),array('id'=>'btnForm','div'=>false));?>
+                                    <?php //echo $form->end(); ?>
+                            </table>
+                        </div>
+                    <?php //}?>
+                    -->
+                    <?php 
+                    if(empty ($clienteSession) && $this->params['controller'] != 'users'){?>
+                        <a href="<?php echo $this->webroot;?>users/login" style="color: blue;">Login</a>
+                    <?php }?>
                     <table>
                         <!--bloco de exibição das mensagens-->
                         <tr>
@@ -173,7 +200,7 @@
                                             echo '<p></div>';
                                         }
                                     } else {
-                                        echo '<div id="msgerro" style="display:none" class="msg_erro">';
+                                        echo '<div id="msgerro" style="display:none; align-text:left;" class="ui-state-error ui-corner-all">';
                                         echo '<ul></ul>';
                                         echo '</div>';
                                         echo '<div id="msgaviso" style="display:none" class="msg_aviso">Verifique o registro antes de confirmar a operação, uma vez confirmado, a operação não poderá ser desfeita.<div>';
@@ -185,12 +212,12 @@
                         <!--fim bloco de exibição das mensagens-->
                     </table>
                     <div id="dialog" title="Carregando..."></div>
-                    
-                    <span><input type="hidden" value="<?php echo $this->webroot;?>"></span>
-                    <div style="padding:8px">
-                            <?php echo $content_for_layout; ?>
-                            <?php echo $cakeDebug?>
 
+                    <span><input type="hidden" value="<?php echo $this->webroot;?>"></span>
+
+                    <div style="padding:8px">                        
+                        <?php echo $content_for_layout; ?>
+                        <?php echo $cakeDebug?>
                     </div>
                 </div>
                 <?php endif;?>

@@ -573,19 +573,19 @@
             event :"submit",
             rule : function(E) {
                 var F = A(this).val().replace(/[.\/_-]/g, "");
-                if (B.numeric(F)) {
-                    E.firesSuccess()
-                } else {
-                    return E.firesError("numeric", {
-                        fieldname :E.showAs
-                    })
-                }
-                if (B.minlength(F, 10) && B.maxlength(F,10)) {
+//                if (B.numeric(F)) {
+//                    E.firesSuccess()
+//                } else {
+//                    return E.firesError("numeric", {
+//                        fieldname :E.showAs
+//                    })
+//                }
+                if (B.minlength(F, 12) && B.maxlength(12)) {
                     E.firesSuccess()
                 } else {
                     return E.firesError("length", {
                         fieldname :E.showAs,
-                        length :10
+                        length : 12
                     })
                 }
             },

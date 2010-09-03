@@ -52,19 +52,5 @@ class ItensController extends AppController {
 		$produtos = $this->Item->Produto->find('list');
 		$this->set(compact('produtos', 'cores'));
 	}
-
-	function delete($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Id de Item inválido', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		if ($this->Item->del($id)) {
-			$this->Session->setFlash(__('Item deletado', true));
-			$this->redirect(array('action'=>'index'));
-		}
-	}
-
-
-
 }
 ?>
