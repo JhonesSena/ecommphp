@@ -24,58 +24,18 @@
 <div id="tabpanel">
     <ul>
         <li><a href="#tab1"><span><?php echo __("Visualizar Bloqueto",true) ?></span></a></li>
-        <?php if (!empty($bloqueto['Cedente'])):?>
-            <li><a href="#tab2"><span>Cedentes</span></a></li>
-        <?php endif;?>
     </ul>
     <div id="tab1">
         <table cellspacing="0" class="details">
             <tr><td class="left"><?php __('Id'); ?></td><td class="right">
                     <?php echo $bloqueto['Bloqueto']['id']; ?></td></tr>		<tr><td class="left"><?php __('Banco'); ?></td><td class="right"><?php echo $bloqueto['Banco']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Local Pagamento'); ?></td><td class="right">
                     <?php echo $bloqueto['Bloqueto']['local_pagamento']; ?></td></tr>		<tr><td class="left"><?php __('Carteira'); ?></td><td class="right">
-                    <?php echo $bloqueto['Bloqueto']['carteira']; ?></td></tr>		<tr><td class="left"><?php __('Tipo'); ?></td><td class="right">
+                    <?php echo $bloqueto['Bloqueto']['carteira']; ?></td></tr>		<tr><td class="left"><?php __('Taxa Boleto'); ?></td><td class="right">
+                    <?php echo $bloqueto['Bloqueto']['taxa_boleto']; ?></td></tr>		<tr><td class="left"><?php __('Dias Prazo Pagamento'); ?></td><td class="right">
+                    <?php echo $bloqueto['Bloqueto']['dias_prazo_pagamento']; ?></td></tr>		<tr><td class="left"><?php __('Tipo'); ?></td><td class="right">
                     <?php echo $bloqueto['Bloqueto']['tipo']; ?></td></tr>		<tr><td class="left"><?php __('Ativo'); ?></td><td class="right">
                     <?php echo $bloqueto['Bloqueto']['ativo']; ?></td></tr>
 
         </table>
     </div>
-
-
-
-    <div id="tab2">
-        <?php if (!empty($bloqueto['Cedente'])):?>
-        <table id="myTable2" class="tablesorter" cellspacing="1">
-            <thead> 
-                <tr>
-                    <th><?php __('Id'); ?></th><th><?php __('Conta Corrente'); ?></th><th><?php __('Cliente Id'); ?></th><th><?php __('Agencia Id'); ?></th><th><?php __('Bloqueto Id'); ?></th>                </tr>
-            </thead> 
-            <tfoot> 
-                <tr>
-                    <th><?php __('Id'); ?></th><th><?php __('Conta Corrente'); ?></th><th><?php __('Cliente Id'); ?></th><th><?php __('Agencia Id'); ?></th><th><?php __('Bloqueto Id'); ?></th>                </tr>
-            </tfoot> 
-            <tbody>
-                    <?php
-                    $i = 0;
-                    foreach ($bloqueto['Cedente'] as $cedente):
-                        $class = null;
-                        if ($i++ % 2 == 0) {
-                            $class = ' class="altrow"';
-                        }
-                        ?>
-                <tr<?php echo $class;?>><td><?php echo $cedente['id'];?></td>
-                    <td><?php echo $cedente['conta_corrente'];?></td>
-                    <td><?php echo $cedente['cliente_id'];?></td>
-                    <td><?php echo $cedente['agencia_id'];?></td>
-                    <td><?php echo $cedente['bloqueto_id'];?></td>
-                </tr>
-                    <?php endforeach;?>            </tbody>
-        </table>
-        <?php endif; ?>
-
-
-
-    </div>
-
-
-
 </div>

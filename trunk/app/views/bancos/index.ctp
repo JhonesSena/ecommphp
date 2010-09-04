@@ -58,7 +58,7 @@
 </script>
 
 <div class="toolbar">
-	<?php echo $html->link(__('Novo Banco',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>/bancos/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
+	<?php echo $html->link(__('Novo Banco',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>
 	
 	<?
 	$total = $paginator->counter(array('format' => '%pages%', true));

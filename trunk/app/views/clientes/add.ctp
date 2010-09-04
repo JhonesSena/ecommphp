@@ -88,7 +88,7 @@
 </script>
 
 <div class="toolbar">
-<?php echo $html->link(__('Voltar', true), array('action'=>'index'),array('class'=>'linkbutton linkbtn btn_list'));?></div>
+<?php //echo $html->link(__('Voltar', true), array('action'=>'index'),array('class'=>'linkbutton linkbtn btn_list'));?></div>
 
 <div id="tabpanel">
     <ul>

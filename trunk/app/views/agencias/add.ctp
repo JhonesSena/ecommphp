@@ -49,6 +49,7 @@
         	<?php
 		echo $jquery->input('codigo',array('class'=>'validateRequired', 'alt'=>'Agência', 'label'=>'Agência*','id'=>'codigo','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('codigo_cedente',array('class'=>'validateRequired', 'alt'=>'Conta Corrente','label'=>'Conta Corrente*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('contrato',array('class'=>'validateRequired', 'alt'=>'Contrato','label'=>'Contrato*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('logradouro',array('class'=>'validateRequired', 'alt'=>'Logradouro', 'label'=>'Logradouro*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('bairro',array('class'=>'validateRequired', 'alt'=>'Bairro', 'label'=>'Bairro*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('cidade',array('class'=>'validateRequired', 'alt'=>'Cidade', 'label'=>'Cidade*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
