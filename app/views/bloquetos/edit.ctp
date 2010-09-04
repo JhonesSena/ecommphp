@@ -1,8 +1,15 @@
-
+<?php echo $jquery->init_date('pt-br','01/01/2000'); ?>
+<script src="<?php echo $this->webroot;?>js/jquery.price_format.1.3.js" type="text/javascript"></script>
 
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
+
+        $('#taxa').priceFormat({
+            prefix: 'R$',
+            centsSeparator: ',',
+            thousandsSeparator: '.'
+        });
     });
 </script>
 
@@ -46,6 +53,8 @@
 		echo $jquery->input('banco_id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('local_pagamento',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('carteira',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('taxa_boleto',array('id'=>'taxa','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('dias_prazo_pagamento',array('id'=>'taxa','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('tipo',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('ativo',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 	?>

@@ -24,9 +24,6 @@
 <div id="tabpanel">
     <ul>
         <li><a href="#tab1"><span><?php echo __("Visualizar Agencia",true) ?></span></a></li>
-        <?php if (!empty($agencia['Cedente'])):?>
-            <li><a href="#tab2"><span>Cedentes</span></a></li>
-        <?php endif;?>
     </ul>
         
     <div id="tab1">
@@ -34,51 +31,13 @@
             		<tr><td class="left"><?php __('Id'); ?></td><td class="right">		
 			<?php echo $agencia['Agencia']['id']; ?></td></tr>		<tr><td class="left"><?php __('Codigo'); ?></td><td class="right">		
 			<?php echo $agencia['Agencia']['codigo']; ?></td></tr>		<tr><td class="left"><?php __('Codigo Cedente'); ?></td><td class="right">		
-			<?php echo $agencia['Agencia']['codigo_cedente']; ?></td></tr>		<tr><td class="left"><?php __('Logradouro'); ?></td><td class="right">		
-			<?php echo $agencia['Agencia']['logradouro']; ?></td></tr>		<tr><td class="left"><?php __('Bairro'); ?></td><td class="right">		
+			<?php echo $agencia['Agencia']['codigo_cedente']; ?></td></tr>		<tr><td class="left"><?php __('Contrato'); ?></td><td class="right">
+			<?php echo $agencia['Agencia']['contrato']; ?></td></tr>		<tr><td class="left"><?php __('Logradouro'); ?></td><td class="right">
+			<?php echo $agencia['Agencia']['logradouro']; ?></td></tr>		<tr><td class="left"><?php __('Bairro'); ?></td><td class="right">
 			<?php echo $agencia['Agencia']['bairro']; ?></td></tr>		<tr><td class="left"><?php __('Cidade'); ?></td><td class="right"><?php echo $agencia['Agencia']['cidade']; ?></td></tr>		<tr><td class="left"><?php __('Telefone'); ?></td><td class="right">
 			<?php echo $agencia['Agencia']['telefone']; ?></td></tr>		<tr><td class="left"><?php __('Banco'); ?></td><td class="right"><?php echo $agencia['Banco']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Ativo'); ?></td><td class="right">		
 			<?php echo $agencia['Agencia']['ativo']; ?></td></tr>            
             
         </table>
     </div>
-    
-    
-            
-    <div id="tab2">
-            <?php if (!empty($agencia['Cedente'])):?>
-            <table id="myTable2" class="tablesorter" cellspacing="1"> 
-            <thead> 
-               <tr>
-                <th><?php __('Id'); ?></th><th><?php __('Conta Corrente'); ?></th><th><?php __('Cliente Id'); ?></th><th><?php __('Agencia Id'); ?></th><th><?php __('Bloqueto Id'); ?></th>                </tr>
-            </thead> 
-            <tfoot> 
-                <tr>
-                <th><?php __('Id'); ?></th><th><?php __('Conta Corrente'); ?></th><th><?php __('Cliente Id'); ?></th><th><?php __('Agencia Id'); ?></th><th><?php __('Bloqueto Id'); ?></th>                </tr>
-            </tfoot> 
-            <tbody>
-    <?php
-                    $i = 0;
-                    foreach ($agencia['Cedente'] as $cedente):
-                            $class = null;
-                            if ($i++ % 2 == 0) {
-                                    $class = ' class="altrow"';
-                            }
-                    ?>
-<tr<?php echo $class;?>><td><?php echo $cedente['id'];?></td>
-<td><?php echo $cedente['conta_corrente'];?></td>
-<td><?php echo $cedente['cliente_id'];?></td>
-<td><?php echo $cedente['agencia_id'];?></td>
-<td><?php echo $cedente['bloqueto_id'];?></td>
-</tr>
-	<?php endforeach;?>            </tbody>
-            </table>
-    <?php endif; ?>
-
-            
-    
-    </div>
-        
-    
-    
 </div>

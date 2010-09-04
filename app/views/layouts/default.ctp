@@ -7,6 +7,8 @@
         <!-- Padrão -->
         <link rel="stylesheet" href="<?php echo $this->webroot;?>css/default.css" type="text/css" />
         <link type="text/css" href="<?php echo $this->webroot;?>css/bocazumbk.css" rel="stylesheet" />
+        <link type="text/css" href="<?php echo $this->webroot;?>css/menu.css" rel="stylesheet" />
+        <script type="text/javascript" src="<?php echo $this->webroot;?>js/menu.js"></script>
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.ui/jquery-ui-1.8.2.custom/js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/dropdown.js"></script>
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery-1.3.2.min.js"></script>
@@ -30,80 +32,78 @@
         <div class="body">
 
             <div class="linha-centralizada">
-                <div class="topo"><br>
+                <div class="topo">
 
                 </div>
-
-                <div class="menu">
-                    <dl class="dropdown">
-                        <dt class ="dropdown4_dt" id="two-ddheader">
-                            <a href="<?php echo $this->webroot;?>users/logout">Sair</a>
-                        </dt>
-                    </dl>
-
-                    <dl class="dropdown">
-                        <dt class ="dropdown4_dt" id="four-ddheader" onMouseOver="ddMenu('four',1)" onMouseOut="ddMenu('four',-1)">
-                            <a href="#">Venda</a>
-                        </dt>
-                        <dd class="dropdown_dd" id="four-ddcontent" onMouseOver="cancelHide('four')" onMouseOut="ddMenu('four',-1)">
-                            <ul class="dropdown_ul">
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>vendas/index">Listar</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>pedidos/index">Pedidos</a></li>
+                <div id="menu">
+                    <ul class="menu">
+                        <li>
+                            <a href="<?php echo $this->webroot;?>shopps/index"><span>Home</span></a>
+                        </li>
+                        <li><a href="#"><span>Produto</span></a>
+                            <ul>
+                                <li>
+                                    <a href="#"><span>Novo</span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span>Listar</span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span>Item de Produto</span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span>Grupo</span></a>
+                                </li>
                             </ul>
-                        </dd>
-                    </dl>
-
-                    <dl class="dropdown">
-                        <dt class ="dropdown4_dt" id="three-ddheader" onMouseOver="ddMenu('three',1)" onMouseOut="ddMenu('three',-1)">
-                            <a href="#">Cliente</a>
-                        </dt>
-                        <dd class="dropdown_dd" id="three-ddcontent" onMouseOver="cancelHide('three')" onMouseOut="ddMenu('three',-1)">
-                            <ul class="dropdown_ul">
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>clientes/add">Novo</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>clientes">Listar</a></li>
+                        </li>
+                        <li><a href="#"><span>Cadastro</span></a>
+                            <ul>
+                                <li>
+                                    <a href="<?php echo $this->webroot;?>cores/index"><span>Cores</span></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->webroot;?>situacao_pedidos/index"><span>Situações de Pedidos</span></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->webroot;?>situacoes/index"><span>Situações de Vendas</span></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->webroot;?>bancos/index"><span>Bancos</span></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->webroot;?>bloquetos/index"><span>Bloquetos</span></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->webroot;?>cedentes/index"><span>Cedentes</span></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->webroot;?>agencias/index"><span>Agências</span></a>
+                                </li>
                             </ul>
-                        </dd>
-                    </dl>
-
-                    <dl class="dropdown">
-                        <dt class ="dropdown4_dt" id="two-ddheader" onMouseOver="ddMenu('two',1)" onMouseOut="ddMenu('two',-1)">
-                            <a href="#">Cadastro</a>
-                        </dt>
-                        <dd class="dropdown_dd" id="two-ddcontent" onMouseOver="cancelHide('two')" onMouseOut="ddMenu('two',-1)">
-                            <ul class="dropdown_ul">
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>cores/index">Cores</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>situacao_pedidos/index">Situações de Pedido</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>situacoes/index">Situações de Venda</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>bancos/index">Bancos</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>bloquetos/index">Bloquetos</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>cedentes/index">Cedentes</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>agencias/index">Agências</a></li>
+                        </li>
+                        <li><a href="#"><span>Cliente</span></a>
+                            <ul>
+                                <li>
+                                    <a href="<?php echo $this->webroot;?>clientes/add"><span>Novo</span></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->webroot;?>clientes"><span>Listar</span></a>
+                                </li>
                             </ul>
-                        </dd>
-                    </dl>
-
-                    <dl class="dropdown">
-                        <dt class ="dropdown4_dt" id="one-ddheader" onMouseOver="ddMenu('one',1)" onMouseOut="ddMenu('one',-1)">
-                            <a href="#">Produto</a>
-                        </dt>
-                        <dd class="dropdown_dd" id="one-ddcontent" onMouseOver="cancelHide('one')" onMouseOut="ddMenu('one',-1)">
-                            <ul class="dropdown_ul">
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>produtos/add">Novo</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>produtos/index">Listar</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>itens/index">Item de Produto</a></li>
-                                <li class="dropdown_li"><a href="<?php echo $this->webroot;?>grupos/index">Grupo</a></li>
+                        </li>
+                        <li><a href="#"><span>Pedidos</span></a>
+                            <ul>
+                                <li>
+                                    <a href="<?php echo $this->webroot;?>pedidos/index"><span>Listar</span></a>
+                                </li>
                             </ul>
-                        </dd>
-                    </dl>
-
-                    <dl class="dropdown">
-                        <dt class ="dropdown4_dt" id="one-ddheader">
-                            <a href="<?php echo $this->webroot;?>shopps/index">Home</a>
-                        </dt>
-                    </dl>
-
-
-                </div> <!--Fim menu-->
+                        </li>
+                        <li>
+                            <a href="<?php echo $this->webroot;?>users/logout"><span>Sair</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <!--Fim menu-->
 
                 <script type="text/javascript">
                     $(function(){

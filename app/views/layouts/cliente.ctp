@@ -7,8 +7,10 @@
         <!-- Padrão -->
         <link rel="stylesheet" href="<?php echo $this->webroot;?>css/default.css" type="text/css" />
         <link type="text/css" href="<?php echo $this->webroot;?>css/bocazumbk.css" rel="stylesheet" />
+        <link type="text/css" href="<?php echo $this->webroot;?>css/menu.css" rel="stylesheet" />
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.ui/jquery-ui-1.8.2.custom/js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/dropdown.js"></script>
+        <script type="text/javascript" src="<?php echo $this->webroot;?>js/menu.js"></script>
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery-1.3.2.min.js"></script>
 
         <link type="text/css" href="<?php echo $this->webroot;?>js/jquery.ui/jquery-ui-1.8.2.custom/css/custom-theme/jquery-ui-1.8.2.custom.css" rel="stylesheet" />
@@ -33,41 +35,34 @@
                 <div class="topo"><br>
 
                 </div>
+                
 
-                <div class="menu">
-                    <dl class="dropdown"><dt class ="dropdown5_dt" id="one-ddheader" onMouseOver="ddMenu('one',1)" onMouseOut="ddMenu('one',-1)"><a href="contato.php">Contato</a></dt>
-                    </dl>
 
-                    <dl class="dropdown">
-                        <dt class="dropdown_dt" id="two-ddheader" onMouseOver="ddMenu('two',1)" onMouseOut="ddMenu('two',-1)"><a href="receitas.html">Receitas</a></dt>
-                    </dl>
-
-                    <dl class="dropdown">
-                        <dt class ="dropdown3_dt" id="three-ddheader" onMouseOver="ddMenu('three',1)" onMouseOut="ddMenu('three',-1)"><a href="representantes.html">Representantes</a></dt>
-                    </dl>
-
-                    <dl class="dropdown">
-                        <dt class ="dropdown2_dt" id="four-ddheader" onMouseOver="ddMenu('four',1)" onMouseOut="ddMenu('four',-1)"><a href="orcamento.html">Or&ccedil;amento</a></dt>
-
-                    </dl>
-
-                    <dl class="dropdown">
-                        <dt class ="dropdown4_dt" id="five-ddheader" onMouseOver="ddMenu('five',1)" onMouseOut="ddMenu('five',-1)">
-                            <a href="http://www.bocazul.com.br/produtos.html">Produtos</a></dt>
-                        <dd class="dropdown_dd" id="five-ddcontent" onMouseOver="cancelHide('five')" onMouseOut="ddMenu('five',-1)">
-                            <ul class="dropdown_ul">
-                                <li class="dropdown_li"><a href="http://www.bocazul.com.br/linhas_e_barbantes.html">Linhas e Barbantes</a></li>
-                                <li class="dropdown_li"><a href="http://www.bocazul.com.br/limpeza.html">Produtos de Limpeza</a></li>
-                                <li class="dropdown_li"><a href="http://www.bocazul.com.br/industria.html">Artigos T&eacute;cnicos</a></li>
+                <div id="menu">
+                    <ul class="menu">
+                        <li>
+                            <a href="<?php echo $this->webroot;?>shopps/index"><span>Home</span></a>
+                        </li>
+                        <li><a href="http://www.bocazul.com.br/empresas.html"><span>Empresa</span></a></li>
+                        <li><a href="#"><span>Produtos</span></a>
+                            <ul>
+                                <li>
+                                    <a href="http://www.bocazul.com.br/linhas_e_barbantes.html"><span>Linhas e Barbantes</span></a>
+                                </li>
+                                <li>
+                                    <a href="http://www.bocazul.com.br/limpeza.html"><span>Produto de Limpeza</span></a>
+                                </li>
+                                <li>
+                                    <a href="http://www.bocazul.com.br/industria.html"><span>Artigos Técnicos</span></a>
+                                </li>
                             </ul>
-                        </dd>
-                    </dl>
-
-                    <dl class="dropdown">
-                        <dt class ="dropdown4_dt" id="six-ddheader" onMouseOver="ddMenu('six',1)" onMouseOut="ddMenu('six',-1)"><a href="empresa.html">Empresa</a></dt>
-                    </dl>
-
-                </div> <!--Fim menu-->
+                        </li>
+                        <li><a href="http://www.bocazul.com.br/receitas.html"><span>Receitas</span></a></li>
+                        <li><a href="http://www.bocazul.com.br/contato.php"><span>Contatos</span></a></li>
+                        <li><a href="<?php echo $this->webroot;?>users/logout"><span>Sair</span></a></li>
+                    </ul>
+                </div>
+                <!--Fim menu-->
 
                 <script type="text/javascript">
                     $(function(){
@@ -94,7 +89,10 @@
                         </div>
                     </div>
                         <?php }?>
-
+                    <?php
+                    if(empty ($clienteSession) && $this->params['controller'] != 'users') {?>
+                    <a href="<?php echo $this->webroot;?>users/login" style="color: blue;">Login</a>
+                        <?php }?>
                     <div style="padding:8px">
                         <?php echo $content_for_layout; ?>
                         <?php echo $cakeDebug?>

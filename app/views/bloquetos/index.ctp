@@ -36,7 +36,7 @@
 </script>
 
 <div class="toolbar">
-	<?php echo $html->link(__('Novo Bloqueto',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>/bloquetos/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
+	<?php echo $html->link(__('Novo Bloqueto',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>
 	
 	<?
 	$total = $paginator->counter(array('format' => '%pages%', true));
@@ -68,18 +68,22 @@
         <table id="myTable" class="tablesorter" cellspacing="1"> 
             <thead> 
                <tr>
-                                        <th><?php echo $paginator->sort('banco_id');?></th>
+                                        <th width="120"><?php echo $paginator->sort('banco_id');?></th>
                                         <th><?php echo $paginator->sort('carteira');?></th>
                                         <th><?php echo $paginator->sort('local_pagamento');?></th>
+                                        <th><?php echo $paginator->sort('taxa_boleto');?></th>
+                                        <th><?php echo $paginator->sort('dias_prazo_pagamento');?></th>
                                         <th><?php echo $paginator->sort('tipo');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </thead> 
             <tfoot> 
                 <tr>
-                                        <th><?php echo $paginator->sort('banco_id');?></th>
+                                        <th width="120"><?php echo $paginator->sort('banco_id');?></th>
                                         <th><?php echo $paginator->sort('carteira');?></th>
                                         <th><?php echo $paginator->sort('local_pagamento');?></th>
+                                        <th><?php echo $paginator->sort('taxa_boleto');?></th>
+                                        <th><?php echo $paginator->sort('dias_prazo_pagamento');?></th>
                                         <th><?php echo $paginator->sort('tipo');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
@@ -103,6 +107,12 @@
 		</td>
 		<td>
 			<?php echo $bloqueto['Bloqueto']['local_pagamento']; ?>
+		</td>
+                <td>
+			<?php echo $bloqueto['Bloqueto']['taxa_boleto']; ?>
+		</td>
+                <td>
+			<?php echo $bloqueto['Bloqueto']['dias_prazo_pagamento']; ?>
 		</td>
 		<td>
 			<?php echo $bloqueto['Bloqueto']['tipo']; ?>

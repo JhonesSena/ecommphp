@@ -24,12 +24,6 @@
 <div id="tabpanel">
     <ul>
         <li><a href="#tab1"><span><?php echo __("Visualizar Banco",true) ?></span></a></li>
-        <?php if (!empty($banco['Bloqueto'])):?>
-            <li><a href="#tab2"><span>Bloquetos</span></a></li>
-        <?php endif;?>
-        <?php if (!empty($banco['Agencia'])):?>
-            <li><a href="#tab3"><span>Agencias</span></a></li>
-        <?php endif?>
     </ul>
     <div id="tab1">
         <table cellspacing="0" class="details">
@@ -41,83 +35,4 @@
 
         </table>
     </div>
-
-
-
-    <div id="tab2">
-        <?php if (!empty($banco['Bloqueto'])):?>
-        <table id="myTable2" class="tablesorter" cellspacing="1">
-            <thead> 
-                <tr>
-                    <th><?php __('Id'); ?></th><th><?php __('Banco Id'); ?></th><th><?php __('Local Pagamento'); ?></th><th><?php __('Carteira'); ?></th><th><?php __('Tipo'); ?></th><th><?php __('Ativo'); ?></th>                </tr>
-            </thead> 
-            <tfoot> 
-                <tr>
-                    <th><?php __('Id'); ?></th><th><?php __('Banco Id'); ?></th><th><?php __('Local Pagamento'); ?></th><th><?php __('Carteira'); ?></th><th><?php __('Tipo'); ?></th><th><?php __('Ativo'); ?></th>                </tr>
-            </tfoot> 
-            <tbody>
-                    <?php
-                    $i = 0;
-                    foreach ($banco['Bloqueto'] as $bloqueto):
-                        $class = null;
-                        if ($i++ % 2 == 0) {
-                            $class = ' class="altrow"';
-                        }
-                        ?>
-                <tr<?php echo $class;?>><td><?php echo $bloqueto['id'];?></td>
-                    <td><?php echo $bloqueto['banco_id'];?></td>
-                    <td><?php echo $bloqueto['local_pagamento'];?></td>
-                    <td><?php echo $bloqueto['carteira'];?></td>
-                    <td><?php echo $bloqueto['tipo'];?></td>
-                    <td><?php echo $bloqueto['ativo'];?></td>
-                </tr>
-                    <?php endforeach;?>            </tbody>
-        </table>
-        <?php endif; ?>
-
-
-
-    </div>
-
-
-    <div id="tab3">
-        <?php if (!empty($banco['Agencia'])):?>
-        <table id="myTable3" class="tablesorter" cellspacing="1">
-            <thead> 
-                <tr>
-                    <th><?php __('Id'); ?></th><th><?php __('Codigo'); ?></th><th><?php __('Codigo Cedente'); ?></th><th><?php __('Logradouro'); ?></th><th><?php __('Bairro'); ?></th><th><?php __('Cidade Id'); ?></th><th><?php __('Telefone'); ?></th><th><?php __('Banco Id'); ?></th><th><?php __('Ativo'); ?></th>                </tr>
-            </thead> 
-            <tfoot> 
-                <tr>
-                    <th><?php __('Id'); ?></th><th><?php __('Codigo'); ?></th><th><?php __('Codigo Cedente'); ?></th><th><?php __('Logradouro'); ?></th><th><?php __('Bairro'); ?></th><th><?php __('Cidade Id'); ?></th><th><?php __('Telefone'); ?></th><th><?php __('Banco Id'); ?></th><th><?php __('Ativo'); ?></th>                </tr>
-            </tfoot> 
-            <tbody>
-                    <?php
-                    $i = 0;
-                    foreach ($banco['Agencia'] as $agencia):
-                        $class = null;
-                        if ($i++ % 2 == 0) {
-                            $class = ' class="altrow"';
-                        }
-                        ?>
-                <tr<?php echo $class;?>><td><?php echo $agencia['id'];?></td>
-                    <td><?php echo $agencia['codigo'];?></td>
-                    <td><?php echo $agencia['codigo_cedente'];?></td>
-                    <td><?php echo $agencia['logradouro'];?></td>
-                    <td><?php echo $agencia['bairro'];?></td>
-                    <td><?php echo $agencia['cidade_id'];?></td>
-                    <td><?php echo $agencia['telefone'];?></td>
-                    <td><?php echo $agencia['banco_id'];?></td>
-                    <td><?php echo $agencia['ativo'];?></td>
-                </tr>
-                    <?php endforeach;?>            </tbody>
-        </table>
-        <?php endif; ?>
-
-
-
-    </div>
-
-
-
 </div>

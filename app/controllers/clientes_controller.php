@@ -50,23 +50,46 @@ class ClientesController extends AppController {
                 cadastro no site bocazul.<br><a href='$linkAuth'>$linkAuth</a>";
             
             if($this->data['User']['password'] == $this->data['Cliente']['redigite_senha']) {
+                $this->Cliente->begin();
                 $this->Cliente->create();
-                if ($this->Cliente->saveAll($this->data)) {
-                    if($this->data['Cliente']['tipo_pessoa']=='f'){
-                        $this->data['PessoaFisica']['cliente_id'] = $this->Cliente->id;
-                        $this->PessoaFisica->save($this->data);
+                $save = true;
+                if($this->Cliente->User->save($this->data)){
+                    $idUser = $this->Cliente->User->id;
+                    $this->data['Cliente']['user_id'] = $idUser;
+                    if ($this->Cliente->save($this->data)) {
+                        if($this->data['Cliente']['tipo_pessoa']=='f'){
+                            $this->data['PessoaFisica']['cliente_id'] = $this->Cliente->id;
+                            if($this->Cliente->PessoaFisica->save($this->data)==false)
+                                $save = false;
+                        }
+                        else{
+                            $this->data['PessoaFisica']['cliente_id'] = $this->Cliente->id;
+                            if($this->Cliente->PessoaJuridica->save($this->data)==false)
+                                $save = false;
+                        }
+
+                        if($save){
+                            if($this->enviarEmail($nameFrom, $from, $subject, $msg, $to, $nameTo))
+                                $this->Session->setFlash(__('A confirmação de cadastro, foi enviada para seu email.', true));
+                            else{
+                                $this->Session->setFlash(__('Ocorreu um erro no envio da confirmação para seu email. Por favor tente novamente.', true));
+                                $save = false;
+                            }
+                        }
+ 
+                    } else {
+                        $save = false;
                     }
-                    else{
-                        $this->data['PessoaFisica']['cliente_id'] = $this->Cliente->id;
-                        $this->PessoaJuridica->save($this->data);
-                    }
-                    
-                    if($this->enviarEmail($nameFrom, $from, $subject, $msg, $to, $nameTo))
-                        $this->Session->setFlash(__('O link de confirmação de cadastro, foi enviada para seu email.', true));
-                    else
-                        $this->Session->setFlash(__('Ocorreu um erro no envio do link de confirmação seu email. Por favor tente novamente.', true));
+                }
+                else
+                    $save = false;
+
+                if($save){
+                    $this->Cliente->commit();
                     $this->redirect(array('controller'=>'shopps','action'=>'index'));
-                } else {
+                }
+                else{
+                    $this->Cliente->rollback();
                     $this->data['User']['password'] = '';
                     $this->data['Cliente']['redigite_senha'] = '';
                     $this->Session->setFlash(__('O Cliente não pode ser salvo. Por favor, tente novamente.', true));
