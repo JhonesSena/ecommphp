@@ -43,16 +43,16 @@
                         <li><a href="#"><span>Produto</span></a>
                             <ul>
                                 <li>
-                                    <a href="#"><span>Novo</span></a>
+                                    <a href="<?php echo $this->webroot;?>produtos/add"><span>Novo</span></a>
                                 </li>
                                 <li>
-                                    <a href="#"><span>Listar</span></a>
+                                    <a href="<?php echo $this->webroot;?>produtos"><span>Listar</span></a>
                                 </li>
                                 <li>
-                                    <a href="#"><span>Item de Produto</span></a>
+                                    <a href="<?php echo $this->webroot;?>itens"><span>Item de Produto</span></a>
                                 </li>
                                 <li>
-                                    <a href="#"><span>Grupo</span></a>
+                                    <a href="<?php echo $this->webroot;?>grupos"><span>Grupo</span></a>
                                 </li>
                             </ul>
                         </li>

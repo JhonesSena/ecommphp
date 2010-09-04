@@ -117,17 +117,17 @@
             echo $jquery->input('caixa',array('class'=>'validateRequired validateNumeric', 'label'=>'Caixa*', 'alt'=>'Caixa','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('peso_bruto',array('class'=>'validateRequired validateNumeric', 'label'=>'Peso Bruto*', 'alt'=>'Peso Bruto','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('peso_liquido',array('class'=>'validateRequired validateNumeric', 'label'=>'Peso Líquido*', 'alt'=>'Peso Líquido','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-            echo $jquery->input('cubagem',array('label'=>'Cubagem*','id'=>'cubagem','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('cubagem',array('class'=>'validateRequired','label'=>'Cubagem*', 'alt'=>'Cubagem','id'=>'cubagem','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 
             echo $jquery->input('preco',array('type'=>'hidden','name'=>'data[Preco][0][preco]','value'=>$this->data['Preco'][0]['preco'],'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('preco_id',array('type'=>'hidden','name'=>'data[Preco][0][id]','value'=>$this->data['Preco'][0]['id'],'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 
-            echo $jquery->input('preco',array('class'=>'moeda','name'=>'data[Preco][1][preco]','value'=>$this->data['Preco'][0]['preco'],'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('preco',array('class'=>'moeda validateRequired','alt'=>'Preço','name'=>'data[Preco][1][preco]','value'=>$this->data['Preco'][0]['preco'],'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('preco_ativo',array('type'=>'hidden','name'=>'data[Preco][1][ativo]','value'=>$this->data['Preco'][0]['ativo'],'label'=>'Preço*','id'=>'preco','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 
 
             echo $jquery->input('desconto_por_pacote',array('type'=>'hidden','name'=>'data[Preco][0][desconto_por_pacote]','value'=>'R$'.number_format($this->data['Preco'][0]['desconto_por_pacote'],2,',','.'),'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-            echo $jquery->input('desconto_por_pacote',array('label'=>'Desconto Pacote (%)*','class'=>'moeda','name'=>'data[Preco][1][desconto_por_pacote]','value'=>$this->data['Preco'][0]['desconto_por_pacote'],'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('desconto_por_pacote',array('label'=>'Desconto Pacote (%)*','class'=>'moeda validateRequired', 'alt'=>'Desconto Pacote','name'=>'data[Preco][1][desconto_por_pacote]','value'=>$this->data['Preco'][0]['desconto_por_pacote'],'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 
             echo $jquery->input('obs',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('ativo',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
