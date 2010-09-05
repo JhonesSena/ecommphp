@@ -81,7 +81,7 @@ class BoletosController extends AppController {
                 'Cliente.cep', 'Cliente.bairro', 'Cliente.cidade', 'Cliente.nome', 'Cliente.estado_id', 'Cliente.ativo',
                 'PessoaFisica.id','PessoaFisica.cpf', 'PessoaJuridica.id', 'PessoaJuridica.cnpj', 'PessoaJuridica.nome_fantasia',
                 'Agencia.codigo', 'Bloqueto.carteira', 'Agencia.codigo_cedente', 'Agencia.contrato',
-                'Bloqueto.carteira', 'Bloqueto.taxa_boleto','Bloqueto.dias_prazo_pagamento');
+                'Bloqueto.carteira', 'Bloqueto.taxa_boleto','Bloqueto.dias_prazo_pagamento', 'Agencia.convenio_cobranca');
         $options['joins'] = array(
                 array(
                         'table' => 'clientes',
@@ -139,7 +139,7 @@ class BoletosController extends AppController {
         if($taxa_boleto > 0)
             $infor = "Valor do pedido R$".number_format($valor,2,',','.').". Taxa do banco R$".number_format($taxa_boleto,2,',','.');
 
-        $dadosboleto["nosso_numero"] = "87654";
+        $dadosboleto["nosso_numero"] = $id;//"87654";
         $dadosboleto["numero_documento"] = $id;	// Num do pedido ou do documento
         $dadosboleto["data_vencimento"] = $data_venc; // Data de Vencimento do Boleto - REGRA: Formato DD/MM/AAAA
         $dadosboleto["data_documento"] = date("d/m/Y"); // Data de emissão do Boleto
@@ -180,13 +180,13 @@ class BoletosController extends AppController {
         $dadosboleto["conta"] = $conta[0];//"9036"; 	// Num da conta, sem digito
 
         // DADOS PERSONALIZADOS - BANCO DO BRASIL
-        $dadosboleto["convenio"] = "1500323";  // Num do convênio - REGRA: 6 ou 7 ou 8 dígitos
+        $dadosboleto["convenio"] = $cedente['Agencia']['convenio_cobranca'];//"1500323";  // Num do convênio - REGRA: 6 ou 7 ou 8 dígitos
         $dadosboleto["contrato"] = $cedente['Agencia']['contrato'];//"017943755"; // Num do seu contrato
         $dadosboleto["carteira"] = $cedente['Bloqueto']['carteira'];//"17";
 //        $dadosboleto["variacao_carteira"] = "-019";  // Variação da Carteira, com traço (opcional)
 
         // TIPO DO BOLETO
-        $dadosboleto["formatacao_convenio"] = "7"; // REGRA: 8 p/ Convênio c/ 8 dígitos, 7 p/ Convênio c/ 7 dígitos, ou 6 se Convênio c/ 6 dígitos
+        $dadosboleto["formatacao_convenio"] = strlen($dadosboleto["convenio"]);//"7"; // REGRA: 8 p/ Convênio c/ 8 dígitos, 7 p/ Convênio c/ 7 dígitos, ou 6 se Convênio c/ 6 dígitos
         $dadosboleto["formatacao_nosso_numero"] = "2"; // REGRA: Usado apenas p/ Convênio c/ 6 dígitos: informe 1 se for NossoNúmero de até 5 dígitos ou 2 para opção de até 17 dígitos
 
         /*

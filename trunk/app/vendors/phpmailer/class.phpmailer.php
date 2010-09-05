@@ -647,7 +647,7 @@ class PHPMailer {
       $toArr[] = $this->AddrFormat($t);
     }
     $to = implode(', ', $toArr);
-
+    
     $params = sprintf("-oi -f %s", $this->Sender);
     if ($this->Sender != '' && strlen(ini_get('safe_mode'))< 1) {
       $old_from = ini_get('sendmail_from');

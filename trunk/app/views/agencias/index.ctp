@@ -81,6 +81,7 @@
                                         <th><?php echo $paginator->sort('codigo');?></th>
                                         <th><?php echo $paginator->sort('conta_corrente');?></th>
                                         <th><?php echo $paginator->sort('contrato');?></th>
+                                        <th><?php echo $paginator->sort('convenio_cobranca');?></th>
                                         <th><?php echo $paginator->sort('bairro');?></th>
                                         <th><?php echo $paginator->sort('cidade_id');?></th>
                                         <th><?php echo $paginator->sort('telefone');?></th>
@@ -93,6 +94,7 @@
                                         <th><?php echo $paginator->sort('codigo');?></th>
                                         <th><?php echo $paginator->sort('conta_corrente');?></th>
                                         <th><?php echo $paginator->sort('contrato');?></th>
+                                        <th><?php echo $paginator->sort('convenio_cobranca');?></th>
                                         <th><?php echo $paginator->sort('bairro');?></th>
                                         <th><?php echo $paginator->sort('cidade_id');?></th>
                                         <th><?php echo $paginator->sort('telefone');?></th>
@@ -119,6 +121,9 @@
 		</td>
 		<td>
 			<?php echo $agencia['Agencia']['contrato']; ?>
+		</td>
+                <td>
+			<?php echo $agencia['Agencia']['convenio_cobranca']; ?>
 		</td>
                 <td>
 			<?php echo $agencia['Agencia']['bairro']; ?>
