@@ -1,4 +1,4 @@
-<script src="<?php echo $this->webroot;?>js/jquery.contextmenu/jquery.contextmenu.r2.js" type="text/javascript"></script>
+
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
@@ -11,27 +11,6 @@
 <script type="text/javascript">            
     $(document).ready(function(){
         //$(".tablesorter").tablesorter(); //criar ordenação no grid
-    });
-</script>
-
-<!-- ContextMenu -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.ctxmenu').contextMenu('contextMenuList', {
-            bindings: {
-                'view': function(t) {
-                    location.href="<?php echo $html->url(array('action'=>'view'))?>/"+t.id;
-                },
-                'edit': function(t) {
-                    location.href="<?php echo $html->url(array('action'=>'edit'))?>/"+t.id;
-                },
-                'delete': function(t) {
-                    if(confirm("Deseja realmente apagar?")){
-                        location.href="<?php echo $html->url(array('action'=>'delete'))?>/"+t.id;
-                    }
-                }
-            }
-        });
     });
 </script>
 
@@ -68,7 +47,8 @@
         <table id="myTable" class="tablesorter" cellspacing="1"> 
             <thead> 
                <tr>
-                                        <th width="120"><?php echo $paginator->sort('banco_id');?></th>
+                                        <th width="120"><?php echo $paginator->sort('nome');?></th>
+                                        <th><?php echo $paginator->sort('banco_id');?></th>
                                         <th><?php echo $paginator->sort('carteira');?></th>
                                         <th><?php echo $paginator->sort('local_pagamento');?></th>
                                         <th><?php echo $paginator->sort('taxa_boleto');?></th>
@@ -79,7 +59,8 @@
             </thead> 
             <tfoot> 
                 <tr>
-                                        <th width="120"><?php echo $paginator->sort('banco_id');?></th>
+                                        <th width="120"><?php echo $paginator->sort('nome');?></th>
+                                        <th><?php echo $paginator->sort('banco_id');?></th>
                                         <th><?php echo $paginator->sort('carteira');?></th>
                                         <th><?php echo $paginator->sort('local_pagamento');?></th>
                                         <th><?php echo $paginator->sort('taxa_boleto');?></th>
@@ -100,7 +81,10 @@
 	<tr<?php echo $class;?>>
 
 		<td>
-                    <?php echo $html->link($bloqueto['Banco']['nome'], array('action'=>'view', $bloqueto['Bloqueto']['id']), array('class'=>'ctxmenu','id'=>$bloqueto['Bloqueto']['id'])); ?>
+                    <?php echo $html->link($bloqueto['Bloqueto']['nome'], array('action'=>'view', $bloqueto['Bloqueto']['id'])); ?>
+		</td>
+                <td>
+			<?php echo $bloqueto['Banco']['nome']; ?>
 		</td>
                 <td>
 			<?php echo $bloqueto['Bloqueto']['carteira']; ?>

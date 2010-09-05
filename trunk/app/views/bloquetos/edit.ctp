@@ -50,6 +50,7 @@
         <table cellspacing="0" class="details">
         	<?php
 		echo $jquery->input('id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('nome',array('class'=>'validateRequired','alt'=>'Nome', 'label'=>'Nome*','empty'=>'Selecione','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('banco_id',array('class'=>'validateRequired','alt'=>'Banco', 'label'=>'Banco*','empty'=>'Selecione','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('local_pagamento',array('class'=>'validateRequired','alt'=>'Local Pagamento', 'label'=>'Local Pagamento*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('carteira',array('class'=>'validateRequired','alt'=>'Carteira', 'label'=>'Carteira*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));

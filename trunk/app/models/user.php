@@ -37,5 +37,17 @@ class User extends AppModel {
 //
 //        return false;
 //    }
+
+    function beforeFind($query) {
+        $new_conditions = array('User.ativo'=>true);
+        if(!empty ($query['conditions'])) {
+            $conditions = $query['conditions'];
+            $query['conditions'] = Set::merge($conditions, $new_conditions);
+        }
+        else
+            $query['conditions'] = $new_conditions;
+        
+        return $query;
+    }
 }
 ?>
