@@ -36,9 +36,9 @@
             <table cellspacing="0" class="detailsLogin">
                 <?php
                 echo $jquery->input('autenticacao',array('type'=>'hidden', 'value'=>$this->data['User']['autenticacao'],'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('username',array('label'=>'Email','class'=>'validadeRequired', 'label'=>'Email*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('senha',array('id'=>'senha','name'=>'data[User][password]', 'type'=>'password','label'=>'Senha*', 'value'=>'','class'=>'validadeRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('redigite_senha',array('id'=>'confirmaSenha','class'=>'validadeRequired', 'type'=>'password', 'label'=>'Confirmação Senha*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('username',array('label'=>'Email','class'=>'validateRequired', 'label'=>'Email*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('senha',array('id'=>'senha','name'=>'data[User][password]', 'type'=>'password','label'=>'Senha*', 'value'=>'','class'=>'validateRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('redigite_senha',array('id'=>'confirmaSenha','class'=>'validateRequired', 'type'=>'password', 'label'=>'Confirmação Senha*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 ?>
                 <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Entrar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
                 </tr>

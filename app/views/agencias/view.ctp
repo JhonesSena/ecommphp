@@ -32,7 +32,8 @@
 			<?php echo $agencia['Agencia']['id']; ?></td></tr>		<tr><td class="left"><?php __('Codigo'); ?></td><td class="right">		
 			<?php echo $agencia['Agencia']['codigo']; ?></td></tr>		<tr><td class="left"><?php __('Codigo Cedente'); ?></td><td class="right">		
 			<?php echo $agencia['Agencia']['codigo_cedente']; ?></td></tr>		<tr><td class="left"><?php __('Contrato'); ?></td><td class="right">
-			<?php echo $agencia['Agencia']['contrato']; ?></td></tr>		<tr><td class="left"><?php __('Logradouro'); ?></td><td class="right">
+			<?php echo $agencia['Agencia']['contrato']; ?></td></tr>		<tr><td class="left"><?php __('Convênio Cobrança'); ?></td><td class="right">
+			<?php echo $agencia['Agencia']['convenio_cobranca']; ?></td></tr>		<tr><td class="left"><?php __('Logradouro'); ?></td><td class="right">
 			<?php echo $agencia['Agencia']['logradouro']; ?></td></tr>		<tr><td class="left"><?php __('Bairro'); ?></td><td class="right">
 			<?php echo $agencia['Agencia']['bairro']; ?></td></tr>		<tr><td class="left"><?php __('Cidade'); ?></td><td class="right"><?php echo $agencia['Agencia']['cidade']; ?></td></tr>		<tr><td class="left"><?php __('Telefone'); ?></td><td class="right">
 			<?php echo $agencia['Agencia']['telefone']; ?></td></tr>		<tr><td class="left"><?php __('Banco'); ?></td><td class="right"><?php echo $agencia['Banco']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Ativo'); ?></td><td class="right">		

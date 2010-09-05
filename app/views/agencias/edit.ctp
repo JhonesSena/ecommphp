@@ -43,14 +43,16 @@
         <table cellspacing="0" class="details">
         	<?php
 		echo $jquery->input('id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('codigo',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('codigo_cedente',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('codigo',array('class'=>'validateRequired', 'alt'=>'Agência', 'label'=>'Agência*','id'=>'codigo','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('codigo_cedente',array('class'=>'validateRequired', 'alt'=>'Conta Corrente','label'=>'Conta Corrente*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('contrato',array('class'=>'validateRequired', 'alt'=>'Contrato','label'=>'Contrato*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('logradouro',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('bairro',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('cidade',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('telefone',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('banco_id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('convenio_cobranca',array('class'=>'validateRequired', 'alt'=>'Convênio Cobrança','label'=>'Convênio Cobrança*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('logradouro',array('class'=>'validateRequired', 'alt'=>'Logradouro', 'label'=>'Logradouro*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('bairro',array('class'=>'validateRequired', 'alt'=>'Bairro', 'label'=>'Bairro*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('cidade',array('class'=>'validateRequired', 'alt'=>'Cidade', 'label'=>'Cidade*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('estado_id',array('empty'=>'Selecione','class'=>'validateRequired', 'alt'=>'Estado', 'label'=>'Estado*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('telefone',array('class'=>'validateRequired validateTelefone', 'alt'=>'Telefone', 'label'=>'Telefone*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('banco_id',array('empty'=>'Selecione','class'=>'validateRequired', 'alt'=>'Banco', 'label'=>'Banco*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('ativo',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 	?>
         <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
