@@ -1,4 +1,4 @@
-<script src="<?php echo $this->webroot;?>js/jquery.contextmenu/jquery.contextmenu.r2.js" type="text/javascript"></script>
+
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
@@ -14,29 +14,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
         //$(".tablesorter").tablesorter(); //criar ordenação no grid
-    });
-</script>
-
-<!-- ContextMenu -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        
-
-        $('.ctxmenu').contextMenu('contextMenuList', {
-            bindings: {
-                'view': function(t) {
-                    location.href="<?php echo $html->url(array('action'=>'view'))?>/"+t.id;
-                },
-                'edit': function(t) {
-                    location.href="<?php echo $html->url(array('action'=>'edit'))?>/"+t.id;
-                },
-                'delete': function(t) {
-                    if(confirm("Deseja realmente apagar?")){
-                        location.href="<?php echo $html->url(array('action'=>'delete'))?>/"+t.id;
-                    }
-                }
-            }
-        });
     });
 </script>
 

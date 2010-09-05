@@ -28,7 +28,9 @@
     <div id="tab1">
         <table cellspacing="0" class="details">
             <tr><td class="left"><?php __('Id'); ?></td><td class="right">
-                    <?php echo $bloqueto['Bloqueto']['id']; ?></td></tr>		<tr><td class="left"><?php __('Banco'); ?></td><td class="right"><?php echo $bloqueto['Banco']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Local Pagamento'); ?></td><td class="right">
+                    <?php echo $bloqueto['Bloqueto']['id']; ?></td></tr>		<tr><td class="left"><?php __('Nome'); ?></td><td class="right">
+                    <?php echo $bloqueto['Bloqueto']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Banco'); ?></td><td class="right">
+                    <?php echo $bloqueto['Banco']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Local Pagamento'); ?></td><td class="right">
                     <?php echo $bloqueto['Bloqueto']['local_pagamento']; ?></td></tr>		<tr><td class="left"><?php __('Carteira'); ?></td><td class="right">
                     <?php echo $bloqueto['Bloqueto']['carteira']; ?></td></tr>		<tr><td class="left"><?php __('Taxa Boleto'); ?></td><td class="right">
                     <?php echo $bloqueto['Bloqueto']['taxa_boleto']; ?></td></tr>		<tr><td class="left"><?php __('Dias Prazo Pagamento'); ?></td><td class="right">

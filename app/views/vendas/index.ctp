@@ -1,4 +1,4 @@
-<script src="<?php echo $this->webroot;?>js/jquery.contextmenu/jquery.contextmenu.r2.js" type="text/javascript"></script>
+
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
@@ -13,28 +13,6 @@
         //$(".tablesorter").tablesorter(); //criar ordenação no grid
     });
 </script>
-
-<!-- ContextMenu -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.ctxmenu').contextMenu('contextMenuList', {
-            bindings: {
-                'view': function(t) {
-                    location.href="<?php echo $html->url(array('action'=>'view'))?>/"+t.id;
-                },
-                'edit': function(t) {
-                    location.href="<?php echo $html->url(array('action'=>'edit'))?>/"+t.id;
-                },
-                'delete': function(t) {
-                    if(confirm("Deseja realmente apagar?")){
-                        location.href="<?php echo $html->url(array('action'=>'delete'))?>/"+t.id;
-                    }
-                }
-            }
-        });
-    });
-</script>
-
 <script>
 	function selecionados(){
 		chs = $(".chk").get();
@@ -81,14 +59,6 @@
 	?>
 	</div>
 
-
-<div class="contextMenu" id="contextMenuList">
-    <ul style="font-size:12px">
-      <li id="view"><img src="<?php echo $this->webroot;?>css/img/visualizar.gif"/>Visualizar</li>
-      <li id="edit"><img src="<?php echo $this->webroot;?>css/img/edit.gif"/>Editar</li>
-      <li id="delete"><img src="<?php echo $this->webroot;?>css/img/delete.gif"/>Excluir</li>
-    </ul>
-</div>
 
 <div id="tabpanel">
     <ul>
