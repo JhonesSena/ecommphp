@@ -9,8 +9,9 @@
         <link type="text/css" href="<?php echo $this->webroot;?>css/bocazumbk.css" rel="stylesheet" />
         <link type="text/css" href="<?php echo $this->webroot;?>css/menu.css" rel="stylesheet" />
 
-        <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.ui/jquery-ui-1.8.2.custom/js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.js"></script>
+
+        <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.ui/jquery-ui-1.8.2.custom/js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery-1.3.2.min.js"></script>
 
         <link type="text/css" href="<?php echo $this->webroot;?>js/jquery.ui/jquery-ui-1.8.2.custom/css/custom-theme/jquery-ui-1.8.2.custom.css" rel="stylesheet" />
@@ -39,9 +40,9 @@
                 <div id="menu">
                     <ul class="menu">
                         <li>
-                            <a href="<?php echo $this->webroot;?>shopps/index"><span>Home</span></a>
+                            <a class="parent" href="<?php echo $this->webroot;?>shopps/index"><span>Home</span></a>
                         </li>
-                        <li><a href="#"><span>Produto</span></a>
+                        <li><a href="#" class="parent"><span>Produto</span></a>
                             <ul>
                                 <li>
                                     <a href="<?php echo $this->webroot;?>produtos/add"><span>Novo</span></a>
