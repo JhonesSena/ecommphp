@@ -20,20 +20,24 @@
            validaCep($('#cep').val());
         
         analisaTipoPessoa();
-        if($(this).attr('value') == 'f'){
-            $('.pessoaFisica').attr('disabled', '');
-            $('.pessoaJuridica').fadeOut(1000);
-            $('.pessoaFisica').fadeIn(1000);
-            $('.pessoaJuridica').attr('disabled', 'disabled');
-            $('.pessoaJuridica').attr('value', '');
-        }
-        else if($(this).attr('value') == 'j'){
-            $('.pessoaJuridica').attr('disabled', '');
-            $('.pessoaFisica').fadeOut(1000);
-            $('.pessoaJuridica').fadeIn(1000);
-            $('.pessoaFisica').attr('disabled', 'disabled');
-            $('.pessoaFisica').attr('value', '');
-        }
+        $("form").submit(function(){
+            return validateFields();
+        });
+
+//        if($(this).attr('value') == 'f'){
+//            $('.pessoaFisica').attr('disabled', '');
+//            $('.pessoaJuridica').fadeOut(1000);
+//            $('.pessoaFisica').fadeIn(1000);
+//            $('.pessoaJuridica').attr('disabled', 'disabled');
+//            $('.pessoaJuridica').attr('value', '');
+//        }
+//        else if($(this).attr('value') == 'j'){
+//            $('.pessoaJuridica').attr('disabled', '');
+//            $('.pessoaFisica').fadeOut(1000);
+//            $('.pessoaJuridica').fadeIn(1000);
+//            $('.pessoaFisica').attr('disabled', 'disabled');
+//            $('.pessoaFisica').attr('value', '');
+//        }
     });
 
     function validaCep(cep){
@@ -85,6 +89,45 @@
         });
         
     }
+
+    function validateFields(){
+        $('#msgerroData').remove();
+        var retorno = true;
+        var string = "<ul id='msgerroData' style='margin-top:1px;margin-bottom: 1px;'>";
+
+        if($("#TipoPessoaF").attr('checked')){
+            if($("#cpf").val()==''||$("#cpf").val()=='___.___.___-__')
+            {
+                string += "<li>CPF é campo obrigatório.</li>";
+                retorno = false;
+            }
+        }
+
+        if($("#TipoPessoaJ").attr('checked')){
+            if($("#nomeFantasia").val()=='')
+            {
+                string += "<li>Nome Fantasia é campo obrigatório.</li>";
+                retorno = false;
+            }
+
+            if($("#cnpj").val()==''||$("#cnpj").val()=='___.___.___/____-__')
+            {
+                string += "<li>CNPJ é campo obrigatório.</li>";
+                retorno = false;
+            }
+        }
+
+        if(retorno == false){
+            string = string + "</ul>";
+            $('#msgerro').append(string);
+            $('#msgerro').show();
+        }
+
+        if($('#msgerro').text() == ""){
+            $('#msgerro').hide();
+        }
+        return retorno;
+    }
 </script>
 
 <div class="toolbar">
@@ -125,11 +168,9 @@
         	<?php
 
                 echo $jquery->input('nome',array('class'=>'validateRequired', 'label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('nome_fantasia',array('name'=>'data[PessoaJuridica][nome_fantasia]', 'label'=>'Nome Fantasia*','class'=>'validateRequired','alt'=>'Nome Fantasia','error' => false,'div'=>false,'before' => '<tr class="pessoaJuridica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('cnpj',array('name'=>'data[PessoaJuridica][cnpj]','class'=>'validateRequired validateCNPJ','alt'=>'CNPJ', 'label'=>'CNPJ*','error' => false,'div'=>false,'before' => '<tr class="pessoaJuridica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('PessoaJuridica.ativo',array('type'=>'hidden', 'value'=>1,'error' => false,'div'=>false,'before' => '<tr class="pessoaFisica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('cpf',array('name'=>'data[PessoaFisica][cpf]','class'=>'validateRequired validateCPF','alt'=>'CPF', 'label'=>'CPF*','error' => false,'div'=>false,'before' => '<tr class="pessoaFisica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('PessoaFisica.ativo',array('type'=>'hidden', 'value'=>1,'error' => false,'div'=>false,'before' => '<tr class="pessoaFisica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('nome_fantasia',array('id'=>'nomeFantasia','name'=>'data[PessoaJuridica][nome_fantasia]', 'label'=>'Nome Fantasia*','error' => false,'div'=>false,'before' => '<tr class="pessoaJuridica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('cnpj',array('id'=>'cnpj','name'=>'data[PessoaJuridica][cnpj]','class'=>'validateCNPJ','alt'=>'CNPJ', 'label'=>'CNPJ*','error' => false,'div'=>false,'before' => '<tr class="pessoaJuridica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('cpf',array('id'=>'cpf','name'=>'data[PessoaFisica][cpf]','class'=>'validateCPF','alt'=>'CPF', 'label'=>'CPF*','error' => false,'div'=>false,'before' => '<tr class="pessoaFisica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('telefone',array('class'=>'validateRequired validateTelefone','alt'=>'Telefone', 'label'=>'Telefone*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('email',array('class'=>'validateRequired validateEmail','alt'=>'Email', 'label'=>'Email*', 'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('User.password',array('class'=>'validateRequired', 'type'=>'password', 'label'=>'Senha*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));

@@ -20,6 +20,10 @@
            validaCep($('#cep').val());
 
         analisaTipoPessoa();
+
+        $("form").submit(function(){
+            return validateFields();
+        });
 //        if($(this).attr('value') == 'f'){
 //            $('.pessoaFisica').attr('disabled', '');
 //            $('.pessoaJuridica').fadeOut(1000);
@@ -71,25 +75,61 @@
 
         $("input[id^='TipoPessoa']").each(function(){
             if($("#TipoPessoaF").attr('checked')){
-                $('.pessoaFisica input').addClass('validateRequired');
-                $('.pessoaJuridica input').removeClass('validateRequired');
-                
                 $('.pessoaFisica').attr('disabled', '');
                 $('.pessoaJuridica').fadeOut(0);
                 $('.pessoaFisica').fadeIn(1500);
+                $('#nomeFantasia').attr('value', '');
+                $('#cnpj').attr('value', '');
                 $('.pessoaJuridica').attr('disabled', 'disabled');
             }
-            if($("#TipoPessoaJ").attr('checked')){
-                $('.pessoaJuridica input').addClass('validateRequired');
-                $('.pessoaFisica input').removeClass('validateRequired');
-
+            else if($("#TipoPessoaJ").attr('checked')){
                 $('.pessoaJuridica').attr('disabled', '');
                 $('.pessoaFisica').fadeOut(0);
                 $('.pessoaJuridica').fadeIn(1500);
+                $('#cpf').attr('value', '');
                 $('.pessoaFisica').attr('disabled', 'disabled');
             }
         });
 
+    }
+
+    function validateFields(){
+        $('#msgerroData').remove();
+        var retorno = true;
+        var string = "<ul id='msgerroData' style='margin-top:1px;margin-bottom: 1px;'>";
+
+        if($("#TipoPessoaF").attr('checked')){
+            if($("#cpf").val()==''||$("#cpf").val()=='___.___.___-__')
+            {
+                string += "<li>CPF é campo obrigatório.</li>";
+                retorno = false;
+            }
+        }
+
+        if($("#TipoPessoaJ").attr('checked')){
+            if($("#nomeFantasia").val()=='')
+            {
+                string += "<li>Nome Fantasia é campo obrigatório.</li>";
+                retorno = false;
+            }
+
+            if($("#cnpj").val()==''||$("#cnpj").val()=='___.___.___/____-__')
+            {
+                string += "<li>CNPJ é campo obrigatório.</li>";
+                retorno = false;
+            }
+        }
+        
+        if(retorno == false){
+            string = string + "</ul>";
+            $('#msgerro').append(string);
+            $('#msgerro').show();
+        }
+
+        if($('#msgerro').text() == ""){
+            $('#msgerro').hide();
+        }
+        return retorno;
     }
 </script>
 
@@ -130,17 +170,17 @@
         <table cellspacing="0" class="details">
         	<?php
 		echo $jquery->input('id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('conta_corrente',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('agencia_id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('bloqueto_id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('conta_corrente',array('class'=>'validateRequired', 'label'=>'Conta Corrente*','alt'=>'Conta Corrente','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('agencia_id',array('empty'=>'Selecione','class'=>'validateRequired', 'label'=>'Agência*','alt'=>'Agência','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('bloqueto_id',array('empty'=>'Selecione','class'=>'validateRequired', 'label'=>'Bloqueto*','alt'=>'Bloqueto','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 
                 echo $jquery->input('cliente_id',array('name'=>'data[Cliente][id]', 'value'=>$this->data['Cliente']['id'], 'type'=>'hidden','class'=>'validateRequired', 'label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('nome',array('name'=>'data[Cliente][nome]', 'value'=>$this->data['Cliente']['nome'],'class'=>'validateRequired', 'label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('idPessoaJuridica',array('type'=>'hidden','name'=>'data[PessoaJuridica][id]','value'=>$this->data['PessoaJuridica']['id'],'error' => false,'div'=>false,'before' => '<tr class="pessoaJuridica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('nome_fantasia',array('name'=>'data[PessoaJuridica][nome_fantasia]','value'=>$this->data['PessoaJuridica']['nome_fantasia'], 'label'=>'Nome Fantasia*','class'=>'validateRequired pessoaJuridica','alt'=>'Nome Fantasia','error' => false,'div'=>false,'before' => '<tr class="pessoaJuridica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('cnpj',array('name'=>'data[PessoaJuridica][cnpj]','value'=>$this->data['PessoaJuridica']['cnpj'],'class'=>'validateRequired validateCNPJ pessoaJuridica','alt'=>'CNPJ', 'label'=>'CNPJ*','error' => false,'div'=>false,'before' => '<tr class="pessoaJuridica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('nome_fantasia',array('id'=>'nomeFantasia','name'=>'data[PessoaJuridica][nome_fantasia]','value'=>$this->data['PessoaJuridica']['nome_fantasia'], 'label'=>'Nome Fantasia*','alt'=>'Nome Fantasia','error' => false,'div'=>false,'before' => '<tr class="pessoaJuridica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('cnpj',array('id'=>'cnpj','name'=>'data[PessoaJuridica][cnpj]','value'=>$this->data['PessoaJuridica']['cnpj'],'class'=>'validateCNPJ','alt'=>'CNPJ', 'label'=>'CNPJ*','error' => false,'div'=>false,'before' => '<tr class="pessoaJuridica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('idPessoaFisica',array('type'=>'hidden','name'=>'data[PessoaFisica][id]','value'=>$this->data['PessoaFisica']['id'],'error' => false,'div'=>false,'before' => '<tr class="pessoaFisica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('cpf',array('name'=>'data[PessoaFisica][cpf]','value'=>$this->data['PessoaFisica']['cpf'],'class'=>'validateRequired validateCPF pessoaFisica','alt'=>'CPF', 'label'=>'CPF*','error' => false,'div'=>false,'before' => '<tr class="pessoaFisica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('cpf',array('id'=>'cpf','name'=>'data[PessoaFisica][cpf]','value'=>$this->data['PessoaFisica']['cpf'],'class'=>'validateCPF','alt'=>'CPF', 'label'=>'CPF*','error' => false,'div'=>false,'before' => '<tr class="pessoaFisica"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('telefone',array('name'=>'data[Cliente][telefone]','value'=>$this->data['Cliente']['telefone'],'class'=>'validateRequired validateTelefone','alt'=>'Telefone', 'label'=>'Telefone*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('email',array('name'=>'data[Cliente][email]','value'=>$this->data['Cliente']['email'],'class'=>'validateRequired validateEmail','alt'=>'Email', 'label'=>'Email*', 'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('logradouro',array('name'=>'data[Cliente][logradouro]','value'=>$this->data['Cliente']['logradouro'],'type'=>'textarea','rows'=>3,'class'=>'validateRequired','alt'=>'Logradouro', 'label'=>'Logradouro*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));

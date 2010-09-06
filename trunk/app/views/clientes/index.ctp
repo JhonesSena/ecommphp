@@ -69,11 +69,8 @@
             <thead> 
                <tr>
 				    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
+                                        <th><?php echo $paginator->sort('nome');?></th>
                                         <th><?php echo $paginator->sort('telefone');?></th>
-                                        <th><?php echo $paginator->sort('email');?></th>
-                                        <th><?php echo $paginator->sort('logradouro');?></th>
-                                        <th><?php echo $paginator->sort('cep');?></th>
                                         <th><?php echo $paginator->sort('bairro');?></th>
                                         <th><?php echo $paginator->sort('cidade');?></th>
                                         <th><?php echo $paginator->sort('estado_id');?></th>
@@ -83,11 +80,8 @@
             <tfoot> 
                 <tr>
 					<th style="width:20px"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
+                                        <th><?php echo $paginator->sort('nome');?></th>
                                         <th><?php echo $paginator->sort('telefone');?></th>
-                                        <th><?php echo $paginator->sort('email');?></th>
-                                        <th><?php echo $paginator->sort('logradouro');?></th>
-                                        <th><?php echo $paginator->sort('cep');?></th>
                                         <th><?php echo $paginator->sort('bairro');?></th>
                                         <th><?php echo $paginator->sort('cidade');?></th>
                                         <th><?php echo $paginator->sort('estado_id');?></th>
@@ -109,19 +103,10 @@
 							<input type="checkbox" class="chk" value="<?=$cliente['Cliente']['id']?>">
 						</td>
 							<td>
-			<?php echo $cliente['Cliente']['id']; ?>
+			<?php echo $html->link($cliente['Cliente']['nome'],array('action'=>'view', $cliente['Cliente']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $cliente['Cliente']['telefone']; ?>
-		</td>
-		<td>
-			<?php echo $cliente['Cliente']['email']; ?>
-		</td>
-		<td>
-			<?php echo $cliente['Cliente']['logradouro']; ?>
-		</td>
-		<td>
-			<?php echo $cliente['Cliente']['cep']; ?>
 		</td>
 		<td>
 			<?php echo $cliente['Cliente']['bairro']; ?>
