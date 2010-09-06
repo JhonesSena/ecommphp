@@ -23,6 +23,7 @@ class UsersController extends AppController {
 
     function login() {
 //        print_r($this->Auth);
+//        if($this->data);exit;
     }
 
     function logout() {

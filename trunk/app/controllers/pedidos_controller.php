@@ -23,7 +23,8 @@ class PedidosController extends AppController {
 
     function index() {
         $this->Pedido->recursive = 1;
-        $pedidos = $this->paginate(array('ClientePedido.cliente_id'=>25));
+        $usuarioSession = $this->Session->read('Cliente');
+        $pedidos = $this->paginate(array('ClientePedido.cliente_id'=>$usuarioSession['Cliente']['id']));
 //        print_r($pedidos);
         $this->set('pedidos', $pedidos);//array('ClientePedido.cliente_id'=>$clienteSession['Cliente']['id'], 'Pedido.ativo'=>true)
     }
