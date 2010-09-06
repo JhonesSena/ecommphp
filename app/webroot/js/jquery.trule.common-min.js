@@ -845,19 +845,19 @@
             name:"validateCPF",
             event:"submit",
             rule:function(E){
-                var F=A(this).val().replace(/[.\/_-]/g,"");
-                if(B.numeric(F)){
-                    E.firesSuccess();
-                    if(F!=""&&!B.cpf(F)){
-                        return E.firesError("cpf",{
+                    var F=A(this).val().replace(/[.\/_-]/g,"");
+                    if(B.numeric(F)){
+                        E.firesSuccess();
+                        if(F!=""&&!B.cpf(F)){
+                            return E.firesError("cpf",{
+                                fieldname:E.showAs
+                            })
+                        }
+                    }else{
+                        return E.firesError("numeric",{
                             fieldname:E.showAs
                         })
                     }
-                }else{
-                    return E.firesError("numeric",{
-                        fieldname:E.showAs
-                    })
-                }
             },
             mask:"999.999.999-99"
         };

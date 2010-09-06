@@ -55,6 +55,7 @@ class AppController extends Controller {
         $this->Auth->logoutRedirect = array('admin'=>true, 'controller' => 'users', 'action' => 'logout'); // controlador e action de logout
         $this->Auth->loginError = "Login inválido."; // mensagem de erro
         $this->Auth->authError = "Área restrita, por favor faça login."; // mensagem de acesso restrito
+        $this->Auth->userScope = array("User.ativo"=>true); //Somente usuários ativos
         $clienteSession = $this->Session->read('Cliente');
         $this->set(compact('clienteSession'));
         if(empty($clienteSession['User']['group_id']))
