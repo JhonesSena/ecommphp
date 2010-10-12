@@ -203,7 +203,7 @@
                                         }
                                     } else {
                                         echo '<div id="msgerro" style="display:none; align-text:left;" class="ui-state-error ui-corner-all">';
-                                        echo '<ul></ul>';
+                                        echo '<ul style="margin-top:1px;margin-bottom: 1px;"></ul>';
                                         echo '</div>';
                                         echo '<div id="msgaviso" style="display:none" class="msg_aviso">Verifique o registro antes de confirmar a operação, uma vez confirmado, a operação não poderá ser desfeita.<div>';
                                     }

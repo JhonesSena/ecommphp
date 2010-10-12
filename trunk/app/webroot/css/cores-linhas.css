@@ -1,0 +1,246 @@
+.transparente {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 20px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    font-style: normal;
+    line-height: normal;
+    font-weight: normal;
+    font-variant: normal;
+    color: #000000;
+    text-align: center;
+}
+
+.branca {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-01.jpg);
+}
+
+.amarelo-claro {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    background-image: url(../img/800-2-02.jpg);
+    height: 18px;
+}
+
+.amarelo-ouro {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    background-image: url(../img/800-2-03.jpg);
+    height: 18px;
+}
+
+.laranja {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    background-image: url(../img/800-2-04.jpg);
+    height: 18px;
+}
+
+.ceramica {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-05.jpg);
+}
+
+.vermelho {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-06.jpg);
+}
+
+.pink {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-07.jpg);
+}
+
+.rosa {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-08.jpg);
+}
+
+.goiaba {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-09.jpg);
+}
+
+.salmon {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-10.jpg);
+}
+
+.palha {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-11.jpg);
+}
+
+.bege {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-12.jpg);
+}
+
+.creme {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-13.jpg);
+}
+
+.nectar {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-14.jpg);
+}
+
+.lilas {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-15.jpg);
+}
+
+.vinho {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-16.jpg);
+}
+
+.preta {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-17.jpg);
+}
+
+.cinza {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-18.jpg);
+}
+
+.azul-marinho {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-19.jpg);
+}
+
+.azul-royal {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-20.jpg);
+}
+
+.azul-esmeralda {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-21.jpg);
+}
+
+.azul-turqueza {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-22.jpg);
+}
+
+.azul-claro {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-23.jpg);
+}
+
+.verde-agua {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-24.jpg);
+}
+
+.verde-militar {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-25.jpg);
+}
+
+.verde-bandeira {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-26.jpg);
+}
+
+.verde-abacate {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-27.jpg);
+}
+
+.ouro-velho {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-28.jpg);
+}
+
+.marron {
+    width: 30px;
+    float: left;
+    margin-right: 6px;
+    height: 18px;
+    background-image: url(../img/800-2-29.jpg);
+}

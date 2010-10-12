@@ -4,7 +4,7 @@ class ShoppsController extends AppController {
 
     var $name = 'Shopps';
     var $helpers = array('Html', 'Form', 'Jquery');
-    var $uses = array('Produto', 'Grupo', 'Item');
+    var $uses = array('Produto', 'Grupo', 'Item', 'Cedente');
     var $paginate = array(
             'limit' => 8,
             'order'=>array('Produto.descricao'=>'asc')
@@ -118,8 +118,9 @@ class ShoppsController extends AppController {
                 }
                 $clienteSession = $this->Session->read('Cliente');
 
-
-                $frete = $this->calculaFrete('40010', '42700000', $clienteSession['Cliente']['cep'], ($pesoTotal/1000));
+                $this->Cedente->recursive = 0;
+                $cedente = $this->Cedente->find('first', array('conditions'=>array('Cedente.ativo'=>true)));
+                $frete = $this->calculaFrete('40010', $cedente['Cliente']['cep'], $clienteSession['Cliente']['cep'], ($pesoTotal/1000));
                 if(!isset($frete['calculo_precos']['erro']['codigo'])) {
                     $frete['calculo_precos']['erro']['codigo'] = '7';
                     $frete['calculo_precos']['erro']['descricao'] = 'Não foi possível conectar ao serviço do correio.';

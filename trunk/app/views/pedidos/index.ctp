@@ -98,7 +98,7 @@
         $direction = isset($paginator->params['named']['direction'])?'/direction:'. $paginator->params['named']['direction']:"";
 
         echo $html->link(__(null,true), 'index/page:'.$ant.$sort.$direction,array('class'=>'linkbutton linkbtn btn_back'))."&nbsp;";
-        echo '<select style="height:22px;font-size:13px" onchange="location.href=\''. $this->webroot.'cargos/index/page:\'+this.value+\''.$sort.$direction.'\'">';
+        echo '<select style="height:22px;font-size:13px" onchange="location.href=\''. $this->webroot.$this->params['controller'].'/index/page:\'+this.value+\''.$sort.$direction.'\'">';
         for($x=1;$x<=$total;$x++) {
             echo $x==$paginator->current()?"<option selected value=\"$x\">".$x."</option>":"<option value=\"$x\">".$x."</option>";
         }

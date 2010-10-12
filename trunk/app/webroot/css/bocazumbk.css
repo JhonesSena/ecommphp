@@ -39,14 +39,14 @@ body {
     width:764px;
 }
 .topo3 {
-    background-image:url(../images/imgtopo5.jpg);
+    background-image:url(../img/imgtopo5.jpg);
     background-repeat:no-repeat;
     height:90px;
     text-align:right;
     width:764px;
 }
 .topo4 {
-    background-image:url(../images/imgtopo6.jpg);
+    background-image:url(../img/imgtopo6.jpg);
     background-repeat:no-repeat;
     float:left;
     height:510px;
@@ -369,11 +369,20 @@ a:hover {
 .div_miolo {
     background-color:#BDE1D3;
     height:500px;
-    left:-134px;
+    left:0px;
     position:relative;
-    top:18px;
-    width:764px;
+    top:0px;
+    width:740px;
 }
+.div_miolo2 {
+    background-color:#BDE1D3;
+    height:1200px;
+    left:0px;
+    position:relative;
+    top:0px;
+    width:740px;
+}
+
 .div_miolo_brotando {
     background-color:#BDE1D3;
     height:500px;
@@ -389,7 +398,7 @@ a:hover {
     width:764px;
 }
 .div_home_1e3 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-repeat:repeat;
     color:#000033;
     float:left;
@@ -398,17 +407,17 @@ a:hover {
     font-style:normal;
     font-variant:normal;
     font-weight:normal;
-    height:510px;
+    height:497px;
     line-height:15px;
     margin:0;
     padding:0;
     text-align:left;
     text-transform:none;
     vertical-align:top;
-    width:18px;
+    width:15px;
 }
 .div_home_2 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-position:center top;
     background-repeat:repeat;
     clip:rect(0pt, 0pt, 0pt, 0pt);
@@ -423,7 +432,7 @@ a:hover {
     text-align:left;
     top:0;
     vertical-align:top;
-    width:396px;
+    width:378px;
 }
 .div_home_4 {
     background-color:#BDE1D3;
@@ -444,7 +453,7 @@ a:hover {
     width:2px;
 }
 .div_home_5 {
-    background-image:url(../images/fundo1.jpg);
+    background-image:url(../img/fundo1.jpg);
     background-repeat:no-repeat;
     color:#000033;
     float:left;
@@ -480,7 +489,7 @@ a:hover {
     width:332px;
 }
 .div_home_7 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     color:#000033;
     float:left;
     font-family:Verdana,Arial,Helvetica,sans-serif;
@@ -504,7 +513,7 @@ a:hover {
     padding:0;
     position:relative;
     text-align:left;
-    width:764px;
+    width:740px;
 }
 .div_migalha_de_pao2 {
     background-color:#A5CAC3;
@@ -519,7 +528,7 @@ a:hover {
     width:609px;
 }
 .div_empresa_1e3 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-repeat:repeat;
     color:#000033;
     float:left;
@@ -538,7 +547,7 @@ a:hover {
     width:18px;
 }
 .div_empresa_2 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-position:center top;
     background-repeat:repeat;
     clip:rect(0px, 0px, 0px, 0px);
@@ -557,7 +566,7 @@ a:hover {
     text-transform:none;
     top:0;
     vertical-align:top;
-    width:478px;
+    width:455px;
 }
 .div_empresa_4 {
     background-color:#BDE1D3;
@@ -578,7 +587,7 @@ a:hover {
     width:2px;
 }
 .div_empresa_5 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     color:#000033;
     float:left;
     font-family:Verdana,Arial,Helvetica,sans-serif;
@@ -596,7 +605,7 @@ a:hover {
     width:246px;
 }
 .div_contato_1e3 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-repeat:repeat;
     color:#000033;
     float:left;
@@ -615,7 +624,7 @@ a:hover {
     width:18px;
 }
 .div_contato_2 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-position:center top;
     background-repeat:repeat;
     clip:rect(0px, 0px, 0px, 0px);
@@ -655,7 +664,7 @@ a:hover {
     width:2px;
 }
 .div_contato_5 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     color:#000033;
     float:left;
     font-family:Verdana,Arial,Helvetica,sans-serif;
@@ -673,7 +682,7 @@ a:hover {
     width:276px;
 }
 .div_receitas_1e3 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-repeat:repeat;
     color:#000033;
     float:left;
@@ -692,7 +701,7 @@ a:hover {
     width:18px;
 }
 .div_receitas_2 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-position:center top;
     background-repeat:repeat;
     clip:rect(0px, 0px, 0px, 0px);
@@ -714,7 +723,7 @@ a:hover {
     width:354px;
 }
 .div_representantes_1e3 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-repeat:repeat;
     color:#000033;
     float:left;
@@ -733,7 +742,7 @@ a:hover {
     width:18px;
 }
 .div_representantes_2 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-position:center top;
     background-repeat:repeat;
     clip:rect(0px, 0px, 0px, 0px);
@@ -755,7 +764,7 @@ a:hover {
     width:249px;
 }
 .div_representantes_4 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-position:center top;
     background-repeat:repeat;
     clip:rect(0px, 0px, 0px, 0px);
@@ -854,7 +863,7 @@ a:hover {
     width:255px;
 }
 .div_linhas_1 {
-    background-image:url(../images/degrade-linhas-e-barbantes.jpg);
+    background-image:url(../img/degrade-linhas-e-barbantes.jpg);
     background-position:left center;
     background-repeat:repeat-y;
     float:left;
@@ -865,7 +874,7 @@ a:hover {
     width:764px;
 }
 .div_linhas_2 {
-    background-image:url(../images/degrade-linhas-e-barbantes.jpg);
+    background-image:url(../img/degrade-linhas-e-barbantes.jpg);
     background-position:left center;
     background-repeat:repeat-y;
     float:left;
@@ -876,7 +885,7 @@ a:hover {
     width:764px;
 }
 .div_linhas_3 {
-    background-image:url(../images/degrade-linhas-e-barbantes.jpg);
+    background-image:url(../img/degrade-linhas-e-barbantes.jpg);
     background-position:left center;
     background-repeat:repeat-y;
     float:left;
@@ -887,7 +896,7 @@ a:hover {
     width:764px;
 }
 .div_linhas_3b {
-    background-image:url(../images/degrade-linhas-e-barbantes.jpg);
+    background-image:url(../img/degrade-linhas-e-barbantes.jpg);
     background-position:left center;
     background-repeat:repeat-y;
     float:left;
@@ -898,7 +907,7 @@ a:hover {
     width:764px;
 }
 .div_linhas_4 {
-    background-image:url(../images/degrade-linhas-e-barbantes.jpg);
+    background-image:url(../img/degrade-linhas-e-barbantes.jpg);
     background-position:left center;
     background-repeat:repeat-y;
     float:left;
@@ -909,7 +918,7 @@ a:hover {
     width:764px;
 }
 .div_linhas_5 {
-    background-image:url(../images/degrade-linhas-e-barbantes.jpg);
+    background-image:url(../img/degrade-linhas-e-barbantes.jpg);
     background-position:left center;
     background-repeat:repeat-y;
     float:left;
@@ -920,7 +929,7 @@ a:hover {
     width:764px;
 }
 .div_linhas_6 {
-    background-image:url(../images/degrade-linhas-e-barbantes.jpg);
+    background-image:url(../img/degrade-linhas-e-barbantes.jpg);
     background-position:left center;
     background-repeat:repeat-y;
     float:left;
@@ -969,7 +978,7 @@ a:hover {
     width:746px;
 }
 .div_limpeza_1 {
-    background-image:url(../images/degrade-limpeza.jpg);
+    background-image:url(../img/degrade-limpeza.jpg);
     background-position:left center;
     background-repeat:repeat-y;
     float:left;
@@ -980,7 +989,7 @@ a:hover {
     width:764px;
 }
 .div_limpeza_2 {
-    background-image:url(../images/degrade-limpeza.jpg);
+    background-image:url(../img/degrade-limpeza.jpg);
     background-position:left center;
     background-repeat:repeat-y;
     float:left;
@@ -991,7 +1000,7 @@ a:hover {
     width:764px;
 }
 .div_limpeza_3 {
-    background-image:url(../images/degrade-limpeza.jpg);
+    background-image:url(../img/degrade-limpeza.jpg);
     background-position:left center;
     background-repeat:repeat-y;
     float:left;
@@ -1002,7 +1011,7 @@ a:hover {
     width:764px;
 }
 .div_industria_1 {
-    background-image:url(../images/degrade-industria.jpg);
+    background-image:url(../img/degrade-industria.jpg);
     background-position:left center;
     background-repeat:repeat-y;
     float:left;
@@ -1013,7 +1022,7 @@ a:hover {
     width:764px;
 }
 .div_bocazul3_2 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-repeat:repeat;
     color:#000033;
     float:left;
@@ -1035,7 +1044,7 @@ a:hover {
     width:18px;
 }
 .div_bocazul3_3 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-repeat:repeat;
     color:#000033;
     float:left;
@@ -1057,7 +1066,7 @@ a:hover {
     width:591px;
 }
 .div_pedido_2 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-repeat:repeat;
     color:#000033;
     float:left;
@@ -1079,7 +1088,7 @@ a:hover {
     width:18px;
 }
 .div_orcamento_1 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-repeat:repeat;
     color:#000033;
     float:left;
@@ -1098,7 +1107,7 @@ a:hover {
     width:18px;
 }
 .div_orcamento_3 {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-repeat:repeat;
     color:#000033;
     float:left;
@@ -1291,7 +1300,7 @@ a:hover {
     vertical-align:top;
 }
 .tabela-fundo-claro-larga-cotacao {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     background-position:center top;
     background-repeat:repeat;
     clip:rect(0px, 0px, 0px, 0px);
@@ -1327,7 +1336,7 @@ a:hover {
     vertical-align:top;
 }
 .borda-direita3 {
-    background-image:url(../images/fundo3.jpg);
+    background-image:url(../img/fundo3.jpg);
     background-repeat:no-repeat;
     color:#000033;
     float:left;
@@ -1551,7 +1560,7 @@ a:hover {
     float:left;
     font-family:Verdana,Arial,Helvetica,sans-serif;
     text-align:left;
-    width:395px;
+    width:378px;
 }
 .coluna_home2 {
     background-color:#A8FFA8;
@@ -1667,7 +1676,7 @@ a:hover {
     width:230px;
 }
 .fundo-brotando {
-    background-image:url(../images/texturadupla.gif);
+    background-image:url(../img/texturadupla.gif);
     color:#000033;
     font-family:Verdana,Arial,Helvetica,sans-serif;
     font-size:12px;
