@@ -111,9 +111,18 @@
                                     <span class="menu_lateral">
                                     <?php $i=0;
                                     foreach ($produtos as $value) :
-                                        if($i==4)
+                                        if($i==4){
                                             echo '<br/><br/><br/><br/><br/>';
-                                        echo '<a href="'.$this->webroot.'produtos/client_view/'.$value['Produto']['id'].'">'.$value['Produto']['descricao_abreviada'].'</a><br>';
+                                        }
+                                        if($i>4){
+//                                            echo '<div class="linkScroll">';
+                                            if($i==5 && count($produtos)>17) echo '<div class="linkScroll">';
+                                            echo '<a href="'.$this->webroot.'produtos/client_view/'.$value['Produto']['id'].'">'.$value['Produto']['descricao_abreviada'].'</a><br>';
+                                            if(end($produtos)==$value && count($produtos)>17) echo '</div>';
+//                                            echo '</div>';
+                                        }else{
+                                            echo '<a href="'.$this->webroot.'produtos/client_view/'.$value['Produto']['id'].'">'.$value['Produto']['descricao_abreviada'].'</a><br>';
+                                        }
                                         $i++;
                                  endforeach;?>
                                     </span>
