@@ -53,7 +53,7 @@ class PagesController extends AppController {
      * @var array
      * @access public
      */
-    var $uses = array('Cor');
+    var $uses = array('Cor', 'Produto');
     /**
      * Displays a view
      *
@@ -62,7 +62,7 @@ class PagesController extends AppController {
      */
     function display() {
         $path = func_get_args();
-
+        
         $count = count($path);
         if (!$count) {
             $this->redirect('/');
@@ -79,13 +79,12 @@ class PagesController extends AppController {
             $title = Inflector::humanize($path[$count - 1]);
         }
         
-        $this->Cor->recursive = -1;
-        $cores = $this->Cor->find('all', array('conditions'=>array('ativo'=>true)));
 
         if($page == 'home')
             $this->layout = 'apresentacao';
         
-        $this->set(compact('page', 'subpage', 'title', 'cores'));
+        
+        $this->set(compact('page', 'subpage', 'title'));
         $this->render(join('/', $path));
     }
 

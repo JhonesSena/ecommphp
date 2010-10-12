@@ -1019,7 +1019,7 @@ a:hover {
     position:relative;
     text-align:left;
     text-transform:none;
-    width:160px;
+    width:150px;
 }
 .div_linhas_b3 {
     background-color:#BDE1D3;
@@ -1061,7 +1061,7 @@ a:hover {
 }
 .div_linhas_c {
     float:left;
-    height:414px;
+    height:360px;
     margin:0;
     padding:0;
     position:relative;
@@ -1122,7 +1122,7 @@ a:hover {
 .div_linhas_d {
     color:#FCF2FB;
     float:left;
-    height:414px;
+    height:360px;
     margin:0;
     padding:0;
     position:relative;
@@ -1612,7 +1612,7 @@ a:hover {
 }
 .menu_lateral {
     font-family:Verdana,Arial,Helvetica,sans-serif;
-    font-size:12px;
+    font-size:11px;
     font-style:normal;
     font-variant:normal;
     line-height:18px;
@@ -1621,9 +1621,6 @@ a:hover {
     text-align:left;
     text-transform:none;
     vertical-align:top;
-}
-.menu_lateral a{
-    margin-left: 4px;
 }
 
 .menu_lateral2 {
@@ -1813,7 +1810,7 @@ a:hover {
     margin-bottom:3px;
     margin-right:3px;
     text-align:center;
-    width:132px;
+    width:130px;
 }
 .coluna4b {
     background-color:#CCCCCC;
@@ -2005,7 +2002,7 @@ a:hover {
     margin-bottom:3px;
     margin-right:3px;
     text-align:center;
-    width:132px;
+    width:130px;
 }
 .coluna-impar4b {
     background-color:#EFEFEF;
@@ -2058,4 +2055,28 @@ a:hover {
     color:#000000;
     float:left;
     padding:5px;
+}
+/**/
+/*
+.tabContainer table{margin: 0px; width: 350px;}
+.tabContainer table,th,td{border-collapse: collapse;}
+.scrollContainer table,th,td{border-collapse: collapse;}*/
+.scrollContainer th{border: 1px solid #000000;padding: 0px;}
+
+.scrollContainer table{
+    font: normal 12px tahoma,arial,serif;
+    width: 430px;
+    height: 80px;
+    overflow: auto;
+}
+.scrollContainer table tbody {
+  height: 60px;
+  overflow: scroll;
+}
+
+.tablebody .corpo{
+    float: left;
+    height: 80px;
+    width: 550px;
+    overflow: scroll;
 }

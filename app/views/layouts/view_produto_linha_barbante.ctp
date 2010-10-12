@@ -1,12 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <meta content="text/html; charset=UTF-8" http-equiv="content-type">		
+        <meta content="text/html; charset=UTF-8" http-equiv="content-type">
         <title>Bocazul</title>
 
         <!-- Padrão -->
         <link rel="stylesheet" href="<?php echo $this->webroot;?>css/default.css" type="text/css" />
         <link type="text/css" href="<?php echo $this->webroot;?>css/bocazumbk.css" rel="stylesheet" />
+        <link type="text/css" href="<?php echo $this->webroot;?>css/linhas.css" rel="stylesheet" />
         <link type="text/css" href="<?php echo $this->webroot;?>css/menu.css" rel="stylesheet" />
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.ui/jquery-ui-1.8.2.custom/js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/dropdown.js"></script>
@@ -35,7 +36,7 @@
                 <div class="topo"><br>
 
                 </div>
-                
+
 
 
                 <div id="menu">
@@ -94,8 +95,40 @@
                     <a href="<?php echo $this->webroot;?>users/login" style="color: blue;">Login</a>
                         <?php }?>
                     <div style="padding:8px">
-                        <?php echo $content_for_layout; ?>
-                        <?php echo $cakeDebug?>
+                        <div class="div_miolo">
+                            <div class="div_migalha_de_pao"><div class="div_linhas_a-d"></div>
+                                <span class="migalha_de_pao">Produtos  >  Linhas e Barbantes</span></div>
+
+                            <div class="div_linhas_1"><div class="div_linhas_a"></div>
+
+                                <div class="div_linhas_b">
+
+
+                                    <br> <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <span class="menu_lateral">
+                                    <?php $i=0;
+                                    foreach ($produtos as $value) :
+                                        if($i==4)
+                                            echo '<br/><br/><br/><br/><br/>';
+                                        echo '<a href="'.$this->webroot.'produtos/client_view/'.$value['Produto']['id'].'">'.$value['Produto']['descricao_abreviada'].'</a><br>';
+                                        $i++;
+                                 endforeach;?>
+                                    </span>
+                                </div>
+
+
+                                <div class="div_linhas_f"></div>
+                                <div class="div_linhas_a2"></div>
+                                <div style="padding:8px">
+                                    <?php echo $content_for_layout; ?>
+                                </div>
+                            </div>
+                            <?php echo $cakeDebug?>
+                        </div>
+
 
                     </div>
                 </div>

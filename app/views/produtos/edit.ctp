@@ -21,7 +21,7 @@
         reload();
 
         $().ajaxStart(function() {
-            $('#dialog').html("<div style='text-align:center;' ><img src='<?php echo $this->webroot;?>/img/ajax-loader.gif'/></div>");
+            $('#dialog').html("<div style='text-align:center;' ><img src='<?php echo $this->webroot;?>img/ajax-loader.gif'/></div>");
             $('#dialog').dialog('open');
         });
 
@@ -109,6 +109,11 @@
             echo $jquery->input('id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('codigo',array('class'=>'validateRequired validateNumeric','label'=>'Código*','alt'=>'Código','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('descricao',array('class'=>'validateRequired', 'label'=>'Descrição*', 'alt'=>'Descrição','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('descricao_abreviada',array('class'=>'validateRequired', 'label'=>'Descrição Abreviada*', 'alt'=>'Descrição Abreviada','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('composicao',array('class'=>'validateRequired','alt'=>'Composição', 'label'=>'Composição*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('utilizacao',array('type'=>'textarea','rows'=>3,'class'=>'validateRequired','alt'=>'Utilização', 'label'=>'Utilização*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('distribuicao',array('type'=>'textarea','rows'=>3,'class'=>'validateRequired','alt'=>'Distribuição', 'label'=>'Distribuição*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('resumo_tecnico',array('type'=>'textarea','rows'=>5,'class'=>'validateRequired','alt'=>'Resumo técnico', 'label'=>'Resumo técnico*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('grupo_id',array('empty'=>'Selecione','class'=>'validateRequired', 'label'=>'Grupo*', 'alt'=>'Grupo','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 
             echo $jquery->input('pacote',array('type'=>'hidden','name'=>'data[Preco][0][pacote]','value'=>$this->data['Preco'][0]['pacote'],'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
