@@ -43,6 +43,7 @@ class AppController extends Controller {
     var $paginate = array('limit' => 10);
     var $redirect = "";
     var $components = array('Session','Auth','Email');
+    var $helpers = array('Jquery');
 
     function beforeFilter() {
         Security::setHash('sha1'); // substitua pelo hash que está usando
@@ -169,29 +170,170 @@ class AppController extends Controller {
         }
     }
 
+
     function delete($id = null) {
         $this->getInst();
         if (!$id) {
             $this->Session->setFlash(__('Identificador inválido para '.$this->modelClass, true));
             $this->redirect($this->getRedirect());
         }
-        if ($this->Model->del($id)) {
-            $this->Session->setFlash(__($this->modelClass.' Excluido', true));
-            $this->redirect($this->getRedirect());
+
+        $name = $this->modelClass;
+
+        if(array_key_exists('ativo' ,$this->$name->_schema)) {
+
+            //Verifica se o Objeto tem alguma relação que impeça de ser excluido do banco de dados.
+            //Caso tenha, ele é inativado (Fazendo um update e passando false no campo ativo do banco).
+
+            $foreignKey = strtolower($name) . "_id";
+            $belongsTo = $this->verificaRelacaoBelongsTo($id, $name, $foreignKey);
+            $hasMany = $this->verificaRelacaoHasMany($id, $name);
+            $hasAndBelongsToMany = $this->verificaRelacaoHABTM($id, $name);
+
+
+            if($hasMany || $hasAndBelongsToMany || $belongsTo) {
+                $dados = array($name=>array('id'=>$id, 'ativo'=>0));
+                if ($this->Model->save($dados)) {
+                    $this->Session->setFlash(__($name.' Excluido', true));
+                    $this->redirect($this->getRedirect());
+                }
+            }else {
+                if ($this->Model->del($id)) {
+                    $this->Session->setFlash(__($name.' Excluido', true));
+                    $this->redirect($this->getRedirect());
+                }
+            }
+        }else {
+            if ($this->Model->del($id)) {
+                $this->Session->setFlash(__($name.' Excluido', true));
+                $this->redirect($this->getRedirect());
+            }
         }
+
+//        if ($this->Model->del($id)) {
+//            $this->Session->setFlash(__($this->modelClass.' Excluido', true));
+//            $this->redirect($this->getRedirect());
+//        }
     }
 
-    function deleteselected($id = null) {
+    function deleteselected($ids = null) {
         $this->getInst();
-        if (!$id) {
+        if (!$ids) {
             $this->Session->setFlash(__('Identificador inválido para '.$this->modelClass, true));
             $this->redirect($this->getRedirect());
         }
+        $ids = explode(',', $ids);
+        $excluidos = 0;
+        foreach ($ids as $id) {
 
-        if ($this->Model->deleteAll($this->modelClass.".".$this->Model->primaryKey." in (".$id.")")) {
+            $name = $this->modelClass;
+            if(array_key_exists('ativo' ,$this->$name->_schema)) {
+
+                //Verifica se o Objeto tem alguma relação que impeça de ser excluido do banco de dados.
+                //Caso tenha, ele é inativado (Fazendo um update e passando false no campo ativo do banco).
+                $foreignKey = strtolower($name) . "_id";
+                $belongsTo = $this->verificaRelacaoBelongsTo($id, $name, $foreignKey);
+                $hasMany = $this->verificaRelacaoHasMany($id, $name);
+                $hasAndBelongsToMany = $this->verificaRelacaoHABTM($id, $name);
+
+                if($hasMany || $hasAndBelongsToMany || $belongsTo) {
+                    $dados = array($name=>array('id'=>$id, 'ativo'=>false));
+                    if ($this->Model->save($dados)) {
+                        $excluidos++;
+                    }
+                }else {
+                    if ($this->Model->del($id)) {
+                        $excluidos++;
+                    }
+                }
+            }else{
+                if ($this->Model->del($id)) {
+                    $excluidos++;
+                }
+            }
+        }
+
+        if ($excluidos == 1) {
+            $this->Session->setFlash(__('Registro excluido com sucesso', true));
+            $this->redirect($this->getRedirect());
+        }
+        else if ($excluidos > 1) {
             $this->Session->setFlash(__('Registros excluidos com sucesso', true));
             $this->redirect($this->getRedirect());
         }
+        else {
+            $this->Session->setFlash(__('Registros não excluidos', true));
+            $this->redirect($this->getRedirect());
+        }
+//
+//        if (!$id) {
+//            $this->Session->setFlash(__('Identificador inválido para '.$this->modelClass, true));
+//            $this->redirect($this->getRedirect());
+//        }
+//
+//        if ($this->Model->deleteAll($this->modelClass.".".$this->Model->primaryKey." in (".$id.")")) {
+//            $this->Session->setFlash(__('Registros excluidos com sucesso', true));
+//            $this->redirect($this->getRedirect());
+//        }
+    }
+
+    //Função para verificar se Formatos tem relacionamentos hasMany.
+    function verificaRelacaoHasMany($id, $name) {
+        $this->layout = ' ';
+        $this->$name->recursive = 2;
+        if(!empty($this->$name->hasMany)) {
+            foreach ($this->$name->hasMany as $hasMany) {
+                $campo = $hasMany['foreignKey'];
+                $tabela = $hasMany['className'];
+                if ($name == $tabela) {
+                    $tabela = $this->$tabela->useTable;
+                }else {
+                    $tabela = $this->$name->$tabela->useTable;
+                }
+                $quantidadeRelacao = $this->$name->verificarRelacao($campo, $tabela, $id);
+                if ($quantidadeRelacao > 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //Função para verificar se Formatos tem relacionamentos $hasAndBelongsToMany.
+    function verificaRelacaoHABTM($id, $name) {
+        $this->layout = ' ';
+        $this->$name->recursive = 2;
+        if(!empty($this->$name->hasAndBelongsToMany)) {
+            foreach ($this->$name->hasAndBelongsToMany as $hasAndBelongsToMany) {
+                $campo = $hasAndBelongsToMany['foreignKey'];
+                $tabela = $hasAndBelongsToMany['joinTable'];
+                $quantidadeRelacao = $this->$name->verificarRelacao($campo, $tabela, $id);
+                if ($quantidadeRelacao > 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //Função para verificar se Formatos tem relacionamentos $belongsTo.
+    function verificaRelacaoBelongsTo($id, $name, $campo2) {
+        $this->layout = ' ';
+        $this->$name->recursive = 2;
+
+        if(!empty($this->$name->belongsTo)) {
+            foreach ($this->$name->belongsTo as $belongsTo) {
+                $campo = $belongsTo['foreignKey'];
+                if($campo == $campo2) {
+                    $tabela = $belongsTo['className'];
+                    $tabela = $this->$name->useTable;
+                    $quantidadeRelacao = $this->$name->verificarRelacao($campo, $tabela, $id);
+                    if ($quantidadeRelacao > 0) {
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /*

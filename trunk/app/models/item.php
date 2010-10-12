@@ -21,6 +21,22 @@ class Item extends AppModel {
                 )
     );
 
+    var $hasMany = array(
+            'ItensPedido' => array(
+                            'className' => 'ItensPedido',
+                            'foreignKey' => 'item_id',
+                            'dependent' => false,
+                            'conditions' => '',
+                            'fields' => '',
+                            'order' => '',
+                            'limit' => '',
+                            'offset' => '',
+                            'exclusive' => '',
+                            'finderQuery' => '',
+                            'counterQuery' => ''
+            )
+        );
+
     function beforeFind($query) {
         $new_conditions = array('Item.ativo'=>true);
         if(!empty ($query['conditions'])) {

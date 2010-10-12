@@ -57,7 +57,7 @@ class Produto extends AppModel {
                             'className' => 'Item',
                             'foreignKey' => 'produto_id',
                             'dependent' => false,
-                            'conditions' => '',
+                            'conditions' => 'ativo = true',
                             'fields' => '',
                             'order' => '',
                             'limit' => '',
@@ -143,6 +143,21 @@ class Produto extends AppModel {
             $query['conditions'] = $new_conditions;
 
         return $query;
+    }
+
+    function getIdsCoresByProduto($id){
+        $valores = '';
+        $retorno = $this->query("
+            SELECT c.id FROM produtos p
+            LEFT JOIN itens ip on (ip.produto_id = p.id)
+            LEFT JOIN cores c on (ip.cor_id = c.id)
+            WHERE c.ativo = true AND ip.ativo = true AND p.ativo = true AND p.id = $id");
+        foreach ($retorno as $key => $value) {
+            $valores .= $value[0]['id'] . ',';
+        }
+
+        $valores = substr($valores,0,-1);
+        return $valores;
     }
 
 }

@@ -34,8 +34,13 @@
         <table cellspacing="0" class="details">
             <tr><td class="left"><?php __('Id'); ?></td><td class="right">
                     <?php echo $produto['Produto']['id']; ?></td></tr>		<tr><td class="left"><?php __('Codigo'); ?></td><td class="right">
-                    <?php echo $produto['Produto']['codigo']; ?></td></tr>		<tr><td class="left"><?php __('Descricao'); ?></td><td class="right">
-                    <?php echo $produto['Produto']['descricao']; ?></td></tr>		<tr><td class="left"><?php __('Grupo Id'); ?></td><td class="right">
+                    <?php echo $produto['Produto']['codigo']; ?></td></tr>		<tr><td class="left"><?php __('Descricao Abreviada'); ?></td><td class="right">
+                    <?php echo $produto['Produto']['descricao_abreviada']; ?></td></tr>		<tr><td class="left"><?php __('Descricao'); ?></td><td class="right">
+                    <?php echo $produto['Produto']['descricao']; ?></td></tr>		<tr><td class="left"><?php __('Composição'); ?></td><td class="right">
+                    <?php echo $produto['Produto']['composicao']; ?></td></tr>		<tr><td class="left"><?php __('Utilizacao'); ?></td><td class="right">
+                    <?php echo $produto['Produto']['utilizacao']; ?></td></tr>		<tr><td class="left"><?php __('Distribuicao'); ?></td><td class="right">
+                    <?php echo $produto['Produto']['distribuicao']; ?></td></tr>		<tr><td class="left"><?php __('Resumo tecnico'); ?></td><td class="right">
+                    <?php echo $produto['Produto']['resumo_tecnico']; ?></td></tr>		<tr><td class="left"><?php __('Grupo'); ?></td><td class="right">
                     <?php echo $produto['Grupo']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Pacote'); ?></td><td class="right">
                     <?php echo $produto['Preco'][0]['pacote']; ?></td></tr>		<tr><td class="left"><?php __('Caixa'); ?></td><td class="right">
                     <?php echo $produto['Produto']['caixa']; ?></td></tr>		<tr><td class="left"><?php __('Peso Bruto'); ?></td><td class="right">

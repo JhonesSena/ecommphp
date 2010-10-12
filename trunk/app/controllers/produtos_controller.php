@@ -4,7 +4,7 @@ class ProdutosController extends AppController {
     var $name = 'Produtos';
     var $helpers = array('Html', 'Form', 'Jquery');
     var $components = array('Upload');
-    var $uses = array('Produto', 'Imagem');
+    var $uses = array('Produto', 'Imagem', 'Cor');
     var $paginate = array(
             'limit'=>10,
             'order'=>array('Produto.descricao'=>'asc')
@@ -150,6 +150,30 @@ class ProdutosController extends AppController {
         foreach ($backup as $key => $back) {
             unlink($path.'/'.$back);
         }
+    }
+
+    function client_view($id = null){
+        $this->layout = 'view_produto_linha_barbante';
+        $this->Cor->recursive = -1;
+        $cores = $this->Cor->find('all', array('conditions'=>array('ativo'=>true)));
+
+        $contain = array('Item');
+        $conditions = array('Produto.ativo'=>true);
+        $produtos = $this->Produto->find('all', array('contain'=>$contain,'conditions'=>$conditions));
+
+        $contain = array('Item'=>array('Cor'), 'Imagem');
+        if(!empty($id)){
+            $conditions = array('Produto.id'=>$id);
+            $produto = $this->Produto->find('first', array('contain'=>$contain,'conditions'=>$conditions));
+            
+            $coresIds = explode(',',$this->Produto->getIdsCoresByProduto($id));
+            $cores = $this->Cor->find('all', array('conditions'=>array('Cor.id'=>$coresIds)));
+        }else{
+            $produto = $this->Produto->find('first', array('contain'=>$contain));
+            $coresIds = explode(',',$this->Produto->getIdsCoresByProduto($produto['Produto']['id']));
+            $cores = $this->Cor->find('all', array('conditions'=>array('Cor.id'=>$coresIds)));
+        }
+        $this->set(compact('produtos', 'produto', 'cores'));
     }
 
 }

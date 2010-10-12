@@ -38,7 +38,7 @@
  */
 class AppModel extends Model {
     var $displayField = 'nome';
-    var $actsAs   = array('transaction');
+    var $actsAs   = array('transaction', 'Containable');
 
 
     function formataDateTime($dateTime) {
@@ -62,5 +62,10 @@ class AppModel extends Model {
 //        }
 //        return $data . " " . $hora[0] . ":" . $hora[1] . ":" . $hora[2];
 //    }
+
+    public function verificarRelacao($campo, $tabela, $id) {
+        $retorno = $this->query("SELECT COUNT(id) FROM ". $tabela ." WHERE  $campo  =  $id");
+        return $retorno[0][0]['count'];
+    }
 }
 ?>
