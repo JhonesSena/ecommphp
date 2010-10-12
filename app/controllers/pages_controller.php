@@ -53,7 +53,7 @@ class PagesController extends AppController {
      * @var array
      * @access public
      */
-    var $uses = array();
+    var $uses = array('Cor');
     /**
      * Displays a view
      *
@@ -78,7 +78,14 @@ class PagesController extends AppController {
         if (!empty($path[$count - 1])) {
             $title = Inflector::humanize($path[$count - 1]);
         }
-        $this->set(compact('page', 'subpage', 'title'));
+        
+        $this->Cor->recursive = -1;
+        $cores = $this->Cor->find('all', array('conditions'=>array('ativo'=>true)));
+
+        if($page == 'home')
+            $this->layout = 'apresentacao';
+        
+        $this->set(compact('page', 'subpage', 'title', 'cores'));
         $this->render(join('/', $path));
     }
 

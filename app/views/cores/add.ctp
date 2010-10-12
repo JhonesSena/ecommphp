@@ -42,6 +42,7 @@
 		        
         <table cellspacing="0" class="details">
         	<?php
+		echo $jquery->input('codigo',array('class'=>'validateRequired', 'alt'=>'Código', 'label'=>'Código*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('nome',array('class'=>'validateRequired', 'alt'=>'Nome', 'label'=>'Nome*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('diretorio',array('class'=>'validateRequired validateFileExtension', 'alt'=>'Arquivo', 'label'=>'Arquivo*','type'=>'file','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('ativo',array('type'=>'hidden', 'value'=>1,'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));

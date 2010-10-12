@@ -421,7 +421,7 @@ class JqueryHelper extends FormHelper {
 						dateFormat: \'dd/mm/yy\',
 						minDate: new Date('.$data[2].','.$data[1].','.$data[0].'), 
 						dayNamesMin: [\'Do\', \'Se\', \'Te\', \'Qu\', \'Qi\', \'Se\', \'Sa\'],
-						monthNames: [\'Janeiro\',\'Fevereiro\',\'Março\',\'Abril\',\'Maio\',\'Junho\',\'Julho\',\'Agosto\',\'Setembro\',\'Outubro\',\'Novembro\',\'Dezembro\'],
+						monthNames: [\'Janeiro\',\'Fevereiro\',\'Marï¿½o\',\'Abril\',\'Maio\',\'Junho\',\'Julho\',\'Agosto\',\'Setembro\',\'Outubro\',\'Novembro\',\'Dezembro\'],
 						}	
 					);
                     ';
@@ -522,6 +522,25 @@ class JqueryHelper extends FormHelper {
 			$select[] = $this->Html->tags[$template];
 			return $this->output(implode("\n", $select));
 		}
+
+                function adobeFlash($webroot, $arquivo, $title, $width, $height, $quality = 'hight'){
+                    $explode = explode('.', $arquivo);
+                    $nome = $explode[0];
+                    $object = "<script type='text/javascript' src='".$webroot."js/AC_RunActiveContent.js'></script>";
+//                    $object .=
+//                      "<script>
+//                            AC_FL_RunContent('codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0','width','$width','height','$height','title','$title','src','$webroot$nome','quality','high','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','movie','$webroot$nome'); //end AC code
+//                        </script>";
+                    $object .= "
+                            <object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'
+                                    codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0' width='$width' height='$height' title='$title'>
+                                <param name='movie' value='$webroot$arquivo'>
+                                <param name='quality' value='$quality'>
+                                <embed src='$webroot$arquivo' quality='high' pluginspage='http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash' type='application/x-shockwave-flash' width='$width' height='$height'></embed>
+                            </object>";
+
+                    return $object;
+                }
     
     }
 ?>

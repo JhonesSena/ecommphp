@@ -5,7 +5,7 @@ class PedidosController extends AppController {
 
     var $name = 'Pedidos';
     var $helpers = array('Html', 'Form', 'Jquery');
-    var $uses = array('Pedido','ItensPedido', 'Preco', 'ClientePedido');
+    var $uses = array('Pedido','ItensPedido', 'Preco', 'ClientePedido', 'Cedente');
     var $paginate = array(
             'order'=>array('Pedido.id'=>'desc'),
             'joins'=>array(
@@ -125,7 +125,10 @@ class PedidosController extends AppController {
             }
         }
         $clienteSession = $this->Session->read('Cliente');
-        $frete = $this->calculaFrete('40010', '42700000', $clienteSession['Cliente']['cep'], ($totalPeso/1000));
+        $this->Cedente->recursive = 0;
+        $cedente = $this->Cedente->find('first', array('conditions'=>array('Cedente.ativo'=>true)));
+        $frete = $this->calculaFrete('40010', $cedente['Cliente']['cep'], $clienteSession['Cliente']['cep'], ($totalPeso/1000));
+        
         if(!isset($frete['calculo_precos']['erro']['codigo'])) {
             $frete['calculo_precos']['erro']['codigo'] = '7';
             $frete['calculo_precos']['erro']['descricao'] = 'Não foi possível conectar ao serviço do correio.';
@@ -137,32 +140,34 @@ class PedidosController extends AppController {
 
         $this->data['Pedido']['valor_frete'] = $frete;
         $this->data['Pedido']['situacao_pedido_id'] = 2;
-
+        
         if (!empty($this->data)) {
-            $this->Pedido->begin();
-            $this->Pedido->create();
-            if ($this->Pedido->saveAll($this->data, array('atomic'=>false, 'validate'=>'first'))) {
-                $idPedido = $this->Pedido->id;
-                $this->data['ClientePedido']['cliente_id'] = $clienteSession['Cliente']['id'];
-                $this->data['ClientePedido']['pedido_id'] = $idPedido;
-                unset($this->data['Pedido']);
-                unset($this->data['ItensPedido']);
-                if($this->ClientePedido->save($this->data)){
-                    $this->Pedido->commit();
-                    $this->Session->setFlash(__('O Pedido foi finalizado com sucesso!', true));
-                    $this->Session->del('carrinho');
-                    $this->redirect(array('action'=>'view', $idPedido));
-                }
-                else{
-                    $this->Pedido->rollback();
+            if(empty($errosFrete['codigo'])){
+                $this->Pedido->begin();
+                $this->Pedido->create();
+                if ($this->Pedido->saveAll($this->data, array('atomic'=>false, 'validate'=>'first'))) {
+                    $idPedido = $this->Pedido->id;
+                    $this->data['ClientePedido']['cliente_id'] = $clienteSession['Cliente']['id'];
+                    $this->data['ClientePedido']['pedido_id'] = $idPedido;
+                    unset($this->data['Pedido']);
+                    unset($this->data['ItensPedido']);
+                    if($this->ClientePedido->save($this->data)){
+                        $this->Pedido->commit();
+                        $this->Session->setFlash(__('O Pedido foi finalizado com sucesso!', true));
+                        $this->Session->del('carrinho');
+                        $this->redirect(array('action'=>'view', $idPedido));
+                    }
+                    else{
+                        $this->Pedido->rollback();
+                        $this->Session->setFlash(__('O Pedido não pôde ser finalizado. Por favor, tente novamente.', true));
+                        $this->redirect(array('controller'=>'shopps','action'=>'carrinho', 'true'));
+                    }
+                }else{
                     $this->Session->setFlash(__('O Pedido não pôde ser finalizado. Por favor, tente novamente.', true));
-                    $this->redirect(array('controller'=>'shopps','action'=>'carrinho', 'true'));
                 }
-                
-
             } else {
                 $this->Pedido->rollback();
-                $this->Session->setFlash(__('O Pedido não pôde ser finalizado. Por favor, tente novamente.', true));
+                $this->Session->setFlash(__('O Pedido não pôde ser finalizado, devido a um erro no cálculo de frete. Por favor, tente novamente.', true));
                 $this->redirect(array('controller'=>'shopps','action'=>'carrinho', 'true'));
             }
         }

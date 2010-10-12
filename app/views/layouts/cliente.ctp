@@ -43,11 +43,11 @@
                         <li>
                             <a href="<?php echo $this->webroot;?>shopps/index"><span>Home</span></a>
                         </li>
-                        <li><a href="http://www.bocazul.com.br/empresas.html"><span>Empresa</span></a></li>
+                        <li><a href="<?php echo $this->webroot;?>pages/empresas"><span>Empresa</span></a></li>
                         <li><a href="#"><span>Produtos</span></a>
                             <ul>
                                 <li>
-                                    <a href="http://www.bocazul.com.br/linhas_e_barbantes.html"><span>Linhas e Barbantes</span></a>
+                                    <a href="<?php echo $this->webroot;?>pages/linhas_e_barbantes"><span>Linhas e Barbantes</span></a>
                                 </li>
                                 <li>
                                     <a href="http://www.bocazul.com.br/limpeza.html"><span>Produto de Limpeza</span></a>
