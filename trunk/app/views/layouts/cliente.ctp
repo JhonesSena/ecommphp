@@ -22,7 +22,7 @@
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.trule-min.js"></script>
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/messages.pt-br.js"></script>
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/validate.js"></script>
-        <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.dualListBox-1.0.1.min.js"></script>
+        <!--script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.dualListBox-1.0.1.min.js"></script-->
 
 
     </head>

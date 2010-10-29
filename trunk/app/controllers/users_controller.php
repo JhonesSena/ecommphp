@@ -28,6 +28,7 @@ class UsersController extends AppController {
 
     function logout() {
         $this->Session->delete('Cliente');
+        $this->Session->delete('carrinho');
         $this->Auth->logout();
         $this->redirect(array('action'=>'login'));
 //        print_r($this->Auth);
