@@ -116,7 +116,7 @@ class ShoppsController extends AppController {
                     $totalSemDesconto += number_format($preco, 2) * $somaItens ;
                     $totalProduto += $subtotal;
                 }
-                $clienteSession = $this->Session->read('Cliente');
+                $clienteSession = $this->Session->read('Usuario');
 
                 $this->Cedente->recursive = 0;
                 $cedente = $this->Cedente->find('first', array('conditions'=>array('Cedente.ativo'=>true)));

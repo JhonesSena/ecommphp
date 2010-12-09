@@ -86,6 +86,7 @@ div#menu a {
 }
 div#menu span {
     margin-top: 5px;
+    margin-left: -4px;
 }/**@replace#1*/
 div#menu li { background: none; }
 div#menu li.last { background: none; }

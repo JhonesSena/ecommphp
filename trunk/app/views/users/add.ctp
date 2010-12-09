@@ -4,6 +4,38 @@
     $(function(){
         $('#tabpanel').tabs();
     });
+    
+    $(document).ready(function() {
+        $("form").submit(function(){
+            return verificaValidacao();
+        });
+    });
+    
+    function verificaValidacao(){
+
+        $('#msgerroData').remove();
+        var retorno = true;
+
+        var string = "<ul id='msgerroData'>";
+
+        if($("#senhaId").val()!=$("#senhaConfirmId").val()){
+            string = string + "<li>A confirmação de senha não coincidem.</li>";
+            retorno = false;
+        }
+
+        if(retorno == false){
+            string = string + "</ul>";
+            $('#msgerro').append(string);
+            $('#msgerro').show();
+        }
+
+        if($('#msgerro').text() == ""){
+            $('#msgerro').hide();
+        }
+
+        return retorno;
+
+    }
 </script>
 
 <div class="toolbar">
@@ -12,7 +44,7 @@
 <div id="tabpanel">
     <ul>
         <li>
-			<a href="#tab1"><span><?php echo __("Novo User",true) ?></span></a>
+			<a href="#tab1"><span><?php echo __("Novo Usuário",true) ?></span></a>
 			</li>
 	
     </ul>
@@ -42,9 +74,11 @@
 		        
         <table cellspacing="0" class="details">
         	<?php
-		echo $jquery->input('password',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('group_id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-		echo $jquery->input('username',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('username',array('class'=>'validateRequired','label'=>'Usuário*','alt'=>'Usuário','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('password',array('id'=>'senhaId','class'=>'validateRequired','label'=>'Senha*','alt'=>'Senha','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('password_confirm',array('type'=>'password','id'=>'senhaConfirmId','label'=>'Confirmar Senha*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('group_id',array('class'=>'validateRequired','label'=>'Grupo de Acesso*','alt'=>'Grupo de Acesso','empty'=>'Selecione','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('ativo',array('type'=>'hidden', 'value'=>1,'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 	?>
         <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
                 </tr>

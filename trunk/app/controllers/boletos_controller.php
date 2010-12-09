@@ -74,7 +74,7 @@ class BoletosController extends AppController {
         $p->constructClasses();
 
         $valor = $p->view($id);
-        $clienteSession = $this->Session->read('Cliente');
+        $clienteSession = $this->Session->read('Usuario');
         $options = array();
         $options['fields'] = array('Cedente.id', 'Cedente.conta_corrente','Cedente.agencia_id', 'Cedente.bloqueto_id',
                 'Cliente.id','Cliente.telefone', 'Cliente.email', 'Cliente.logradouro',

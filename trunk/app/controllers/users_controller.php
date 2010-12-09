@@ -3,7 +3,12 @@ class UsersController extends AppController {
 
     var $name = 'Users';
     var $helpers = array('Html', 'Form', 'Jquery');
-    var $uses = array('User', 'Cliente');
+    var $uses = array('User', 'Cliente','Permissao');
+
+    function index() {
+        $this->User->recursive = 0;
+        $this->set('users', $this->paginate(array('User.ativo'=>true, 'User.group_id'=>1)));
+    }
 
     function beforeFilter () {
         // executa o beforeFilter do AppController
@@ -14,11 +19,31 @@ class UsersController extends AppController {
         $this->Auth->allow('edit');
         if(!empty($this->data)){
             if(isset($this->data['User']['username'])){
-                $usuario = $this->Cliente->find('first', array('conditions'=>array('Cliente.email'=>$this->data['User']['username'])));
-                $this->Session->write('Cliente',$usuario);
+                $usuario = $this->User->find('first', array('conditions'=>array('User.username'=>$this->data['User']['username'])));
+                if(!empty($usuario['Group']['id'])){
+                    $joins = array(
+                                 array('table' => 'groups_permissoes',
+                                 'alias' => 'GroupsPermissao',
+                                 'type' => 'LEFT',
+                                 'conditions' => array(
+                                 'Permissao.id = GroupsPermissao.permissao_id',
+                                )
+                        ));
+                    $permissoes = $this->Permissao->find('list',array('joins'=>$joins,'fields'=>array('Permissao.nome'),'conditions'=>array('GroupsPermissao.group_id'=>$usuario['Group']['id'])));
+
+                    $telas = array();
+                    if(!empty($permissoes)){
+                        foreach ($permissoes as $permissao) {
+                            $telas[$permissao] = true;
+                        }
+                        $telas['users/login'] = true;
+                        $telas['users/logout'] = true;
+                    }
+                    $this->Session->write('UserTelas',$telas);
+                }
+                $this->Session->write('Usuario',$usuario);               
             }
         }
-//        print_r($this->Auth);
     }
 
     function login() {
@@ -27,8 +52,9 @@ class UsersController extends AppController {
     }
 
     function logout() {
-        $this->Session->delete('Cliente');
+        $this->Session->delete('Usuario');
         $this->Session->delete('carrinho');
+        $this->Session->delete('UserTelas');
         $this->Auth->logout();
         $this->redirect(array('action'=>'login'));
 //        print_r($this->Auth);
@@ -49,8 +75,6 @@ class UsersController extends AppController {
             }
             else
                 $this->data = $this->Cliente->find('first', array('conditions'=>array('User.autenticacao'=>$hash)));
-//            $this->data['User']['password'] = null;
-//            print_r($this->data);
         }
         else{
             if($this->data){
@@ -73,5 +97,23 @@ class UsersController extends AppController {
             }
         }
     }
+
+    function edit_user($id = null) {
+		if (!$id && empty($this->data)) {
+			$this->Session->setFlash(__('Usuário inválido.', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if (!empty($this->data)) {
+			if ($this->User->save($this->data)) {
+				$this->Session->setFlash(__('O Usuário foi salvo com sucesso!', true));
+				$this->redirect(array('action'=>'index'));
+			} else {
+				$this->Session->setFlash(__('O Usuário não pôde ser salvo. Por favor, tente novamente.', true));
+			}
+		}
+		if (empty($this->data)) {
+			$this->data = $this->User->read(null, $id);
+		}
+	}
 }
 ?>

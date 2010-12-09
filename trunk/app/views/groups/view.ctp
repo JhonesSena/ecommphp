@@ -23,55 +23,61 @@
 
 <div id="tabpanel">
     <ul>
-        <li><a href="#tab1"><span><?php echo __("Visualizar Group",true) ?></span></a></li><li><a href="#tab2"><span>Useres</span></a></li></ul>
+        <li><a href="#tab1"><span><?php echo __("Visualizar Grupo de Acesso",true) ?></span></a></li>
+        <?php if(!empty($group['Permissao'])):?><li><a href="#tab2"><span><?php echo __("Permissões",true) ?></span></a></li><?php endif;?>
+    </ul>
     <div id="tab1">
         <table cellspacing="0" class="details">
             		<tr><td class="left"><?php __('Id'); ?></td><td class="right">		
-			<?php echo $group['Group']['id']; ?></td></tr>		<tr><td class="left"><?php __('Name'); ?></td><td class="right">		
-			<?php echo $group['Group']['name']; ?></td></tr>		<tr><td class="left"><?php __('Created'); ?></td><td class="right">		
-			<?php echo $group['Group']['created']; ?></td></tr>		<tr><td class="left"><?php __('Modified'); ?></td><td class="right">		
-			<?php echo $group['Group']['modified']; ?></td></tr>            
+			<?php echo $group['Group']['id']; ?></td></tr>		<tr><td class="left"><?php __('Nome'); ?></td><td class="right">
+			<?php echo $group['Group']['name']; ?></td></tr>		<tr><td class="left"><?php __('Ativo'); ?></td><td class="right">
+			<?php if($group['Group']['ativo']==1) echo 'Sim'; else echo 'Não'; ?></td></tr>
             
         </table>
     </div>
     
-    
-            
-    <div id="tab2">
-            <?php if (!empty($group['User'])):?>
-            <table id="myTable2" class="tablesorter" cellspacing="1"> 
-            <thead> 
-               <tr>
-                <th><?php __('Id'); ?></th><th><?php __('Password'); ?></th><th><?php __('Group Id'); ?></th><th><?php __('Username'); ?></th><th><?php __('Created'); ?></th><th><?php __('Modified'); ?></th>                </tr>
-            </thead> 
-            <tfoot> 
-                <tr>
-                <th><?php __('Id'); ?></th><th><?php __('Password'); ?></th><th><?php __('Group Id'); ?></th><th><?php __('Username'); ?></th><th><?php __('Created'); ?></th><th><?php __('Modified'); ?></th>                </tr>
-            </tfoot> 
-            <tbody>
-    <?php
-                    $i = 0;
-                    foreach ($group['User'] as $user):
-                            $class = null;
-                            if ($i++ % 2 == 0) {
-                                    $class = ' class="altrow"';
-                            }
-                    ?>
-<tr<?php echo $class;?>><td><?php echo $user['id'];?></td>
-<td><?php echo $user['password'];?></td>
-<td><?php echo $user['group_id'];?></td>
-<td><?php echo $user['username'];?></td>
-<td><?php echo $user['created'];?></td>
-<td><?php echo $user['modified'];?></td>
-</tr>
-	<?php endforeach;?>            </tbody>
-            </table>
-    <?php endif; ?>
 
-            
-    
-    </div>
-        
-    
-    
+    <?php if(!empty($group['Permissao'])):?>
+        <div id="tab2">
+            <table id="myTable" class="tablesorter" cellspacing="1">
+                <thead>
+                   <tr>
+                                            <th>Nome</th>
+                                            <th>Descrição</th>
+                                            <th>Ativo</th>
+                                        </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                                            <th>Nome</th>
+                                            <th>Descrição</th>
+                                            <th>Ativo</th>
+                                        </tr>
+                </tfoot>
+                <tbody>
+                <?php
+                $i = 0;
+                foreach ($group['Permissao'] as $permissao):
+                        $class = null;
+                        if ($i++ % 2 == 0) {
+                                $class = ' class="altrow"';
+                        }
+                ?>
+            <tr<?php echo $class;?>>
+                    <td>
+                            <?php echo $permissao['nome']; ?>
+                    </td>
+                    <td>
+                            <?php echo $permissao['descricao']; ?>
+                    </td>
+                    <td>
+                            <?php if($permissao['ativo']==1) echo 'Sim';else echo 'Não'; ?>
+                    </td>
+            </tr>
+    <?php endforeach; ?>
+
+                </tbody>
+            </table>
+        </div>
+    <?php endif;?>
 </div>
