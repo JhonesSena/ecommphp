@@ -1,7 +1,7 @@
 <?php echo $jquery->init_date('pt-br','01/01/2000'); ?>
-<script src="<?php echo $this->webroot;?>js/jquery.price_format.1.3.js" type="text/javascript"></script>
-<script src="<?php echo $this->webroot;?>js/jquery-1.2.6.pack" type="text/javascript"></script>
-<script src="<?php echo $this->webroot;?>js/jquery.maskedinput-1.1.4.pack.js" type="text/javascript"></script>
+<script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.price_format.1.3.js"></script>
+
+<script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.maskedinput-1.1.4.pack.js"></script>
 
 
 <script type="text/javascript">
@@ -23,6 +23,7 @@
         });
 
         $("#next1").click(function () {$('#tabpanel').tabs('option', 'selected', 1)});
+        $("#next2").click(function () {$('#tabpanel').tabs('option', 'selected', 2)});
     });
 
     $(document).ready(function(){
@@ -37,10 +38,13 @@
 <div id="tabpanel">
     <ul>
         <li>
-            <a href="#tab1"><span><?php echo __("Novo Produto",true) ?></span></a>
+            <a href="#tab1"><span><?php echo __("Produto",true) ?></span></a>
         </li>
         <li>
-            <a href="#tab2"><span><?php echo __("Imagem",true) ?></span></a>
+            <a href="#tab2"><span><?php echo __("Dados Técnicos",true) ?></span></a>
+        </li>
+        <li>
+            <a href="#tab3"><span><?php echo __("Imagem",true) ?></span></a>
         </li>
 
     </ul>
@@ -75,7 +79,17 @@
             echo $jquery->input('composicao',array('class'=>'validateRequired','alt'=>'Composição', 'label'=>'Composição*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('utilizacao',array('type'=>'textarea','rows'=>3,'class'=>'validateRequired','alt'=>'Utilização', 'label'=>'Utilização*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('distribuicao',array('type'=>'textarea','rows'=>3,'class'=>'validateRequired','alt'=>'Distribuição', 'label'=>'Distribuição*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-            echo $jquery->input('resumo_tecnico',array('type'=>'textarea','rows'=>5,'class'=>'validateRequired','alt'=>'Resumo técnico', 'label'=>'Resumo técnico*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('obs',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            ?>
+            <tr><td class="left"></td><td class="right"><input type="button" id="next1" value="Continuar" style="font-size:11px" class="formbtn btn_salvar"></td>
+            </tr>
+        </table>
+
+    </div>
+    <div id="tab2">
+
+        <table cellspacing="0" class="details">
+            <?php
             echo $jquery->input('grupo_id',array('empty'=>'Selecione','class'=>'validateRequired', 'label'=>'Grupo*', 'alt'=>'Grupo','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('pacote',array('name'=>'data[Preco][pacote]','class'=>'validateRequired validateNumeric', 'label'=>'Pacote*', 'alt'=>'Pacote','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('caixa',array('class'=>'validateRequired validateNumeric', 'label'=>'Caixa*', 'alt'=>'Caixa','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
@@ -84,16 +98,16 @@
             echo $jquery->input('cubagem',array('class'=>'validateRequired','label'=>'Cubagem*','alt'=>'Cubagem','id'=>'cubagem','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('preco',array('class'=>'validateRequired','name'=>'data[Preco][preco]','label'=>'Preço*', 'alt'=>'Preço','id'=>'preco','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('desconto_por_pacote',array('class'=>'validateRequired','name'=>'data[Preco][desconto_por_pacote]','label'=>'Desconto Pacote (%)*', 'alt'=>'Desconto Pacote','id'=>'desconto_por_pacote','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-            echo $jquery->input('obs',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('resumo_tecnico',array('type'=>'textarea','rows'=>5,'class'=>'validateRequired','alt'=>'Resumo técnico', 'label'=>'Resumo técnico*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('ativo',array('type'=>'hidden', 'value'=>1,'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             ?>
-            <tr><td class="left"></td><td class="right"><input type="button" id="next1" value="Continuar" style="font-size:11px" class="formbtn btn_salvar"></td>
+            <tr><td class="left"></td><td class="right"><input type="button" id="next2" value="Continuar" style="font-size:11px" class="formbtn btn_salvar"></td>
             </tr>
         </table>
 
     </div>
 
-    <div id="tab2">
+    <div id="tab3">
         <table cellspacing="0" class="details">
             <?php echo $jquery->input('Imagem.0',array('type'=>'file','label'=>'','error' => false,'div'=>false,'before' => '<tr><td class="left">Arquivo','after' => '</td></tr>','between' => '</td><td class="right" id="arquivo">'));?>
 

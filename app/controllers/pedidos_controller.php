@@ -23,7 +23,7 @@ class PedidosController extends AppController {
 
     function index() {
         $this->Pedido->recursive = 1;
-        $usuarioSession = $this->Session->read('Cliente');
+        $usuarioSession = $this->Session->read('Usuario');
         $pedidos = $this->paginate(array('ClientePedido.cliente_id'=>$usuarioSession['Cliente']['id']));
 //        print_r($pedidos);
         $this->set('pedidos', $pedidos);//array('ClientePedido.cliente_id'=>$clienteSession['Cliente']['id'], 'Pedido.ativo'=>true)
@@ -124,7 +124,7 @@ class PedidosController extends AppController {
                 }
             }
         }
-        $clienteSession = $this->Session->read('Cliente');
+        $clienteSession = $this->Session->read('Usuario');
         $this->Cedente->recursive = 0;
         $cedente = $this->Cedente->find('first', array('conditions'=>array('Cedente.ativo'=>true)));
         $frete = $this->calculaFrete('40010', $cedente['Cliente']['cep'], $clienteSession['Cliente']['cep'], ($totalPeso/1000));

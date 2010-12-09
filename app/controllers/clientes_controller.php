@@ -15,7 +15,7 @@ class ClientesController extends AppController {
 
     function index() {
         $this->Cliente->recursive = 0;
-        $usuarioSession = $this->Session->read('Cliente');
+        $usuarioSession = $this->Session->read('Usuario');
         $this->set('clientes', $this->paginate(array('Cliente.user_id is NOT NULL')));
     }
 

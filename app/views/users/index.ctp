@@ -37,7 +37,7 @@
 </script>
 
 <div class="toolbar">
-	<?php echo $html->link(__('Novo User',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>users/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
+	<?php echo $html->link(__('Novo Usuário',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>users/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
 	
 	<?
 	$total = $paginator->counter(array('format' => '%pages%', true));
@@ -61,31 +61,21 @@
 	</div>
 <div id="tabpanel">
     <ul>
-        <li><a href="#tab1"><span><?php echo __("Listar Users",true) ?></span></a></li>
+        <li><a href="#tab1"><span><?php echo __("Listar Usuários",true) ?></span></a></li>
     </ul>
     <div id="tab1">
 
         <table id="myTable" class="tablesorter" cellspacing="1"> 
             <thead> 
                <tr>
-				    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
-                                        <th><?php echo $paginator->sort('password');?></th>
-                                        <th><?php echo $paginator->sort('group_id');?></th>
-                                        <th><?php echo $paginator->sort('username');?></th>
-                                        <th><?php echo $paginator->sort('created');?></th>
-                                        <th><?php echo $paginator->sort('modified');?></th>
+                                        <th><?php echo $paginator->sort('usuario');?></th>
+                                        <th><?php echo $paginator->sort('grupo');?></th>
                                     </tr>
             </thead> 
             <tfoot> 
                 <tr>
-					<th style="width:20px"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
-                                        <th><?php echo $paginator->sort('password');?></th>
-                                        <th><?php echo $paginator->sort('group_id');?></th>
-                                        <th><?php echo $paginator->sort('username');?></th>
-                                        <th><?php echo $paginator->sort('created');?></th>
-                                        <th><?php echo $paginator->sort('modified');?></th>
+                                        <th><?php echo $paginator->sort('usuario');?></th>
+                                        <th><?php echo $paginator->sort('grupo');?></th>
                                     </tr>
             </tfoot> 
             <tbody> 
@@ -99,27 +89,13 @@
             ?>
 	<tr<?php echo $class;?>>
 
-						<td align="center" style="padding: 0px 0px 0px 0px">
-							<input type="checkbox" class="chk" value="<?=$user['User']['id']?>">
-						</td>
-							<td>
-			<?php echo $user['User']['id']; ?>
+                <td>
+                        <?php echo $html->link($user['User']['username'], array('action'=>'view', $user['User']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $user['User']['password']; ?>
+			<?php echo $user['Group']['name']; ?>
 		</td>
-		<td>
-			<?php echo $user['Group']['nome']; ?>
-		</td>
-		<td>
-			<?php echo $user['User']['username']; ?>
-		</td>
-		<td>
-			<?php echo $user['User']['created']; ?>
-		</td>
-		<td>
-			<?php echo $user['User']['modified']; ?>
-		</td>
+		
 	</tr>
 <?php endforeach; ?>
 

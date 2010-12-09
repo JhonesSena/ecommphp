@@ -80,8 +80,8 @@ class PagesController extends AppController {
         }
         
 
-        if($page == 'home')
-            $this->layout = 'apresentacao';
+        //if($page == 'home')
+            //$this->layout = 'apresentacao';
         
         
         $this->set(compact('page', 'subpage', 'title'));

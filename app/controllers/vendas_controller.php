@@ -94,7 +94,7 @@ class VendasController extends AppController {
                 $produtos[$result['Produto']['codigo']]['qtde'] = 1;
             }
             $this->Session->write('carrinho', $produtos);
-            print_r($this->Session->read('carrinho'));exit;
+            //print_r($this->Session->read('carrinho'));exit;
         }
 
 }

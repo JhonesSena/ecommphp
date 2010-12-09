@@ -43,7 +43,8 @@ class AppController extends Controller {
     var $paginate = array('limit' => 10);
     var $redirect = "";
     var $components = array('Session','Auth','Email');
-    var $helpers = array('Jquery');
+    var $helpers = array('Jquery', 'Menu');
+    var $autentication = false;
 
     function beforeFilter() {
         Security::setHash('sha1'); // substitua pelo hash que está usando
@@ -57,10 +58,61 @@ class AppController extends Controller {
         $this->Auth->loginError = "Login inválido."; // mensagem de erro
         $this->Auth->authError = "Área restrita, por favor faça login."; // mensagem de acesso restrito
         $this->Auth->userScope = array("User.ativo"=>true); //Somente usuários ativos
-        $clienteSession = $this->Session->read('Cliente');
+        $clienteSession = $this->Session->read('Usuario');
         $this->set(compact('clienteSession'));
-        if(empty($clienteSession['User']['group_id']))
+        if(!empty($clienteSession['User']['group_id'])){
+            $this->layout = 'default';
+            $this->Autentication(true);
+        }else{
+            $this->Autentication(false);
             $this->layout = 'cliente';
+        }
+
+        $telas = array();
+        if($this->Session->check('UserTelas')){
+            $telas = $this->Session->read('UserTelas');
+        }
+        $this->set('telas',$telas);
+
+
+        if ($this->requiredAutentication() && $this->Autentication() && $this->params['controller'] != 'pages') {
+            if (!$this->validateScreens()) {
+                $this->Session->setFlash(__('O Usuário não tem permissão de acesso a página solicitada.', true));
+                $this->redirect(array('controller'=>'pages'));
+            }
+        }
+
+    }
+
+    function requiredAutentication(){
+        return true;
+    }
+
+    function Autentication($valor = null){
+        if($valor != null)
+            $this->autentication = $valor;
+        else
+            return $this->autentication;
+    }
+
+    protected function validateScreens() {
+
+        $action = $this->params['action'];
+        $controller = $this->params['controller'];
+        $controller = strtolower($controller);
+        switch ($action) {
+            case 'index':
+                $action = 'view';
+                break;
+        }
+        if ($this->Session->check('UserTelas')) {
+            $screens = $this->Session->read('UserTelas');
+            $currentUrl = $controller . '/' . $action;
+            if (array_key_exists($currentUrl, $screens)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function isAuthorized () {

@@ -187,6 +187,7 @@ class CedentesController extends AppController {
                     $salvar = false;
             }
 
+            print_r($this->data);exit;
             if($this->Cliente->save($this->data) && $salvar) {
                 $idCliente = $this->Cedente->Cliente->id;
                 $this->data['Cedente']['cliente_id'] = $idCliente;

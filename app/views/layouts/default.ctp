@@ -9,7 +9,7 @@
         <link type="text/css" href="<?php echo $this->webroot;?>css/bocazumbk.css" rel="stylesheet" />
         <link type="text/css" href="<?php echo $this->webroot;?>css/menu.css" rel="stylesheet" />
 
-        <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.js"></script>
+        <!--script type="text/javascript" src="<?php //echo $this->webroot;?>js/jquery.js"></script-->
 
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.ui/jquery-ui-1.8.2.custom/js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery-1.3.2.min.js"></script>
@@ -37,7 +37,7 @@
                 <div class="topo">
 
                 </div>
-                <div id="menu">
+                <!--div id="menu">
                     <ul class="menu">
                         <li>
                             <a class="parent" href="<?php echo $this->webroot;?>shopps/index"><span>Home</span></a>
@@ -81,6 +81,9 @@
                                 <li>
                                     <a href="<?php echo $this->webroot;?>agencias/index"><span>Agências</span></a>
                                 </li>
+                                <li>
+                                    <a href="<?php echo $this->webroot;?>users"><span>Usuários</span></a>
+                                </li>
                             </ul>
                         </li>
                         <li><a href="#"><span>Cliente</span></a>
@@ -104,8 +107,46 @@
                             <a href="<?php echo $this->webroot;?>users/logout"><span>Sair</span></a>
                         </li>
                     </ul>
-                </div>
+                </div-->
                 <!--Fim menu-->
+
+           <?php
+               $opt_menu = array(
+                'Home' => 'shopps',
+               'Produtos'=>array(
+                    'Novo'=>'produtos/add',
+                    'Listar'=>'produtos',
+                    'Item de Produto'=>'itens',
+                    'Grupo'=>'grupos'
+                ),
+                'Administrar' => array(
+                    'Grupos de Acessos'=>'groups',
+                    'Permissões'=>'permissoes',
+                    'Usuários'=>'usuarios'
+                ),
+                'Cadastro' =>array(
+                    'Agências'=>'agencias',
+                    'Bancos'=>'bancos',
+                    'Bloquetos'=>'bloquetos',
+                    'Cedentes'=>'cedentes',
+                    'Cores'=>'cores',
+                    'Situações de Pedidos'=>'situacao_pedidos',
+                    'Situações de Vendas'=>'situacoes'
+                ),
+                'Cliente'=>array(
+                        'Novo'=>'clientes/add',
+                        'Listar'=>'clientes'
+
+                ),
+                'Pedidos'=>array(
+                        'Listar'=>'pedidos'
+                ),
+                'Sair'=>'users/logout'
+        );
+
+        //$telas = array('produtos/add'=>1, 'produtos'=>1, 'permissoes'=>1);
+        echo $menu->gerarMenu($telas,$opt_menu);
+        ?>
 
                 <script type="text/javascript">
                     $(function(){

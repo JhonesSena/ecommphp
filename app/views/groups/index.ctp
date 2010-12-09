@@ -36,7 +36,7 @@
 </script>
 
 <div class="toolbar">
-	<?php echo $html->link(__('Novo Group',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>groups/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
+	<?php echo $html->link(__('Novo Grupo de Acesso',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>groups/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
 	
 	<?
 	$total = $paginator->counter(array('format' => '%pages%', true));
@@ -61,7 +61,7 @@
 
 <div id="tabpanel">
     <ul>
-        <li><a href="#tab1"><span><?php echo __("Listar Groups",true) ?></span></a></li>
+        <li><a href="#tab1"><span><?php echo __("Listar Grupos",true) ?></span></a></li>
     </ul>
     <div id="tab1">
 
@@ -69,19 +69,15 @@
             <thead> 
                <tr>
 				    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
-                                        <th><?php echo $paginator->sort('name');?></th>
-                                        <th><?php echo $paginator->sort('created');?></th>
-                                        <th><?php echo $paginator->sort('modified');?></th>
+                                        <th><?php echo $paginator->sort('nome');?></th>
+                                        <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </thead> 
             <tfoot> 
                 <tr>
 					<th style="width:20px"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
-                                        <th><?php echo $paginator->sort('name');?></th>
-                                        <th><?php echo $paginator->sort('created');?></th>
-                                        <th><?php echo $paginator->sort('modified');?></th>
+                                        <th><?php echo $paginator->sort('nome');?></th>
+                                        <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </tfoot> 
             <tbody> 
@@ -95,20 +91,14 @@
             ?>
 	<tr<?php echo $class;?>>
 
-						<td align="center" style="padding: 0px 0px 0px 0px">
-							<input type="checkbox" class="chk" value="<?=$group['Group']['id']?>">
-						</td>
-							<td>
-			<?php echo $group['Group']['id']; ?>
+                <td align="center" style="padding: 0px 0px 0px 0px">
+                        <input type="checkbox" class="chk" value="<?=$group['Group']['id']?>">
+                </td>
+		<td>
+                    <?php echo $html->link($group['Group']['name'], array('action'=>'view', $group['Group']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $group['Group']['name']; ?>
-		</td>
-		<td>
-			<?php echo $group['Group']['created']; ?>
-		</td>
-		<td>
-			<?php echo $group['Group']['modified']; ?>
+			<?php if($group['Group']['ativo']==1)echo 'Sim'; else echo 'Não'; ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
