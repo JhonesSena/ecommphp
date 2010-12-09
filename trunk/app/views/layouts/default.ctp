@@ -122,7 +122,7 @@
                 'Administrar' => array(
                     'Grupos de Acessos'=>'groups',
                     'Permissões'=>'permissoes',
-                    'Usuários'=>'usuarios'
+                    'Usuários'=>'users'
                 ),
                 'Cadastro' =>array(
                     'Agências'=>'agencias',
