@@ -10,6 +10,13 @@ class ProdutosController extends AppController {
             'order'=>array('Produto.descricao'=>'asc')
     );
 
+    function beforeFilter () {
+        // executa o beforeFilter do AppController
+        parent::beforeFilter();
+        // adicione ao método allow as actions que quer permitir sem o usuário estar logado
+        $this->Auth->allow('client_view');
+    }
+
     function index() {
         $this->Produto->recursive = 1;
 
