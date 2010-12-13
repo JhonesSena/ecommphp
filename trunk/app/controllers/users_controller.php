@@ -3,11 +3,15 @@ class UsersController extends AppController {
 
     var $name = 'Users';
     var $helpers = array('Html', 'Form', 'Jquery');
-    var $uses = array('User', 'Cliente','Permissao');
+    var $uses = array('User', 'Cliente','Permissao', 'Group');
 
     function index() {
         $this->User->recursive = 0;
-        $this->set('users', $this->paginate(array('User.ativo'=>true, 'User.group_id'=>1)));
+        $userSession = $this->Session->read('Usuario');
+        if($userSession['Group']['name']=='Administrador')
+            $this->set('users', $this->paginate(array('User.ativo'=>true,'User.ativo'=>true,'not'=>array('User.group_id'=>null))));
+        else
+            $this->set('users', $this->paginate(array('User.ativo'=>true, 'User.id'=>$userSession['User']['id'], 'User.ativo'=>true,'not'=>array('User.group_id'=>null))));
     }
 
     function beforeFilter () {
@@ -99,11 +103,26 @@ class UsersController extends AppController {
     }
 
     function edit_user($id = null) {
+                if(!empty($this->data['User']['id'])){
+                    $id = $this->data['User']['id'];
+                }
+                
+                $userSession = $this->Session->read('Usuario');
+                if($userSession['Group']['name']!='Administrador' && $id != $userSession['User']['id']){
+                    //Caso o usuário não seja um administrador, verifica se o id pode ser editado
+                    $this->Session->setFlash(__('Usuário inválido.', true));
+                    $this->redirect(array('action'=>'index'));
+                }
+
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Usuário inválido.', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
+                        if($this->data['User']['senha']==''){
+                            unset($this->data['User']['senha']);
+                            unset($this->data['User']['redigite_senha']);
+                        }
 			if ($this->User->save($this->data)) {
 				$this->Session->setFlash(__('O Usuário foi salvo com sucesso!', true));
 				$this->redirect(array('action'=>'index'));
@@ -114,6 +133,8 @@ class UsersController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->User->read(null, $id);
 		}
+                $groups = $this->Group->find('list');
+                $this->set(compact('groups'));
 	}
 }
 ?>
