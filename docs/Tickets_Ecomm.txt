@@ -1,6 +1,7 @@
 -Permitir o acesso apenas de adm cadastrados (Administrador e Adm Técnico) ok
 -Permitir a alteração de senha. Para usuários não adm. Deve se permitir apenas a alteração da sua própria senha ok
 -Geral no site certificando de que não está ocorrendo erros por falta de campo no banco de dados ok
+-Rever o edit de cores ok
 -Permitir a dinâmica para a visualização dos produtos no site
 -Separar módulos
 -Testar todas as funcionalidades presentes no módulo.
