@@ -47,37 +47,43 @@ class CoresController extends AppController {
             $this->redirect(array('action'=>'index'));
         }
         if (!empty($this->data)) {
-            if(empty($this->data['Cor']['diretorio']['name']))
-                unset($this->data['Cor']);
+            $salvar = true;
+            if(empty($this->data['Cor']['diretorio']['name'])){
+                unset($this->data['Cor']['diretorio']);
+                if(!empty($this->data['Cor']['diretorio']['name'])){
+                    $result = $this->Cor->read(null, $id);
+                    if(!$this->deletaArquivo($result['Cor']['diretorio'])){
+                        $salvar = false;
+                    }
+                }
+                if(isset($imgOk['erros'])){
+                    if(number_format($imgOk['erros']) != 0){
+                        $salvar = false;
+                    }
+                }
+            }
             
             $imgOk = array();
-            if(!empty ($this->data['Cor']['diretorio']['name'])) {
+            if(!empty($this->data['Cor']['diretorio']['name'])) {
                 $imgOk = $this->salvarArquivo($this->data['Cor']['diretorio']);
                 $this->data['Cor']['diretorio'] = $imgOk['diretorio'];
             }
-
-            if(number_format($imgOk['erros']) == 0) {
-                $this->Cor->begin();
-                $result = $this->Cor->read(null, $id);
-                
-                if($this->deletaArquivo($result['Cor']['diretorio']))
-                {
-                    if ($this->Cor->save($this->data)) {
-                        $this->Cor->commit();
-                        $this->Session->setFlash(__('A Cor foi salva com sucesso!', true));
-                        $this->redirect(array('action'=>'index'));
-                    } else {
-                        $this->Cor->rollback();
-                        $this->Session->setFlash(__('A Cor não pôde ser salva. Por favor, tente novamente.', true));
-                    }
-                }
-                else{
+            if($salvar)
+            {
+                $this->Cor->begin();  
+                if ($this->Cor->save($this->data)) {
+                    $this->Cor->commit();
+                    $this->Session->setFlash(__('A Cor foi salva com sucesso!', true));
+                    $this->redirect(array('action'=>'index'));
+                } else {
                     $this->Cor->rollback();
                     $this->Session->setFlash(__('A Cor não pôde ser salva. Por favor, tente novamente.', true));
                 }
             }
-            else
-                $this->Session->setFlash(__('Extensão de imagem não permitida.', true));
+            else{
+                $this->Cor->rollback();
+                $this->Session->setFlash(__('A Cor não pôde ser salva. Por favor, tente novamente.', true));
+            }
         }
         if (empty($this->data)) {
             $this->data = $this->Cor->read(null, $id);

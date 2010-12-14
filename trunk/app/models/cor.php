@@ -2,6 +2,7 @@
 class Cor extends AppModel {
 
 	var $name = 'Cor';
+        var $order = array('Cor.nome');
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $hasMany = array(
