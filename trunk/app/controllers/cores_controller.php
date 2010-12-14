@@ -47,15 +47,19 @@ class CoresController extends AppController {
             $this->redirect(array('action'=>'index'));
         }
         if (!empty($this->data)) {
+            if(empty($this->data['Cor']['diretorio']['name']))
+                unset($this->data['Cor']);
+            
             $imgOk = array();
-            if(!empty ($this->data['Cor']['diretorio'])) {
+            if(!empty ($this->data['Cor']['diretorio']['name'])) {
                 $imgOk = $this->salvarArquivo($this->data['Cor']['diretorio']);
                 $this->data['Cor']['diretorio'] = $imgOk['diretorio'];
             }
 
             if(number_format($imgOk['erros']) == 0) {
                 $this->Cor->begin();
-                    $result = $this->Cor->read(null, $id);
+                $result = $this->Cor->read(null, $id);
+                
                 if($this->deletaArquivo($result['Cor']['diretorio']))
                 {
                     if ($this->Cor->save($this->data)) {

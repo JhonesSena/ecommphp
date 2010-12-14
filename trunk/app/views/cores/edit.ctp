@@ -45,7 +45,7 @@
 		echo $jquery->input('id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('codigo',array('class'=>'validateRequired', 'alt'=>'Código', 'label'=>'Código*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('nome',array('class'=>'validateRequired', 'alt'=>'Nome', 'label'=>'Nome*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('diretorio',array('class'=>'validateRequired validateFileExtension', 'alt'=>'Arquivo', 'label'=>'Arquivo*','type'=>'file','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('diretorio',array('class'=>'validateFileExtension', 'alt'=>'Arquivo', 'label'=>'Arquivo','type'=>'file','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('ativo',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 	?>
         <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
