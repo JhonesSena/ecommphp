@@ -99,7 +99,6 @@ class Produto extends AppModel {
     }
 
     function afterFind($results) {
-
         if(isset($results)) {
             foreach ($results as $key => $val) {
                 if (isset($val['Produto']['cubagem'])) {
