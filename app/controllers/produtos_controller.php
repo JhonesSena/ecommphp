@@ -43,7 +43,6 @@ class ProdutosController extends AppController {
                 unset($this->data['Imagem']);
             if(number_format($imgOk['erros']) == 0) {
                 $this->Produto->create();
-//                        print_r($this->data);exit;
                 if ($this->Produto->saveAll($this->data)) {
                     $this->Session->setFlash(__('O Produto foi salvo com sucesso', true));
                     $this->redirect(array('action'=>'index'));
