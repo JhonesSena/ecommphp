@@ -26,11 +26,16 @@ class Preco extends AppModel {
             $this->data['Preco']['desconto_por_pacote'] = str_replace(' ', '', $this->data['Preco']['desconto_por_pacote']);
             $this->data['Preco']['desconto_por_pacote'] = str_replace('R$', '', $this->data['Preco']['desconto_por_pacote']);
         }
+
         
-        if($this->data['Preco']['ativo']!=true)
-            $this->data['Preco']['expired'] = date('Y-m-d H:i:s');
+        if(isset($this->data['Preco']['ativo'])){
+            if($this->data['Preco']['ativo']!=true){
+                $this->data['Preco']['expired'] = date('Y-m-d H:i:s');
+            }
+        }
         if(empty($this->data['Preco']['id']))
             $this->data['Preco']['created'] = date('Y-m-d H:i:s');
+
         return true;
     }
 

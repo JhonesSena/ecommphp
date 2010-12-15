@@ -114,10 +114,10 @@
             echo $jquery->input('codigo',array('class'=>'validateRequired validateNumeric','label'=>'Código*','alt'=>'Código','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('descricao',array('class'=>'validateRequired', 'label'=>'Descrição*', 'alt'=>'Descrição','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('descricao_abreviada',array('class'=>'validateRequired', 'label'=>'Descrição Abreviada*', 'alt'=>'Descrição Abreviada','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-            echo $jquery->input('composicao',array('class'=>'validateRequired','alt'=>'Composição', 'label'=>'Composição*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('composicao',array('type'=>'textarea','rows'=>3,'class'=>'validateRequired','alt'=>'Composição', 'label'=>'Composição*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('utilizacao',array('type'=>'textarea','rows'=>3,'class'=>'validateRequired','alt'=>'Utilização', 'label'=>'Utilização*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             echo $jquery->input('distribuicao',array('type'=>'textarea','rows'=>3,'class'=>'validateRequired','alt'=>'Distribuição', 'label'=>'Distribuição*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-            echo $jquery->input('obs',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+            echo $jquery->input('obs',array('type'=>'textarea','rows'=>3,'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
             ?>
             <tr><td class="left"></td><td class="right"><input type="button" id="next1" value="Continuar" style="font-size:11px" class="formbtn btn_salvar"></td>
             </tr>
