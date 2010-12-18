@@ -1,6 +1,7 @@
-<div class="div_linhas_c">
+<div class="div_linhas_c4">
 
-    <span class="titulo_ocre"><img src="<?php echo $this->webroot;?>img/ocre.jpg" width="350" height="1"> <br>
+    <span class="titulo_azul_claro">
+        <img src="<?php echo $this->webroot;?>img/azul_claro.jpg" width="350" height="1"> <br>
         <?php echo $produto['Produto']['descricao'];?>
     </span>
     <br>
@@ -49,7 +50,7 @@
     </table>
 </div>
 <?php if(isset($produto['Imagem'][0]['nome'])):?>
-<div class="div_linhas_d">
+<div class="div_linhas_d8">
     <img src="<?php echo $this->webroot;?>img/1x18px.gif" width="50" height="35">
         <?php echo $html->image('/img_produtos/'.$produto['Imagem'][0]['nome'], array('align'=>'center','width'=>'160px', 'margin'=>'3px'));?>
 </div>

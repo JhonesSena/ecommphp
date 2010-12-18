@@ -9,12 +9,14 @@ class ProdutosController extends AppController {
             'limit'=>10,
             'order'=>array('Produto.descricao'=>'asc')
     );
+    var $linhas_barbantes = 1;
+    var $limpeza = 3;
 
     function beforeFilter () {
         // executa o beforeFilter do AppController
         parent::beforeFilter();
         // adicione ao método allow as actions que quer permitir sem o usuário estar logado
-        $this->Auth->allow('client_view');
+        $this->Auth->allow('consultar');
     }
 
     function index() {
@@ -158,28 +160,43 @@ class ProdutosController extends AppController {
         }
     }
 
-    function client_view($id = null){
-        $this->layout = 'view_produto_linha_barbante';
+    function consultar($grupo=null,$id=null){
+        if($grupo==1){
+            $this->layout = 'view_produto_linha_barbante';
+        }else if($grupo==2){
+            $this->layout = 'view_produto_limpeza';
+        }else{
+            $this->redirect(array('action'=>'consultar',1));
+        }
         $this->Cor->recursive = -1;
         $cores = $this->Cor->find('all', array('conditions'=>array('ativo'=>true)));
 
-        $contain = array('Item');
-        $conditions = array('Produto.ativo'=>true);
+        $contain = array('Item','Grupo');
+        if($grupo==1){
+            $gruposConditions = $this->linhas_barbantes;
+        }else{
+            $gruposConditions = $this->limpeza;
+        }
+        $conditions = array('Produto.ativo'=>true,'Grupo.id'=>$gruposConditions);
         $produtos = $this->Produto->find('all', array('contain'=>$contain,'conditions'=>$conditions));
 
-        $contain = array('Item'=>array('Cor'), 'Imagem');
+        $contain = array('Item'=>array('Cor'), 'Imagem','Grupo');
         if(!empty($id)){
             $conditions = array('Produto.id'=>$id);
             $produto = $this->Produto->find('first', array('contain'=>$contain,'conditions'=>$conditions));
-            
             $coresIds = explode(',',$this->Produto->getIdsCoresByProduto($id));
             $cores = $this->Cor->find('all', array('conditions'=>array('Cor.id'=>$coresIds)));
         }else{
-            $produto = $this->Produto->find('first', array('contain'=>$contain));
+            $produto = $this->Produto->find('first', array('contain'=>$contain,'conditions'=>array('Grupo.id'=>$gruposConditions,'Produto.ativo'=>true)));
             $coresIds = explode(',',$this->Produto->getIdsCoresByProduto($produto['Produto']['id']));
             $cores = $this->Cor->find('all', array('conditions'=>array('Cor.id'=>$coresIds)));
         }
-        $this->set(compact('produtos', 'produto', 'cores'));
+        $this->set(compact('produtos','produto','cores','class'));
+        if($grupo==1){
+            $this->render('/produtos/linha_barbante');
+        }else if($grupo==2){
+            $this->render('/produtos/limpeza');
+        }
     }
 
 }
