@@ -43,7 +43,7 @@ class AppController extends Controller {
     var $paginate = array('limit' => 10);
     var $redirect = "";
     var $components = array('Session','Auth','Email');
-    var $helpers = array('Jquery', 'Menu');
+    var $helpers = array('Html','Form','Jquery', 'Menu');
     var $autentication = false;
 
     function beforeFilter() {
