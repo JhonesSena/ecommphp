@@ -99,9 +99,9 @@
                             <div class="div_migalha_de_pao"><div class="div_linhas_a-d"></div>
                                 <span class="migalha_de_pao">Produtos  >  Linhas e Barbantes</span></div>
 
-                            <div class="div_linhas_1"><div class="div_linhas_a"></div>
+                            <div class="div_linhas_1b"><div class="div_linhas_a3"></div>
 
-                                <div class="div_linhas_b">
+                                <div class="div_linhas_b3">
 
 
                                     <br> <br>
@@ -109,22 +109,11 @@
                                     <br>
                                     <br>
                                     <span class="menu_lateral">
-                                    <?php $i=0;
+                                        <br/>
+                                    <?php 
                                     foreach ($produtos as $value) :
-                                        if($i==4){
-                                            echo '<br/><br/><br/><br/><br/>';
-                                        }
-                                        if($i>4){
-//                                            echo '<div class="linkScroll">';
-                                            if($i==5 && count($produtos)>17) echo '<div class="linkScroll">';
-                                            echo '<a href="'.$this->webroot.'produtos/consultar/1/'.$value['Produto']['id'].'">'.$value['Produto']['descricao_abreviada'].'</a><br>';
-                                            if(end($produtos)==$value && count($produtos)>17) echo '</div>';
-//                                            echo '</div>';
-                                        }else{
-                                            echo '<a href="'.$this->webroot.'produtos/consultar/1/'.$value['Produto']['id'].'">'.$value['Produto']['descricao_abreviada'].'</a><br>';
-                                        }
-                                        $i++;
-                                 endforeach;?>
+                                        echo '<a href="'.$this->webroot.'produtos/consultar/2/'.$value['Produto']['id'].'">'.$value['Produto']['descricao_abreviada'].'</a><br>';
+                                    endforeach;?>
                                     </span>
                                 </div>
 
