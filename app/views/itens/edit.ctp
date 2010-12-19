@@ -48,6 +48,7 @@
 		echo $jquery->input('titulo',array('class'=>'validateRequired', 'alt'=>'Título', 'label'=>'Título*', 'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('metragem',array('class'=>'validateRequired', 'alt'=>'Metragem', 'label'=>'Metragem*', 'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('cor_id',array('empty'=>'Selecione', 'label'=>'Cor','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('disponivel',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('ativo',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 	?>
         <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>

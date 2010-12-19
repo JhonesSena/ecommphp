@@ -90,20 +90,16 @@
         <div class="tablebody">
             <div class="linha">
 
-                <div class="coluna4"> Título</div>
-                <div class="coluna4"> Peso Aprox.</div>
-                <div class="coluna4"> Metragem</div>
-                <div class="coluna4"> Cores</div>
+                <div class="coluna4"> Código</div>
+                <div class="coluna6"> Produto</div>
 
             </div>
             <?php if(count($produto['Item']) > 4){ echo '<div class="corpo">';}?>
                 <?php
                 foreach ($produto['Item'] as $item):?>
                 <div class="linha">
-                    <div class="coluna-impar4"><?php echo $item['titulo']?></div>
-                    <div class="coluna-impar4"><?php echo $produto['Produto']['peso_bruto']?></div>
-                    <div class="coluna-impar4"><?php echo $item['metragem']?></div>
-                    <div class="coluna-impar4"><?php echo $item['Cor']['nome']?></div>
+                    <div class="coluna-impar4"><?php echo $item['codigo']?></div>
+                    <div class="coluna-impar6"><?php echo $item['titulo']?></div>
                 </div>
                 <?php endforeach;?>
             <?php if(count($produto['Item']) > 4){ echo '</div>';}?>
