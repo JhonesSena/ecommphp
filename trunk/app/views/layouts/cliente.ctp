@@ -47,10 +47,10 @@
                         <li><a href="#"><span>Produtos</span></a>
                             <ul>
                                 <li>
-                                    <a href="<?php echo $this->webroot;?>produtos/linhas_barbantes"><span>Linhas e Barbantes</span></a>
+                                    <a href="<?php echo $this->webroot;?>produtos/consultar/1"><span>Linhas e Barbantes</span></a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->webroot;?>produtos/limpeza"><span>Produto de Limpeza</span></a>
+                                    <a href="<?php echo $this->webroot;?>produtos/consultar/2"><span>Produto de Limpeza</span></a>
                                 </li>
                                 <li>
                                     <a href="http://www.bocazul.com.br/industria.html"><span>Artigos Técnicos</span></a>
