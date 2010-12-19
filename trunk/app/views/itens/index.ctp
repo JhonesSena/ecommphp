@@ -74,6 +74,7 @@
                                         <th><?php echo $paginator->sort('produto_id');?></th>
                                         <th><?php echo $paginator->sort('titulo');?></th>
                                         <th><?php echo $paginator->sort('metragem');?></th>
+                                        <th><?php echo $paginator->sort('disponivel');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </thead> 
@@ -84,6 +85,7 @@
                                         <th><?php echo $paginator->sort('produto_id');?></th>
                                         <th><?php echo $paginator->sort('titulo');?></th>
                                         <th><?php echo $paginator->sort('metragem');?></th>
+                                        <th><?php echo $paginator->sort('disponivel');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </tfoot> 
@@ -112,6 +114,9 @@
 		</td>
 		<td>
 			<?php echo $item['Item']['metragem']; ?>
+		</td>
+		<td>
+			<?php if($item['Item']['disponivel']==1) echo 'Sim'; else echo 'Não'; ?>
 		</td>
 		<td>
 			<?php echo $item['Item']['ativo']; ?>

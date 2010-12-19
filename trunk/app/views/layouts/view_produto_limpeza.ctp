@@ -97,7 +97,7 @@
                     <div style="padding:8px">
                         <div class="div_miolo">
                             <div class="div_migalha_de_pao"><div class="div_linhas_a-d"></div>
-                                <span class="migalha_de_pao">Produtos  >  Linhas e Barbantes</span></div>
+                                <span class="migalha_de_pao">Produtos  >  Produtos de Limpeza</span></div>
 
                             <div class="div_linhas_1b"><div class="div_linhas_a3"></div>
 
