@@ -130,6 +130,7 @@
                     'Bloquetos'=>'bloquetos',
                     'Cedentes'=>'cedentes',
                     'Cores'=>'cores',
+                    'Receitas'=>'receitas',
                     'Situações de Pedidos'=>'situacao_pedidos',
                     'Situações de Vendas'=>'situacoes'
                 ),
