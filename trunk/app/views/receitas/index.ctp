@@ -128,10 +128,7 @@
 							<input type="checkbox" class="chk" value="<?=$receita['Receita']['id']?>">
 						</td>
 							<td>
-			<?php echo $html->link($receita['Receita']['id'], array('action'=>'view', $receita['Receita']['id']), array('class'=>'ctxmenu','id'=>$receita['Receita']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $receita['Receita']['nome']; ?>
+			<?php echo $html->link($receita['Receita']['nome'], array('action'=>'view', $receita['Receita']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $receita['Receita']['descricao']; ?>
