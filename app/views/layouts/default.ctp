@@ -257,7 +257,7 @@
                     </table>
                     <div id="dialog" title="Carregando..."></div>
 
-                    <span><input type="hidden" value="<?php echo $this->webroot;?>"></span>
+                    <span><input id="webroot" type="hidden" value="<?php echo $this->webroot;?>"></span>
 
                     <div style="padding:8px">                        
                         <?php echo $content_for_layout; ?>
