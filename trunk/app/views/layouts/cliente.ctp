@@ -53,7 +53,7 @@
                                     <a href="<?php echo $this->webroot;?>produtos/consultar/2"><span>Produto de Limpeza</span></a>
                                 </li>
                                 <li>
-                                    <a href="http://www.bocazul.com.br/industria.html"><span>Artigos Técnicos</span></a>
+                                    <a href="<?php echo $this->webroot;?>pages/industria"><span>Artigos Técnicos</span></a>
                                 </li>
                             </ul>
                         </li>

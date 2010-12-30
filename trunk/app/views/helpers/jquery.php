@@ -527,16 +527,12 @@ class JqueryHelper extends FormHelper {
                     $explode = explode('.', $arquivo);
                     $nome = $explode[0];
                     $object = "<script type='text/javascript' src='".$webroot."js/AC_RunActiveContent.js'></script>";
-//                    $object .=
-//                      "<script>
-//                            AC_FL_RunContent('codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0','width','$width','height','$height','title','$title','src','$webroot$nome','quality','high','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','movie','$webroot$nome'); //end AC code
-//                        </script>";
                     $object .= "
                             <object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'
                                     codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0' width='$width' height='$height' title='$title'>
                                 <param name='movie' value='$webroot$arquivo'>
                                 <param name='quality' value='$quality'>
-                                <embed src='$webroot$arquivo' quality='high' pluginspage='http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash' type='application/x-shockwave-flash' width='$width' height='$height'></embed>
+                                <embed src='$webroot$arquivo' quality='high' pluginspage='http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash' type='application/x-shockwave-flash' width='$width' height='$height' wmode='transparent'></embed>
                             </object>";
 
                     return $object;
