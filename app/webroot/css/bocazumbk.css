@@ -975,7 +975,7 @@ a:hover {
     position:relative;
     text-align:left;
     text-transform:none;
-    width:746px;
+    width:728px;
 }
 .div_limpeza_1 {
     background-image:url(../img/degrade-limpeza.jpg);
@@ -1014,12 +1014,11 @@ a:hover {
     background-image:url(../img/degrade-industria.jpg);
     background-position:left center;
     background-repeat:repeat-y;
-    float:left;
-    height:518px;
-    margin:0;
+    height:405px;
+    margin-left: 3px;
     padding:0;
     position:relative;
-    width:764px;
+    width:725px;
 }
 .div_bocazul3_2 {
     background-image:url(../img/texturadupla.gif);
