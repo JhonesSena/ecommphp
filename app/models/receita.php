@@ -16,7 +16,7 @@ class Receita extends AppModel {
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
-			'order' => '',
+			'order' => 'ItemReceita.sequencia',
 			'limit' => '',
 			'offset' => '',
 			'exclusive' => '',

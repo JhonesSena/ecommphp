@@ -6,7 +6,7 @@ class AjaxController extends AppController {
 
     var $name = 'Ajax';
     var $helpers = array('Html', 'Form', 'Jquery');
-    var $uses = array('Produto', 'Imagem', 'Item', 'Estado');
+    var $uses = array('Produto', 'Imagem', 'Item', 'Estado', 'Receita');
 
     function beforeFilter () {
         // executa o beforeFilter do AppController

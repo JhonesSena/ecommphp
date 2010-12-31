@@ -37,10 +37,10 @@
             }
         });
 
-        $("#FormItemReceita").submit(function(){
-            salvarItemReceita(this);
-            return false;
-        });
+//        $("#FormItemReceita").submit(function(){
+//            salvarItemReceita(this);
+//            return false;
+//        });
 
     });
     $(document).ready(function(){
@@ -48,7 +48,24 @@
     });
 
     function salvarItemReceita(form){
-        
+        $.ajax({
+            type:"post",
+            async: true,
+            data: $(form).serialize(),
+            url:$("#webroot").val()+"ajax/salvarItemReceita/"+"<?=$this->data["Receita"]['id'];?>",
+            success:function(msg)
+            {
+                if(parseInt(msg)== 1){
+                    $('#flashMessage').html("O Custo foi salvo com sucesso!");
+                    $('#msginfo').fadeIn(500);
+                    setTimeout("$('#msginfo').fadeOut(500)",4000);
+                }else{
+                    $('#flashMessage').html("A operação não pode ser concluída, Verifique os problemas e tente novamente.");
+                    $('#msginfo').fadeIn(500);
+                    setTimeout("$('#msginfo').fadeOut(500)",4000);
+                }
+            }
+        });
     }
 </script>
 <div class="toolbar">
@@ -58,6 +75,7 @@
     <ul>
         <li><a href="#tab1"><span><?php echo __("Editar Receita",true) ?></span></a></li>
         <li><a href="#tab2"><span><?php echo __("Passo a Passo",true) ?></span></a></li>
+        <li><a href="#tab3"><span><?php echo __("Alterar Sequência",true) ?></span></a></li>
 	
     </ul>
     <div id="tab1">
@@ -96,25 +114,32 @@
         <?php echo $form->end();?>
     </div>
     <div id="tab2">
-        <?php echo $form->create('Receita', array('id'=>'FormItemReceita','action'=>'/ajax/salvarItemReceita'));?>
+        <?php echo $form->create('Receita', array('type'=>'file','url'=>array('action' => 'salvarItemReceita')));?>
             <table cellspacing="0" class="details">
                 
                     <?php
                     echo $jquery->input('ItemReceita.nome',array('class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                    echo $jquery->input('ItemReceita.descricao',array('class'=>'validateRequired','label'=>'Descrição*','alt'=>'Descrição','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                    echo $jquery->input('ItemReceita.descricao',array('type'=>'textarea','class'=>'validateRequired','label'=>'Descrição*','alt'=>'Descrição','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                     echo $jquery->input('ItemReceita.imagem',array('class'=>'validateRequired','label'=>'Imagem*','alt'=>'Imagem','type'=>'file','label'=>'','error' => false,'div'=>false,'before' => '<tr><td class="left">Imagem*','after' => '</td></tr>','between' => '</td><td class="right">'));
             ?>
             <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
                     </tr>
-                <tr>
-                    <td class="left"></td>
-                    <td class="right">
-                        <div id="arvoreReceita" style="min-width:200px">
-                            <?=$this->element('tree_receita',array('receita'=>$this->data));?>
-                        </div>
-                    </td>
-                </tr>
             </table>
         <?php echo $form->end();?>
+    </div>
+    <div id="tab3" style="min-height: 200px;">
+        <table>
+            <tr>
+                <td>
+                    <div id="arvoreReceita" style="min-width:200px">
+                        <?=$this->element('tree_receita',array('itensReceita'=>$itensReceita, 'nomeReceita'=>$this->data['Receita']['nome']));?>
+                    </div>
+                </td>
+                <td>
+                    
+                </td>
+            </tr>
+        </table>
+        
     </div>
 </div>
