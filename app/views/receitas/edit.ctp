@@ -36,15 +36,9 @@
                 }
             }
         });
-
-//        $("#FormItemReceita").submit(function(){
-//            salvarItemReceita(this);
-//            return false;
-//        });
-
     });
     $(document).ready(function(){
-         
+        
     });
 
     function salvarItemReceita(form){
@@ -110,7 +104,7 @@
                 if(!empty($this->data['Receita']['imagem'])){
                     echo '<tr><td class="left">Imagem produto final</td><td class="right">';
                     echo $html->image('/img_receitas/'.$this->data['Receita']['imagem'], array('align'=>'center','height'=>'100px'));
-                    echo $html->image('/css/img/delete.gif', array('id'=>'delete','align'=>'center','height'=>'16px','width'=>'16px'));
+                    echo $html->image('/css/img/delete.gif', array('url'=>array('controller'=>'receitas','action'=>'excluirImagem',$this->data['Receita']['id']),'border'=>'none','value'=>$this->data['Receita']['id'],'align'=>'center','height'=>'16px','width'=>'16px'));
                     echo '</td></tr>';
                     
                 }else{
