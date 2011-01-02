@@ -58,7 +58,7 @@
 </script>
 
 <div class="toolbar">
-	<?php echo $html->link(__('Nova Receita',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>/receitas/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
+	<?php echo $html->link(__('Novo Receita',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>	<a href="#" onclick="location.href='<?php echo $this->webroot;?>/receitas/deleteselected/'+selecionados()" class="linkbutton linkbtn btn_delete">Excluir Vários</a>
 	
 	<?
 	$total = $paginator->counter(array('format' => '%pages%', true));
@@ -100,16 +100,22 @@
             <thead> 
                <tr>
 				    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
+                                        <th><?php echo $paginator->sort('id');?></th>
                                         <th><?php echo $paginator->sort('nome');?></th>
-                                        <th><?php echo $paginator->sort('descricao');?></th>
+                                        <th><?php echo $paginator->sort('modalidade');?></th>
+                                        <th><?php echo $paginator->sort('obs');?></th>
+                                        <th><?php echo $paginator->sort('imagem');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </thead> 
             <tfoot> 
                 <tr>
 					<th style="width:20px"></th>
+                                        <th><?php echo $paginator->sort('id');?></th>
                                         <th><?php echo $paginator->sort('nome');?></th>
-                                        <th><?php echo $paginator->sort('descricao');?></th>
+                                        <th><?php echo $paginator->sort('modalidade');?></th>
+                                        <th><?php echo $paginator->sort('obs');?></th>
+                                        <th><?php echo $paginator->sort('imagem');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </tfoot> 
@@ -128,13 +134,22 @@
 							<input type="checkbox" class="chk" value="<?=$receita['Receita']['id']?>">
 						</td>
 							<td>
-			<?php echo $html->link($receita['Receita']['nome'], array('action'=>'view', $receita['Receita']['id'])); ?>
+			<?php echo $receita['Receita']['id']; ?>
 		</td>
 		<td>
-			<?php echo $receita['Receita']['descricao']; ?>
+			<?php echo $html->link($receita['Receita']['nome'], array('action'=>'view', $receita['Receita']['id']), array('class'=>'ctxmenu','id'=>$receita['Receita']['id'])); ?>
 		</td>
 		<td>
-			<?php if($receita['Receita']['ativo']==1)echo 'Sim';else echo 'Não'; ?>
+			<?php echo $receita['Receita']['modalidade']; ?>
+		</td>
+		<td>
+			<?php echo $receita['Receita']['obs']; ?>
+		</td>
+		<td>
+			<?php echo $receita['Receita']['imagem']; ?>
+		</td>
+		<td>
+			<?php echo $receita['Receita']['ativo']; ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

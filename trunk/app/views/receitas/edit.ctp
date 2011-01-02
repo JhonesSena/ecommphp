@@ -105,7 +105,17 @@
                 <?php
                 echo $jquery->input('id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('nome',array('class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('descricao',array('type'=>'textarea','class'=>'validateRequired','label'=>'Descrição*','alt'=>'Descrição','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('modalidade',array('type'=>'textarea','class'=>'validateRequired','label'=>'Modalidade*','alt'=>'Modalidade','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('obs',array('type'=>'textarea','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                if(!empty($this->data['Receita']['imagem'])){
+                    echo '<tr><td class="left">Imagem produto final</td><td class="right">';
+                    echo $html->image('/img_receitas/'.$this->data['Receita']['imagem'], array('align'=>'center','height'=>'100px'));
+                    echo $html->image('/css/img/delete.gif', array('id'=>'delete','align'=>'center','height'=>'16px','width'=>'16px'));
+                    echo '</td></tr>';
+                    
+                }else{
+                    echo $jquery->input('imagem',array('type'=>'file','class'=>'validateRequired','label'=>'Imagem produto final*','alt'=>'Imagem produto final','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                }
                 echo $jquery->input('ativo',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
         ?>
         <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
