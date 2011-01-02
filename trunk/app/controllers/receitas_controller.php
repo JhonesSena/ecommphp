@@ -127,6 +127,10 @@ class ReceitasController extends AppController {
         return unlink("$diretorio/$backup");
     }
 
+    function excluirImagem($idReceita){
+        $this->redirect(array('action' => 'edit',$idReceita));
+    }
+
 }
 
 ?>
