@@ -106,7 +106,7 @@ class ReceitasController extends AppController {
 
             if (!empty($novo_arquivo)) {
                 $backup = $novo_arquivo;
-                $result['diretorio'] = "$path/$novo_arquivo";
+                $result['diretorio'] = $novo_arquivo;
             }
             else
                 $erros++;

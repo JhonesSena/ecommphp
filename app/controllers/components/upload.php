@@ -159,13 +159,9 @@ bytes<br />';
         if($this->verifyUpload($source)) {
 
             $novo_arquivo = $this->verifyFileExists($source["name"]);
-
-            if(move_uploaded_file($source["tmp_name"], $this->path . $novo_arquivo))
-
+            if(move_uploaded_file($source["tmp_name"], $this->path . $novo_arquivo)){
                 return $novo_arquivo;
-
-            else {
-
+            }else {
                 $this->setLog("-> Erro ao enviar arquivo<br />");
 
                 $this->setLog(" Obs.: ".$this->getErrorUpload($source["error"])."<br />");
@@ -248,13 +244,11 @@ bytes<br />';
 
     function verifyFileExists($file) {
 
-        if(!file_exists($this->path.$file))
-
-            return $file;
-
-        else
-
-            return $this->renameFile($file);
+        if(!file_exists($this->path.md5($file))){
+            return md5($file);
+        }else{
+            return md5($this->renameFile($file));
+        }
 
     }
 
