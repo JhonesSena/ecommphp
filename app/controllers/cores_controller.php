@@ -32,6 +32,7 @@ class CoresController extends AppController {
                     $this->Session->setFlash(__('A Cor foi salva com sucesso!', true));
                     $this->redirect(array('action'=>'index'));
                 } else {
+                    $this->deletaArquivo($this->data['Cor']['diretorio']);
                     $this->Session->setFlash(__('A Cor não pôde ser salva. Por favor, tente novamente.', true));
                 }
             }

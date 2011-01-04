@@ -17,7 +17,7 @@
 	
     </ul>
     <div id="tab1">
-        <?php echo $form->create('Receita');?>
+        <?php echo $form->create('Receita', array('type'=>'file'));?>
 		
 			<? if(!empty($jquery->validationErrors)){ ?>
 			<div class="ui-widget">
