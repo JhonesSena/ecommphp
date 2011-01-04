@@ -100,22 +100,14 @@
             <thead> 
                <tr>
 				    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
                                         <th><?php echo $paginator->sort('nome');?></th>
-                                        <th><?php echo $paginator->sort('modalidade');?></th>
-                                        <th><?php echo $paginator->sort('obs');?></th>
-                                        <th><?php echo $paginator->sort('imagem');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </thead> 
             <tfoot> 
                 <tr>
 					<th style="width:20px"></th>
-                                        <th><?php echo $paginator->sort('id');?></th>
                                         <th><?php echo $paginator->sort('nome');?></th>
-                                        <th><?php echo $paginator->sort('modalidade');?></th>
-                                        <th><?php echo $paginator->sort('obs');?></th>
-                                        <th><?php echo $paginator->sort('imagem');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </tfoot> 
@@ -133,23 +125,11 @@
 						<td align="center" style="padding: 0px 0px 0px 0px">
 							<input type="checkbox" class="chk" value="<?=$receita['Receita']['id']?>">
 						</td>
-							<td>
-			<?php echo $receita['Receita']['id']; ?>
-		</td>
 		<td>
 			<?php echo $html->link($receita['Receita']['nome'], array('action'=>'view', $receita['Receita']['id']), array('class'=>'ctxmenu','id'=>$receita['Receita']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $receita['Receita']['modalidade']; ?>
-		</td>
-		<td>
-			<?php echo $receita['Receita']['obs']; ?>
-		</td>
-		<td>
-			<?php echo $receita['Receita']['imagem']; ?>
-		</td>
-		<td>
-			<?php echo $receita['Receita']['ativo']; ?>
+			<?php if($receita['Receita']['ativo']==1) echo 'Sim'; else echo 'Não';?>
 		</td>
 	</tr>
 <?php endforeach; ?>

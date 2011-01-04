@@ -6,21 +6,44 @@
         $("#arvoreReceita").tree({
             callback : {
                 onmove : function (NODE,REF_NODE,TYPE,TREE_OBJ,RB) {
-                    $.tree.rollback(RB);
+                    alert(TREE_OBJ.get_text(NODE) + " " + TYPE + " " + TREE_OBJ.get_text(REF_NODE));
+                },
+                ondblclk : function(NODE, TREE_OBJ, EV) {
+                    TREE_OBJ.toggle_branch.call(TREE_OBJ, NODE);
+                    TREE_OBJ.select_branch.call(TREE_OBJ, NODE);
+
+
+                    obj = TREE_OBJ.get_node(NODE);
+                    $("#idItem").val($(obj).attr('id'));
+                    $("#nomeItem").val($(obj).attr('nome'));
+                    $("#descricaoItem").val($(obj).attr('descricao'));
+                    if($(obj).attr('imagem')!=''){
+                        $("#imagem").hide();
+                        $("#imagemItem").attr('disabled','disabled');
+                        $("#mostraImagem").attr('src',($('#webroot').val()+'/img_receitas/'+$(obj).attr('imagem')));
+                    }else{
+                        $("#imagem").show();
+                        $("#imagemItem").attr('disabled','');
+                    }
                 }
+            },
+            rule : {
+                use_max_use_max_depth: false
             },
             types : {
                 "default" : {
-                    clickable	: true,
+                    clickable	: false,
                     renameable	: false,
-                    deletable	: false,
+                    deletable	: true,
                     creatable	: false,
                     draggable	: false,
-                    max_children	: -1,
-                    max_depth	: -1,
-                    valid_children	: "all"
+                    max_children	: 0,
+                    max_depth	: 0,
+                    valid_children	: "item"
                 },
                 "item" : {
+                    max_children	: -1,
+                    max_depth	: -1,
                     draggable : false,
                     deletable : false,
                     valid_children : ["subitem"],
@@ -29,6 +52,9 @@
                     }
                 },
                 "subitem" : {
+                    clickable	: true,
+                    draggable : true,
+                    max_children	: 0,
                     valid_children : ["subitem"],
                     icon : {
                         image : $("#webroot").val()+"js/jquery.jstree/subitem.gif"
@@ -38,29 +64,8 @@
         });
     });
     $(document).ready(function(){
-        
+        $('html, body').animate({scrollTop: 0});
     });
-
-    function salvarItemReceita(form){
-        $.ajax({
-            type:"post",
-            async: true,
-            data: $(form).serialize(),
-            url:$("#webroot").val()+"ajax/salvarItemReceita/"+"<?=$this->data["Receita"]['id'];?>",
-            success:function(msg)
-            {
-                if(parseInt(msg)== 1){
-                    $('#flashMessage').html("O Custo foi salvo com sucesso!");
-                    $('#msginfo').fadeIn(500);
-                    setTimeout("$('#msginfo').fadeOut(500)",4000);
-                }else{
-                    $('#flashMessage').html("A operação não pode ser concluída, Verifique os problemas e tente novamente.");
-                    $('#msginfo').fadeIn(500);
-                    setTimeout("$('#msginfo').fadeOut(500)",4000);
-                }
-            }
-        });
-    }
 </script>
 <div class="toolbar">
 <?php echo $html->link(__('Voltar', true), array('action'=>'index'),array('class'=>'linkbutton linkbtn btn_list'));?></div>
@@ -69,11 +74,10 @@
     <ul>
         <li><a href="#tab1"><span><?php echo __("Editar Receita",true) ?></span></a></li>
         <li><a href="#tab2"><span><?php echo __("Passo a Passo",true) ?></span></a></li>
-        <li><a href="#tab3"><span><?php echo __("Alterar Sequência",true) ?></span></a></li>
 	
     </ul>
     <div id="tab1">
-        <?php echo $form->create('Receita');?>
+        <?php echo $form->create('Receita', array('type'=>'file'));?>
         <? if(!empty($jquery->validationErrors)){ ?>
         <div class="ui-widget">
                 <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
@@ -117,30 +121,30 @@
         </table>
         <?php echo $form->end();?>
     </div>
-    <div id="tab2">
-        <?php echo $form->create('Receita', array('type'=>'file','url'=>array('action' => 'salvarItemReceita')));?>
-            <table cellspacing="0" class="details">
-                
-                    <?php
-                    echo $jquery->input('ItemReceita.nome',array('class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                    echo $jquery->input('ItemReceita.descricao',array('type'=>'textarea','class'=>'validateRequired','label'=>'Descrição*','alt'=>'Descrição','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                    echo $jquery->input('ItemReceita.imagem',array('class'=>'validateRequired','label'=>'Imagem*','alt'=>'Imagem','type'=>'file','label'=>'','error' => false,'div'=>false,'before' => '<tr><td class="left">Imagem*','after' => '</td></tr>','between' => '</td><td class="right">'));
-            ?>
-            <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
-                    </tr>
-            </table>
-        <?php echo $form->end();?>
-    </div>
-    <div id="tab3" style="min-height: 200px;">
+    
+    <div id="tab2" style="min-height: 200px;">
         <table>
             <tr>
-                <td>
+                <td width="35%" valign="top">
                     <div id="arvoreReceita" style="min-width:200px">
                         <?=$this->element('tree_receita',array('itensReceita'=>$itensReceita, 'nomeReceita'=>$this->data['Receita']['nome']));?>
                     </div>
                 </td>
-                <td>
-                    
+                <td width="65%" valign="top">
+                    <?php echo $form->create('Receita', array('type'=>'file','url'=>array('action' => 'salvarItemReceita')));?>
+                        <table cellspacing="0" class="details">
+
+                                <?php
+                                echo $jquery->input('ItemReceita.id',array('id'=>'idItem','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                                echo $jquery->input('ItemReceita.nome',array('id'=>'nomeItem','class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                                echo $jquery->input('ItemReceita.descricao',array('id'=>'descricaoItem','type'=>'textarea','class'=>'validateRequired','label'=>'Descrição*','alt'=>'Descrição','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                                echo $jquery->input('ItemReceita.imagem',array('id'=>'imagemItem','type'=>'file','label'=>'','error' => false,'div'=>false,'before' => '<tr id="imagem"><td class="left">Imagem*','after' => '</td></tr>','between' => '</td><td class="right">'));
+                                echo '<tr><td class="left"></td><td class="right">'.$html->image('/img_receitas/x.jpg', array('id'=>'mostraImagem','align'=>'center','height'=>'100px')).'</td></tr>';
+                        ?>
+                        <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
+                                </tr>
+                        </table>
+                    <?php echo $form->end();?>
                 </td>
             </tr>
         </table>

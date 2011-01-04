@@ -1,8 +1,40 @@
-
-<script src="<?php echo $this->webroot;?>js/jquery.contextmenu/jquery.contextmenu.r2.js" type="text/javascript"></script>
+<script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.jstree/jquery.tree.js"></script>
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
+        $("#arvoreReceita").tree({
+            callback : {
+                onmove : function (NODE,REF_NODE,TYPE,TREE_OBJ,RB) {
+                    $.tree.rollback(RB);
+                }
+            },
+            types : {
+                "default" : {
+                    clickable	: true,
+                    renameable	: false,
+                    deletable	: false,
+                    creatable	: false,
+                    draggable	: false,
+                    max_children	: -1,
+                    max_depth	: -1,
+                    valid_children	: "all"
+                },
+                "item" : {
+                    draggable : false,
+                    deletable : false,
+                    valid_children : ["subitem"],
+                    icon : {
+                        image : $("#webroot").val()+"js/jquery.jstree/item.gif"
+                    }
+                },
+                "subitem" : {
+                    valid_children : ["subitem"],
+                    icon : {
+                        image : $("#webroot").val()+"js/jquery.jstree/subitem.gif"
+                    }
+                }
+            }
+        });
     });
 </script>
 
@@ -31,8 +63,8 @@
 			<?php echo $receita['Receita']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Modalidade'); ?></td><td class="right">		
 			<?php echo $receita['Receita']['modalidade']; ?></td></tr>		<tr><td class="left"><?php __('Obs'); ?></td><td class="right">		
 			<?php echo $receita['Receita']['obs']; ?></td></tr>		<tr><td class="left"><?php __('Imagem'); ?></td><td class="right">		
-			<?php echo $receita['Receita']['imagem']; ?></td></tr>		<tr><td class="left"><?php __('Ativo'); ?></td><td class="right">		
-			<?php echo $receita['Receita']['ativo']; ?></td></tr>            
+			<?php echo $html->image('/img_receitas/'.$receita['Receita']['imagem'], array('align'=>'center','height'=>'100px'));?></td></tr>		<tr><td class="left"><?php __('Ativo'); ?></td><td class="right">
+			<?php if($receita['Receita']['ativo']==1) echo 'Sim';else echo 'Não'; ?></td></tr>
             
         </table>
     </div>
@@ -40,37 +72,9 @@
     
             
     <div id="tab2">
-            <?php if (!empty($receita['ItemReceita'])):?>
-            <table id="myTable2" class="tablesorter" cellspacing="1"> 
-            <thead> 
-               <tr>
-                <th><?php __('Id'); ?></th><th><?php __('Nome'); ?></th><th><?php __('Descricao'); ?></th><th><?php __('Sequencia'); ?></th><th><?php __('Imagem'); ?></th><th><?php __('Receita Id'); ?></th>                </tr>
-            </thead> 
-            <tfoot> 
-                <tr>
-                <th><?php __('Id'); ?></th><th><?php __('Nome'); ?></th><th><?php __('Descricao'); ?></th><th><?php __('Sequencia'); ?></th><th><?php __('Imagem'); ?></th><th><?php __('Receita Id'); ?></th>                </tr>
-            </tfoot> 
-            <tbody>
-    <?php
-                    $i = 0;
-                    foreach ($receita['ItemReceita'] as $itemReceita):
-                            $class = null;
-                            if ($i++ % 2 == 0) {
-                                    $class = ' class="altrow"';
-                            }
-                    ?>
-<tr<?php echo $class;?>><td><?php echo $itemReceita['id'];?></td>
-<td><?php echo $itemReceita['nome'];?></td>
-<td><?php echo $itemReceita['descricao'];?></td>
-<td><?php echo $itemReceita['sequencia'];?></td>
-<td><?php echo $itemReceita['imagem'];?></td>
-<td><?php echo $itemReceita['receita_id'];?></td>
-</tr>
-	<?php endforeach;?>            </tbody>
-            </table>
-    <?php endif; ?>
-
-            
+        <div id="arvoreReceita" style="min-width:200px">
+            <?=$this->element('tree_receita',array('itensReceita'=>$receita['ItemReceita'], 'nomeReceita'=>$this->data['Receita']['nome']));?>
+        </div>
     
     </div>
         

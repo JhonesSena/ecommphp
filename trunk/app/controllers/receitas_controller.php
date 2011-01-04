@@ -21,13 +21,24 @@ class ReceitasController extends AppController {
 
     function add() {
         if (!empty($this->data)) {
-            $this->Receita->create();
-            if ($this->Receita->save($this->data)) {
-                $this->Session->setFlash(__('A Receita foi salva com sucesso.', true));
-                $id = $this->Receita->id;
-                $this->redirect(array('action' => 'edit', "$id#tab2"));
-            } else {
-                $this->Session->setFlash(__('A Receita não pôde er salva. Por favor tente novamente.', true));
+            $imgOk = array();
+            if(!empty ($this->data['Receita']['imagem'])) {
+                $imgOk = $this->salvarArquivo($this->data['Receita']['imagem']);
+                $this->data['Receita']['imagem'] = $imgOk['diretorio'];
+            }
+
+            if(number_format($imgOk['erros']) == 0) {
+                $this->Receita->create();
+                if ($this->Receita->save($this->data)) {
+                    $this->Session->setFlash(__('A Receita foi salva com sucesso.', true));
+                    $id = $this->Receita->id;
+                    $this->redirect(array('action' => 'edit', "$id#tab2"));
+                } else {
+                    $this->deletaArquivo($this->data['Receita']['imagem']);
+                    $this->Session->setFlash(__('A Receita não pôde er salva. Por favor tente novamente.', true));
+                }
+            }else{
+                $this->Session->setFlash(__('Extensão de imagem não permitida.', true));
             }
         }
     }
@@ -38,11 +49,22 @@ class ReceitasController extends AppController {
             $this->redirect(array('action' => 'index'));
         }
         if (!empty($this->data)) {
-            if ($this->Receita->save($this->data)) {
-                $this->Session->setFlash(__('A Receita foi salva com sucesso.', true));
-                $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('A Receita não pôde er salva. Por favor tente novamente.', true));
+            $imgOk = array();
+            if(!empty ($this->data['Receita']['imagem'])) {
+                $imgOk = $this->salvarArquivo($this->data['Receita']['imagem']);
+                $this->data['Receita']['imagem'] = $imgOk['diretorio'];
+            }
+
+            if(number_format($imgOk['erros']) == 0) {
+                if ($this->Receita->save($this->data)) {
+                    $this->Session->setFlash(__('A Receita foi salva com sucesso.', true));
+                    $this->redirect(array('action' => 'index'));
+                } else {
+                    $this->deletaArquivo($this->data['Receita']['imagem']);
+                    $this->Session->setFlash(__('A Receita não pôde er salva. Por favor tente novamente.', true));
+                }
+            }else{
+                $this->Session->setFlash(__('Extensão de imagem não permitida.', true));
             }
         }
         if (empty($this->data)) {
@@ -70,11 +92,19 @@ class ReceitasController extends AppController {
             $this->data['ItemReceita']['sequencia'] = $sequencia;
             $this->data['ItemReceita']['receita_id'] = $idReceita;
 
-            $dadosUpload = $this->salvarArquivo($this->data['ItemReceita']['imagem']);
+            $dadosUpload['erros'] = 0;
+            if(!empty($this->data['ItemReceita']['imagem'])){
+                $dadosUpload = $this->salvarArquivo($this->data['ItemReceita']['imagem']);
+            }
+            if(!empty ($this->data['ItemReceita']['id'])){
+                unset($this->data['ItemReceita']['sequencia']);
+            }
             if(floor($dadosUpload['erros']) > 0){
                 $this->Session->setFlash(__('Ocorreu um erro ao salvar imagem.', true));
             }else{
-                $this->data['ItemReceita']['imagem'] = $dadosUpload['diretorio'];
+                if(!empty($this->data['ItemReceita']['imagem'])){
+                    $this->data['ItemReceita']['imagem'] = $dadosUpload['diretorio'];
+                }
                 $this->Receita->create();
                 if ($this->Receita->ItemReceita->save($this->data)) {
                     $this->Session->setFlash(__('Item foi salvo com sucesso.', true));
@@ -128,7 +158,15 @@ class ReceitasController extends AppController {
     }
 
     function excluirImagem($idReceita){
-        $this->redirect(array('action' => 'edit',$idReceita));
+        $receita = $this->Receita->read(null, $idReceita);
+        $dados['Receita']['id'] = $idReceita;
+        $dados['Receita']['imagem'] = '';
+
+        if ($this->Receita->save($dados)) {
+            $this->deletaArquivo($receita['Receita']['imagem']);
+            $this->redirect(array('action' => 'edit',$idReceita));
+        }
+        $this->render("edit/$idReceita");
     }
 
 }
