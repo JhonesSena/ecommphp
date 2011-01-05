@@ -17,6 +17,8 @@
                     $("#idItem").val($(obj).attr('id'));
                     $("#nomeItem").val($(obj).attr('nome'));
                     $("#descricaoItem").val($(obj).attr('descricao'));
+                    $("#limpar").show();
+                    $("#salvar").attr('value','Salvar Alterações');
                     if($(obj).attr('imagem')!=''){
                         $("#imagem").hide();
                         $("#imagemItem").attr('disabled','disabled');
@@ -62,9 +64,24 @@
                 }
             }
         });
+
+        $("#limpar").click(function(){
+            $("#idItem").val("");
+            $("#nomeItem").val("");
+            $("#descricaoItem").val("");
+            $("#imagem").show();
+            $("#imagemItem").attr('disabled','');
+            $("#mostraImagem").attr('src',($('#webroot').val()+'/img_receitas/?'));
+            $("#salvar").attr('value','Salvar');
+            $(this).hide();
+        });
     });
+    
     $(document).ready(function(){
         $('html, body').animate({scrollTop: 0});
+        if($("#idItem").val()==""){
+            $("#limpar").hide();
+        }
     });
 </script>
 <div class="toolbar">
@@ -133,7 +150,7 @@
                 <td width="65%" valign="top">
                     <?php echo $form->create('Receita', array('type'=>'file','url'=>array('action' => 'salvarItemReceita')));?>
                         <table cellspacing="0" class="details">
-
+                            
                                 <?php
                                 echo $jquery->input('ItemReceita.id',array('id'=>'idItem','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                                 echo $jquery->input('ItemReceita.nome',array('id'=>'nomeItem','class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
@@ -141,8 +158,13 @@
                                 echo $jquery->input('ItemReceita.imagem',array('id'=>'imagemItem','type'=>'file','label'=>'','error' => false,'div'=>false,'before' => '<tr id="imagem"><td class="left">Imagem*','after' => '</td></tr>','between' => '</td><td class="right">'));
                                 echo '<tr><td class="left"></td><td class="right">'.$html->image('/img_receitas/x.jpg', array('id'=>'mostraImagem','align'=>'center','height'=>'100px')).'</td></tr>';
                         ?>
-                        <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
-                                </tr>
+                        <tr><td class="left">
+                                <input type="button" id="limpar" style="font-size:11px" class="formbtn btn_excluir" value="Limpar">
+                            </td>
+                            <td class="right">
+                                <?php echo $form->submit(__('Salvar',true),array('id'=>'salvar','style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?>
+                            </td>
+                        </tr>
                         </table>
                     <?php echo $form->end();?>
                 </td>
