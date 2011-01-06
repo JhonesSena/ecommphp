@@ -6,7 +6,22 @@
         $("#arvoreReceita").tree({
             callback : {
                 onmove : function (NODE,REF_NODE,TYPE,TREE_OBJ,RB) {
-                    alert(TREE_OBJ.get_text(NODE) + " " + TYPE + " " + TREE_OBJ.get_text(REF_NODE));
+//                    alert(TREE_OBJ.get_text(NODE) + " " + TYPE + " " + TREE_OBJ.get_text(REF_NODE));
+
+                    parent = TREE_OBJ.parent(NODE);
+                    var children = TREE_OBJ.children(parent);
+                    vetor = new Array();
+                    $.each(children, function(i,child){
+                       vetor[i] = $(child).attr('id')+";"+i;
+                    });
+                    
+                    
+                    if(updateSequencia(arr2jsonToBase64(vetor))==false){
+                        $('#flashMessage').html("Não foi possível alterar sequência do passo a passo.");
+                        $('#msginfo').fadeIn(500);
+                        setTimeout("$('#msginfo').fadeOut(500)",4000);
+                        $.tree.rollback(RB);
+                    }
                 },
                 ondblclk : function(NODE, TREE_OBJ, EV) {
                     TREE_OBJ.toggle_branch.call(TREE_OBJ, NODE);
@@ -17,12 +32,13 @@
                     $("#idItem").val($(obj).attr('id'));
                     $("#nomeItem").val($(obj).attr('nome'));
                     $("#descricaoItem").val($(obj).attr('descricao'));
-                    $("#limpar").show();
+                    $(".editar").show();
                     $("#salvar").attr('value','Salvar Alterações');
                     if($(obj).attr('imagem')!=''){
                         $("#imagem").hide();
                         $("#imagemItem").attr('disabled','disabled');
                         $("#mostraImagem").attr('src',($('#webroot').val()+'/img_receitas/'+$(obj).attr('imagem')));
+                        $("#imgHide").val($(obj).attr('imagem'));
                     }else{
                         $("#imagem").show();
                         $("#imagemItem").attr('disabled','');
@@ -39,7 +55,7 @@
                     deletable	: true,
                     creatable	: false,
                     draggable	: false,
-                    max_children	: 0,
+                    max_children	: -1,
                     max_depth	: 0,
                     valid_children	: "item"
                 },
@@ -73,16 +89,58 @@
             $("#imagemItem").attr('disabled','');
             $("#mostraImagem").attr('src',($('#webroot').val()+'/img_receitas/?'));
             $("#salvar").attr('value','Salvar');
-            $(this).hide();
+            $(".editar").hide();
         });
+
+        $("#btn_excluir").click(function(){
+            if(confirm("Deseja excluir o Item da Receita?")){
+                window.location="<?php echo $html->url('/'.$this->params['controller'].'/excluirItemReceita/'.$this->data['Receita']['id'])?>";
+            }
+        });
+
     });
     
     $(document).ready(function(){
         $('html, body').animate({scrollTop: 0});
         if($("#idItem").val()==""){
-            $("#limpar").hide();
+            $(".editar").hide();
+        }else{
+            $("#imagem").hide();
+            $("#mostraImagem").attr('src',($('#webroot').val()+'/img_receitas/'+$("#imgHide").val()));
         }
     });
+
+    function arr2jsonToBase64($arr){
+        var $ret = '{';
+        var $key,$chave,$val;
+        for($key in $arr){
+            $val = $arr[$key];
+            $key = $key.replace("'","\\'");
+            $val = $val.replace("'","\\'");
+
+            if(isNaN($key)){
+                $chave = "'" + $key + "'";
+            }else{
+                $chave=$key;
+            }
+            $ret += " " + $chave + ":'" + $val + "',";
+        }
+        $ret = $ret.substring(0,$ret.length-1);
+        $ret += '}';
+        $ret = $.base64Encode($ret);
+        return $ret;
+    }
+
+    function updateSequencia(vetor){
+        var receitaId = "<?=$this->data['Receita']['id']?>";
+        var retorno = $.ajax({
+            type: "get",
+            async: false,
+            url: $('#webroot').val() + 'ajax' +'/update_sequencia_receita/'+receitaId+'/'+vetor
+        }).responseText;
+
+        return retorno;
+    };
 </script>
 <div class="toolbar">
 <?php echo $html->link(__('Voltar', true), array('action'=>'index'),array('class'=>'linkbutton linkbtn btn_list'));?></div>
@@ -143,7 +201,8 @@
         <table>
             <tr>
                 <td width="35%" valign="top">
-                    <div id="arvoreReceita" style="min-width:200px">
+                    <label style="font-weight: bold; color: #1D5987;">Clique duas vezes para editar</label>
+                    <div id="arvoreReceita" style="min-width:200px; margin-top: 10px;">
                         <?=$this->element('tree_receita',array('itensReceita'=>$itensReceita, 'nomeReceita'=>$this->data['Receita']['nome']));?>
                     </div>
                 </td>
@@ -152,6 +211,7 @@
                         <table cellspacing="0" class="details">
                             
                                 <?php
+                                echo $jquery->input('ItemReceita.imgHide',array('id'=>'imgHide','type'=>'hidden','value'=>'','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                                 echo $jquery->input('ItemReceita.id',array('id'=>'idItem','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                                 echo $jquery->input('ItemReceita.nome',array('id'=>'nomeItem','class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                                 echo $jquery->input('ItemReceita.descricao',array('id'=>'descricaoItem','type'=>'textarea','class'=>'validateRequired','label'=>'Descrição*','alt'=>'Descrição','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
@@ -159,10 +219,17 @@
                                 echo '<tr><td class="left"></td><td class="right">'.$html->image('/img_receitas/x.jpg', array('id'=>'mostraImagem','align'=>'center','height'=>'100px')).'</td></tr>';
                         ?>
                         <tr><td class="left">
-                                <input type="button" id="limpar" style="font-size:11px" class="formbtn btn_excluir" value="Limpar">
+                                <input type="button" id="limpar" style="font-size:11px" class="formbtn btn_excluir editar" value="Limpar">
                             </td>
                             <td class="right">
-                                <?php echo $form->submit(__('Salvar',true),array('id'=>'salvar','style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?>
+                                <table>
+                                    <td class="left">
+                                        <input type="button" id="btn_excluir" style="font-size:11px" class="formbtn btn_delete editar" value="Excluir">
+                                    </td>
+                                    <td class="right">
+                                        <?php echo $form->submit(__('Salvar',true),array('id'=>'salvar','style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?>
+                                    </td>
+                                </table>
                             </td>
                         </tr>
                         </table>
