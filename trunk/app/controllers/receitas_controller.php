@@ -6,6 +6,13 @@ class ReceitasController extends AppController {
     var $helpers = array('Html', 'Form');
     var $components = array('Upload');
 
+    function beforeFilter () {
+        // executa o beforeFilter do AppController
+        parent::beforeFilter();
+        // adicione ao método allow as actions que quer permitir sem o usuário estar logado
+        $this->Auth->allow('visualizar');
+    }
+
     function index() {
         $this->Receita->recursive = 0;
         $this->set('receitas', $this->paginate());
@@ -181,6 +188,12 @@ class ReceitasController extends AppController {
             $this->Session->setFlash(__('Item do passo a passo excluido', true));
             $this->redirect(array('action' => 'edit',"$idItem#tab2"));
         }
+    }
+
+    function visualizar($id){
+        $this->layout = 'view_receita';
+        $receitas = $this->Receita->find('all',array('conditions'=>array('Receita.ativo'=>true)));
+        $this->set(compact('receitas'));
     }
 
 }

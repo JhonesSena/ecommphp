@@ -22,7 +22,7 @@
 
 <div id="tabpanel">
     <ul>
-        <li><a href="#tab1"><span><?php echo __("Visualizar Receita",true) ?></span></a></li><li><a href="#tab2"><span>Item Receitas</span></a></li></ul>
+        <li><a href="#tab1"><span><?php echo __("Visualizar Receita",true) ?></span></a></li><li><a href="#tab2"><span>Etapas</span></a></li></ul>
     <div id="tab1">
         <table cellspacing="0" class="details">
             		<tr><td class="left"><?php __('Id'); ?></td><td class="right">		

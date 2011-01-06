@@ -57,7 +57,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="<?php echo $this->webroot;?>pages/receitas"><span>Receitas</span></a></li>
+                        <li><a href="<?php echo $this->webroot;?>receitas/visualizar"><span>Receitas</span></a></li>
                         <li><a href="<?php echo $this->webroot;?>pages/representantes"><span>Representantes</span></a></li>
                         <li><a href="<?php echo $this->webroot;?>pages/contato"><span>Contatos</span></a></li>
                         <li><a href="<?php echo $this->webroot;?>users/logout"><span>Sair</span></a></li>
