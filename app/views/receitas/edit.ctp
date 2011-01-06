@@ -157,7 +157,7 @@
 <div id="tabpanel">
     <ul>
         <li><a href="#tab1"><span><?php echo __("Editar Receita",true) ?></span></a></li>
-        <li><a href="#tab2"><span><?php echo __("Passo a Passo",true) ?></span></a></li>
+        <li><a href="#tab2"><span><?php echo __("Etapas",true) ?></span></a></li>
 	
     </ul>
     <div id="tab1">
