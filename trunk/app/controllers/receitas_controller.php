@@ -88,7 +88,11 @@ class ReceitasController extends AppController {
     function salvarItemReceita($idReceita=null) {
         if (!empty($this->data)) {
             $ultimaSequencia = $this->Receita->ItemReceita->find('first', array('fields' => array('ItemReceita.sequencia'), 'conditions' => array('Receita.id' => $idReceita), 'order' => array('ItemReceita.sequencia desc')));
-            $sequencia = $ultimaSequencia['ItemReceita']['sequencia'] + 1;
+            if(empty($ultimaSequencia)){
+                $sequencia = 0;
+            }else{
+                $sequencia = $ultimaSequencia['ItemReceita']['sequencia'] + 1;
+            }
             $this->data['ItemReceita']['sequencia'] = $sequencia;
             $this->data['ItemReceita']['receita_id'] = $idReceita;
 
@@ -167,6 +171,16 @@ class ReceitasController extends AppController {
             $this->redirect(array('action' => 'edit',$idReceita));
         }
         $this->render("edit/$idReceita");
+    }
+    function excluirItemReceita($idItem, $id){
+        if (!$id) {
+            $this->Session->setFlash(__('Identificador de Item de Receita inválido', true));
+            $this->redirect(array('action' => 'edit',"$idItem#tab2"));
+        }
+        if ($this->Receita->ItemReceita->del($id)) {
+            $this->Session->setFlash(__('Item do passo a passo excluido', true));
+            $this->redirect(array('action' => 'edit',"$idItem#tab2"));
+        }
     }
 
 }

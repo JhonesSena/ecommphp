@@ -9,6 +9,14 @@
 //                    alert(TREE_OBJ.get_text(NODE) + " " + TYPE + " " + TREE_OBJ.get_text(REF_NODE));
 
                     parent = TREE_OBJ.parent(NODE);
+                    if(parent == -1){
+                        $('#flashMessage').html("Não é possível mover para este nível.");
+                        $('#msginfo').fadeIn(500);
+                        setTimeout("$('#msginfo').fadeOut(500)",4000);
+                        $('html, body').animate({scrollTop: 0});
+                        $.tree.rollback(RB);
+                        return;
+                    }
                     var children = TREE_OBJ.children(parent);
                     vetor = new Array();
                     $.each(children, function(i,child){
@@ -20,6 +28,7 @@
                         $('#flashMessage').html("Não foi possível alterar sequência do passo a passo.");
                         $('#msginfo').fadeIn(500);
                         setTimeout("$('#msginfo').fadeOut(500)",4000);
+                        $('html, body').animate({scrollTop: 0});
                         $.tree.rollback(RB);
                     }
                 },
@@ -94,7 +103,7 @@
 
         $("#btn_excluir").click(function(){
             if(confirm("Deseja excluir o Item da Receita?")){
-                window.location="<?php echo $html->url('/'.$this->params['controller'].'/excluirItemReceita/'.$this->data['Receita']['id'])?>";
+                window.location="<?php echo $html->url('/'.$this->params['controller'].'/excluirItemReceita/'.$this->data['Receita']['id'])?>/"+$("#idItem").val();
             }
         });
 
