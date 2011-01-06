@@ -2,18 +2,35 @@
 
 App::import('Controller', 'Shopps');
 App::import('Core', 'HttpSocket');
-class AjaxController extends AppController {
+class AjaxController extends Controller {
 
     var $name = 'Ajax';
+    var $components = array('RequestHandler');
     var $helpers = array('Html', 'Form', 'Jquery');
-    var $uses = array('Produto', 'Imagem', 'Item', 'Estado', 'Receita');
+    var $uses = array('Produto', 'Imagem', 'Item', 'Estado', 'Receita','ItemReceita');
 
     function beforeFilter () {
-        // executa o beforeFilter do AppController
-        parent::beforeFilter();
         // adicione ao método allow as actions que quer permitir sem o usuário estar logado
-        $this->Auth->allow('*');
+        //$this->Auth->allow('*');
 //        print_r($this->Auth);
+
+//        if($this->Session->check("Usuario")==false){
+//            $this->layout = '';
+//            Configure::delete('debug');
+//            $webroot = $_SERVER['SERVER_NAME'] . '' . $this->webroot;
+//            $this->Session->setFlash(__('Sessão expirada!', true));
+//            print("<script language = 'javascript'>window.location='$webroot"."users/login'</script>");
+//            exit;
+//        }
+
+        if(!$this->RequestHandler->isAjax()){
+            $this->layout = '';
+            Configure::write('debug', 0);
+            $webroot = $this->webroot;
+            $this->Session->setFlash(__('Acesso não permitido.', true));
+            print("<script language = 'javascript'>window.location='$webroot"."pages'</script>");
+            exit();
+        }
     }
 
     function delete_imagem_for_produto($idImg = null, $idProduto = null) {
@@ -130,8 +147,30 @@ class AjaxController extends AppController {
         $this->layout = 'ajax';
         Configure::delete('debug');
         $results = false;
-        $this->set(compact($results));
+        $vetor = $this->jsonString2arr(base64_decode($vetor));
+        $array = array();
+        foreach ($vetor as $key => $value) {
+            $separa_atr = explode(';', $value);
+            $id = $separa_atr[0]; //Id da atividade do vetor
+            $sequencia = $separa_atr[1]; //Sequencia da atividade do vetor
+            $array = Set::merge($array,array($key => array("ItemReceita" => array('id' => $id, 'sequencia' => $sequencia))));
+        }
+        if($this->ItemReceita->saveAll($array)){
+            $results = "true";
+        } else {
+            $results = "false";
+        }
+        $this->set(compact('results'));
         $this->render('json', 'ajax', '/ajax/json');
+    }
+
+    //Retorna um array com base em um objeto json codificado na base 64
+    function jsonString2arr($json) {
+        $json = str_replace("{", "(", $json);
+        $json = str_replace("}", ")", $json);
+        $json = str_replace(":", "=>", $json);
+        eval('$ret=array' . $json . ";");
+        return $ret;
     }
 }
 ?>
