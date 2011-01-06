@@ -125,5 +125,13 @@ class AjaxController extends AppController {
         print json_encode($results);
         $this->render('json', 'ajax', '/ajax/json');
     }
+
+    function update_sequencia_receita($receitaId, $vetor){
+        $this->layout = 'ajax';
+        Configure::delete('debug');
+        $results = false;
+        $this->set(compact($results));
+        $this->render('json', 'ajax', '/ajax/json');
+    }
 }
 ?>
