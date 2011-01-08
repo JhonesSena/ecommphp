@@ -43,6 +43,7 @@
         <table cellspacing="0" class="details">
         	<?php
 		echo $jquery->input('nome',array('class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('saudacao',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('modalidade',array('type'=>'textarea','class'=>'validateRequired','label'=>'Modalidade*','alt'=>'Modalidade','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('obs',array('type'=>'textarea','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('imagem',array('type'=>'file','class'=>'validateRequired','label'=>'Imagem produto final*','alt'=>'Imagem produto final','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));

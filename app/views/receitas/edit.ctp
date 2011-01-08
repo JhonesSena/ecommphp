@@ -1,4 +1,7 @@
 <script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.jstree/jquery.tree.js"></script>
+<!-- Data Table -->
+<link rel="stylesheet" href="<?php echo $this->webroot;?>js/jquery.tablesorter/themes/blue/style.css" type="text/css" media="print, projection, screen" />
+<script type="text/javascript" src="<?php echo $this->webroot;?>js/jquery.tablesorter/jquery.tablesorter.js"></script>
 
 <script type="text/javascript">
     $(function(){
@@ -150,6 +153,26 @@
 
         return retorno;
     };
+
+//    function selecionados(){
+//		chs = $(".chk").get();
+//		saida = "";
+//		for(i=0;i<chs.length;i++){
+//			saida = chs[i].checked?saida+","+chs[i].value:saida;
+//		}
+//		return saida.substring(1,saida.length);
+//	}
+//	function selecionarTodos(){
+//		chs = $(".chk").get();
+//		saida = "";
+//		for(i=0;i<chs.length;i++){
+//			if(chs[i].checked){
+//				chs[i].checked=false;
+//			}else{
+//				chs[i].checked=true;
+//			}
+//		}
+//	}
 </script>
 <div class="toolbar">
 <?php echo $html->link(__('Voltar', true), array('action'=>'index'),array('class'=>'linkbutton linkbtn btn_list'));?></div>
@@ -158,6 +181,7 @@
     <ul>
         <li><a href="#tab1"><span><?php echo __("Editar Receita",true) ?></span></a></li>
         <li><a href="#tab2"><span><?php echo __("Etapas",true) ?></span></a></li>
+        <li><a href="#tab3"><span><?php echo __("Materiais",true) ?></span></a></li>
 	
     </ul>
     <div id="tab1">
@@ -187,6 +211,7 @@
                 <?php
                 echo $jquery->input('id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('nome',array('class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('saudacao',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('modalidade',array('type'=>'textarea','class'=>'validateRequired','label'=>'Modalidade*','alt'=>'Modalidade','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('obs',array('type'=>'textarea','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 if(!empty($this->data['Receita']['imagem'])){
@@ -205,7 +230,6 @@
         </table>
         <?php echo $form->end();?>
     </div>
-    
     <div id="tab2" style="min-height: 200px;">
         <table>
             <tr>
@@ -248,4 +272,55 @@
         </table>
         
     </div>
+
+    <div id="tab3">
+        <?php echo $form->create('Material',array('url'=>array('action' => 'add',$this->data['Receita']['id'])));?>
+        <table cellspacing="0" class="details">
+                <?php echo $jquery->input('nome',array('class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));?>
+        <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
+                </tr>
+        </table>
+        <?php echo $form->end();?>
+        <?php if(!empty($this->data['Material'])):?>
+        <br/>
+        
+        <table id="myTable" class="tablesorter" cellspacing="1">
+            <thead>
+               <tr>
+                    <th><?php echo __('Nome');?></th>
+                    <th><?php echo __('Excluir');?></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th><?php echo __('nome');?></th>
+                    <th><?php echo __('Excluir');?></th>
+                </tr>
+            </tfoot>
+            <tbody>
+            <?php
+            $i = 0;
+            foreach ($this->data['Material'] as $material):
+                    $class = null;
+                    if ($i++ % 2 == 0) {
+                            $class = ' class="altrow"';
+                    }
+            ?>
+	<tr<?php echo $class;?>>
+		<td>
+			<?php echo $material['nome']; ?>
+		</td>
+		<td>
+                        <?php echo $html->image("/css/img/delete.gif", array('border'=>'none',"alt" => "Excluir",
+                               'url' => array('controller' => 'materiais', 'action' => 'delete', $material['id'],$this->data['Receita']['id']))); ?>
+
+		</td>
+	</tr>
+<?php endforeach; ?>
+
+            </tbody>
+        </table>
+        <?php endif;?>
+    </div>
+    
 </div>

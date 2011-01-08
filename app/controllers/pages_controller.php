@@ -53,7 +53,7 @@ class PagesController extends AppController {
      * @var array
      * @access public
      */
-    var $uses = array('Cor', 'Produto');
+    var $uses = array('Cor', 'Empresa');
     /**
      * Displays a view
      *
@@ -85,9 +85,12 @@ class PagesController extends AppController {
 //        }else{
 //            $this->layout = 'cliente';
 //        }
+        if($page == 'representantes'){
+            $empresa = $this->Empresa->find('first');
+        }
         
         
-        $this->set(compact('page', 'subpage', 'title'));
+        $this->set(compact('page', 'subpage', 'title', 'empresa'));
         $this->render(join('/', $path));
     }
 

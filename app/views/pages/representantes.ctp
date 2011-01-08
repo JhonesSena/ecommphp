@@ -1,3 +1,4 @@
+<?php ?>
 <div style="min-height: 510px;">
     <div class="div_migalha_de_pao">
         <div class="div_linhas_a-d"></div>
@@ -15,16 +16,13 @@
         <br>
         Entre em contato conosco.<br>
         <br>
-        <strong>Telefone:</strong> (71) 3415-9493<strong> </strong>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+        <?php if(!empty($empresa['ContatosEmpresa'])):
+        foreach ($empresa['ContatosEmpresa'] as $key => $contato) :?>
+            <strong><?=$contato['tipo'];?>:</strong> <?=$contato['valor'];?><strong> </strong>
+            <br/><br/>
+        <?php endforeach;
+        endif;
+        ?>
     </div>
     <div class="div_representantes_4">
         <?=$html->image('/img/mapa.gif', array('height'=>'485px','width'=>'477px'));?>
