@@ -544,7 +544,7 @@ a:hover {
     text-align:left;
     text-transform:none;
     vertical-align:top;
-    width:18px;
+    width:17px;
 }
 .div_empresa_2 {
     background-image:url(../img/texturadupla.gif);
@@ -566,7 +566,7 @@ a:hover {
     text-transform:none;
     top:0;
     vertical-align:top;
-    width:455px;
+    width:456px;
 }
 .div_empresa_4 {
     background-color:#BDE1D3;
@@ -643,7 +643,7 @@ a:hover {
     text-transform:none;
     top:0;
     vertical-align:top;
-    width:430px;
+    width:431px;
 }
 .div_contato_4 {
     background-color:#BDE1D3;
@@ -679,7 +679,7 @@ a:hover {
     text-align:left;
     text-transform:none;
     vertical-align:top;
-    width:276px;
+    width:253px;
 }
 .div_receitas_1e3 {
     background-image:url(../img/texturadupla.gif);
@@ -1730,4 +1730,29 @@ a:hover {
     width: 15%;
     height: 240px;
     float: left;
+}
+.divDadosEtapa{
+    margin-top: 255px;
+    text-align: left;
+    width: 400px;
+    border: 1px solid #BDE1D3;
+    min-height: 100px;
+    max-height: 160px;
+    padding-left: 5px;
+    -moz-border-radius-bottomleft: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+}
+.divDadosReceita{
+    text-align: left;
+    width: 300px;
+    min-height: 200px;
+    max-height: 300px;
+    border: 1px solid #BDE1D3;
+    padding-left: 5px;
+    -moz-border-radius-bottomleft: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
 }

@@ -18,6 +18,19 @@ class Receita extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+		),
+		'Material' => array(
+			'className' => 'Material',
+			'foreignKey' => 'receita_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => 'Material.nome',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
 		)
 	);
 

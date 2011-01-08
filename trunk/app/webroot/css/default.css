@@ -330,6 +330,11 @@ a.linkbutton:hover {
     background-position:50% 50%;
 }
 
+.btn_email {
+    background-image:url(img/email.png);
+    background-position:50% 50%;
+}
+
 .cake-sql-log {
     font-size: 80%;
     margin-top:10px;

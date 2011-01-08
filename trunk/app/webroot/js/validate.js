@@ -17,6 +17,7 @@ $(document).bind("ready", function() {
 			validationMessages.push(msg+'.');
 		},
 		lastErro: function(r) {
+                        $('html, body').animate({scrollTop: 0});
 			//habilita o elemento que mostra os erros
 			$("#msgerro").show();
 			// Junta as mensagens e faz a saída

@@ -123,6 +123,7 @@
                 ),
                 'Administrar' => array(
                     'Grupos de Acessos'=>'groups',
+                    'Parâmetros da Empresa'=>'empresas',
                     'Permissões'=>'permissoes',
                     'Usuários'=>'users'
                 ),
@@ -160,6 +161,7 @@
                     });
 
                     $(document).ready(function() {
+                        $('html, body').animate({scrollTop: 0});
                         $("#dialog").dialog({
                             bgiframe: true,
                             height: 140,

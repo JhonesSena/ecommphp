@@ -27,7 +27,8 @@
         <table cellspacing="0" class="details">
             		<tr><td class="left"><?php __('Id'); ?></td><td class="right">		
 			<?php echo $receita['Receita']['id']; ?></td></tr>		<tr><td class="left"><?php __('Nome'); ?></td><td class="right">
-			<?php echo $receita['Receita']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Modalidade'); ?></td><td class="right">
+			<?php echo $receita['Receita']['nome']; ?></td></tr>		<tr><td class="left"><?php __('Saudação'); ?></td><td class="right">
+			<?php if(!empty($receita['Receita']['saudacao'])) echo $receita['Receita']['saudacao']; else "Nenhuma";  ?></td></tr>		<tr><td class="left"><?php __('Modalidade'); ?></td><td class="right">
 			<?php echo $receita['Receita']['modalidade']; ?></td></tr>		<tr><td class="left"><?php __('Obs'); ?></td><td class="right">
 			<?php echo $receita['Receita']['obs']; ?></td></tr>		<tr><td class="left"><?php __('Imagem'); ?></td><td class="right">
 			<?php echo $html->image('/img_receitas/'.$receita['Receita']['imagem'], array('align'=>'center','height'=>'100px'));?></td></tr>		<tr><td class="left"><?php __('Ativo'); ?></td><td class="right">
