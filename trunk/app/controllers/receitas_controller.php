@@ -190,10 +190,16 @@ class ReceitasController extends AppController {
         }
     }
 
-    function visualizar($id){
+    function visualizar($id=null){
         $this->layout = 'view_receita';
         $receitas = $this->Receita->find('all',array('conditions'=>array('Receita.ativo'=>true)));
-        $this->set(compact('receitas'));
+        if($id != null){
+            $receita = $this->Receita->read(null,$id);
+        }else{
+            $receita = $this->Receita->find('first',array('conditions'=>array('Receita.ativo'=>true)));
+        }
+        $itemReceita = json_encode($receita['ItemReceita']);
+        $this->set(compact('receitas','receita','itemReceita'));
     }
 
 }

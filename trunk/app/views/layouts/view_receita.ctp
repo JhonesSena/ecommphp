@@ -121,7 +121,8 @@
 
 
                                 <div class="div_linhas_f"></div>
-                                <div style="padding:8px">
+                                <div style="padding:8px; float: left; width: 528px;">
+                                    <input id="webroot" type="hidden" value="<?=$this->webroot;?>"/>
                                     <?php echo $content_for_layout; ?>
                                 </div>
                             </div>
