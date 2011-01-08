@@ -1715,3 +1715,19 @@ a:hover {
 .dialogItens{
     cursor: pointer;
 }
+
+.divAnterior{
+    width: 15%;
+    height: 240px;
+    float: left;
+}
+.divCentral{
+    width: 70%;
+    height: 240px;
+    float: left;
+}
+.divPosterior{
+    width: 15%;
+    height: 240px;
+    float: left;
+}
