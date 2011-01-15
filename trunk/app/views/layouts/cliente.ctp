@@ -41,7 +41,7 @@
                 <div id="menu">
                     <ul class="menu">
                         <li>
-                            <a href="<?php echo $this->webroot;?>shopps/index"><span>Home</span></a>
+                            <a href="<?php echo $this->webroot;?>pages/index"><span>Home</span></a>
                         </li>
                         <li><a href="<?php echo $this->webroot;?>pages/empresas"><span>Empresa</span></a></li>
                         <li><a href="#"><span>Produtos</span></a>
@@ -60,7 +60,9 @@
                         <li><a href="<?php echo $this->webroot;?>receitas/visualizar"><span>Receitas</span></a></li>
                         <li><a href="<?php echo $this->webroot;?>pages/representantes"><span>Representantes</span></a></li>
                         <li><a href="<?php echo $this->webroot;?>contatos"><span>Contatos</span></a></li>
-                        <li><a href="<?php echo $this->webroot;?>users/logout"><span>Sair</span></a></li>
+                        <?php if(!empty($clienteSession)):?>
+                            <li><a href="<?php echo $this->webroot;?>users/logout"><span>Sair</span></a></li>
+                        <?php endif;?>
                     </ul>
                 </div>
                 <!--Fim menu-->
@@ -160,7 +162,7 @@
                                         }
                                     } else {
                                         echo '<div id="msgerro" style="display:none; align-text:left;" class="ui-state-error ui-corner-all">';
-                                        echo '<ul style="margin-top:1px;margin-bottom: 1px;"></ul>';
+                                        echo '<ul style="margin-top:1px;margin-bottom: 1px;margin-right:20px;"></ul>';
                                         echo '</div>';
                                         echo '<div id="msgaviso" style="display:none" class="msg_aviso">Verifique o registro antes de confirmar a operação, uma vez confirmado, a operação não poderá ser desfeita.<div>';
                                     }

@@ -537,6 +537,20 @@ class JqueryHelper extends FormHelper {
 
                     return $object;
                 }
+
+                function verificaPermissao($urls = array(), $telas = array()) {
+                    $retorno = false;
+                    if(isset($urls)) {
+                        $retorno = true;
+                        foreach ($urls as $value) {
+                            //if(!in_array($value, $telas)) {
+                            if(!array_key_exists($value, $telas)) {
+                                $retorno = false;
+                            }
+                        }
+                    }
+                    return $retorno;
+                }
     
     }
 ?>

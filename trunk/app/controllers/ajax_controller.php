@@ -139,7 +139,9 @@ class AjaxController extends Controller {
             $results['webservicecep']['estado'] = $estado;
         else
             $results['webservicecep']['estado'] = '';
+        print_r($results);exit;
         print json_encode($results);
+
         $this->render('json', 'ajax', '/ajax/json');
     }
 

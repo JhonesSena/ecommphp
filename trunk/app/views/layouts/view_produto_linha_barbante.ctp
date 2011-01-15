@@ -42,7 +42,7 @@
                 <div id="menu">
                     <ul class="menu">
                         <li>
-                            <a href="<?php echo $this->webroot;?>shopps/index"><span>Home</span></a>
+                            <a href="<?php echo $this->webroot;?>pages/index"><span>Home</span></a>
                         </li>
                         <li><a href="<?php echo $this->webroot;?>pages/empresas"><span>Empresa</span></a></li>
                         <li><a href="#"><span>Produtos</span></a>
@@ -61,7 +61,9 @@
                         <li><a href="<?php echo $this->webroot;?>receitas/visualizar"><span>Receitas</span></a></li>
                         <li><a href="<?php echo $this->webroot;?>pages/representantes"><span>Representantes</span></a></li>
                         <li><a href="<?php echo $this->webroot;?>contatos"><span>Contatos</span></a></li>
-                        <li><a href="<?php echo $this->webroot;?>users/logout"><span>Sair</span></a></li>
+                        <?php if(!empty($clienteSession)):?>
+                            <li><a href="<?php echo $this->webroot;?>users/logout"><span>Sair</span></a></li>
+                        <?php endif;?>
                     </ul>
                 </div>
                 <!--Fim menu-->

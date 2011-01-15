@@ -11,11 +11,10 @@ class ShoppsController extends AppController {
     );
 
     function beforeFilter () {
+        $this->Allow('view');
+        $this->Allow('carrinho');
         // executa o beforeFilter do AppController
         parent::beforeFilter();
-        // adicione ao método allow as actions que quer permitir sem o usuário estar logado
-        $this->Auth->allow('index');
-        $this->Auth->allow('carrinho');
     }
 
     function index($grupo_id = '') {

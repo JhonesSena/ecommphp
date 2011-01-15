@@ -14,8 +14,7 @@
 
     </ul>
     <div id="tab1">
-        <? if($session->check('Message.flash')) $session->flash(); ?>
-        <?php $session->flash('auth')?>
+
         <?php echo $jquery->create('User', array('controller'=>'users','action'=>'login'));?>
 
         <table cellspacing="0" class="detailsLogin">
@@ -27,9 +26,7 @@
             </tr>
         </table>
         <?php echo $jquery->end();?>
-        <div class="links">
             <?php echo $html->link('Esqueci minha senha', array('controller'=>'users', 'action'=>'edit'));?><br />
             <?php echo $html->link('Criar conta', array('controller'=>'clientes', 'action'=>'add'));?>
-        </div>
     </div>
 </div>

@@ -1,5 +1,4 @@
-
-<? echo $jquery->init_date(); ?>
+<?php echo $jquery->init_date(); ?>
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
@@ -74,9 +73,11 @@
 		        
         <table cellspacing="0" class="details">
         	<?php
-		echo $jquery->input('username',array('class'=>'validateRequired','label'=>'Usuário*','alt'=>'Usuário','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('Cliente.nome',array('class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('Cliente.ativo',array('type'=>'hidden','value'=>1, 'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+		echo $jquery->input('username',array('class'=>'validateRequired','label'=>'Email*','alt'=>'Email','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('password',array('id'=>'senhaId','class'=>'validateRequired','label'=>'Senha*','alt'=>'Senha','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('password_confirm',array('type'=>'password','id'=>'senhaConfirmId','label'=>'Confirmar Senha*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('password_confirm',array('type'=>'password','id'=>'senhaConfirmId','label'=>'Confirmar Senha*', 'label'=>'Confirmar Senha','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('group_id',array('class'=>'validateRequired','label'=>'Grupo de Acesso*','alt'=>'Grupo de Acesso','empty'=>'Selecione','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('ativo',array('type'=>'hidden', 'value'=>1,'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 	?>

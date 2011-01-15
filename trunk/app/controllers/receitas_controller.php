@@ -7,10 +7,9 @@ class ReceitasController extends AppController {
     var $components = array('Upload');
 
     function beforeFilter () {
+        $this->Allow('visualizar');
         // executa o beforeFilter do AppController
         parent::beforeFilter();
-        // adicione ao método allow as actions que quer permitir sem o usuário estar logado
-        $this->Auth->allow('visualizar');
     }
 
     function index() {

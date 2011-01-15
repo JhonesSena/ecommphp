@@ -14,9 +14,8 @@ class ProdutosController extends AppController {
 
     function beforeFilter () {
         // executa o beforeFilter do AppController
+        $this->Allow('consultar');
         parent::beforeFilter();
-        // adicione ao método allow as actions que quer permitir sem o usuário estar logado
-        $this->Auth->allow('consultar');
     }
 
     function index() {
@@ -161,9 +160,9 @@ class ProdutosController extends AppController {
     }
 
     function consultar($grupo=null,$id=null){
-        if($grupo==1){
+        if($grupo==$this->linhas_barbantes){
             $this->layout = 'view_produto_linha_barbante';
-        }else if($grupo==2){
+        }else if($grupo==$this->limpeza){
             $this->layout = 'view_produto_limpeza';
         }else{
             $this->redirect(array('action'=>'consultar',1));
