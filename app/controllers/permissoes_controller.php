@@ -6,6 +6,7 @@ class PermissoesController extends AppController {
 
 	function index() {
 		$this->Permissao->recursive = 0;
+                $this->geraPermissoes();
 		$this->set('permissoes', $this->paginate());
 	}
 
@@ -61,6 +62,21 @@ class PermissoesController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 	}
+
+
+        function geraPermissoes(){
+            $permissoes = $this->Permissao->find('all');
+            $fp = fopen("./permissoes.txt", 'w');
+            
+            foreach ($permissoes as $key => $value) {
+                $nome = $value['Permissao']['nome'];
+                $descricao = $value['Permissao']['descricao'];
+                $ativo = $value['Permissao']['ativo'];
+                $string = "$nome;$descricao;$ativo\n";
+                fwrite($fp, $string);
+            }
+            fclose($fp);
+        }
 
 }
 ?>

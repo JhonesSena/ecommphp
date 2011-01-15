@@ -80,9 +80,10 @@ class PagesController extends AppController {
         }
         
 
-//        if($page == 'home'){
-//            $this->layout = 'apresentacao';
-//        }else{
+        if($page == 'home'){
+            $this->layout = 'apresentacao';
+        }
+//        else{
 //            $this->layout = 'cliente';
 //        }
         if($page == 'representantes'){
@@ -98,7 +99,7 @@ class PagesController extends AppController {
         // executa o beforeFilter do AppController
         parent::beforeFilter();
         // adicione ao método allow as actions que quer permitir sem o usuário estar logado
-        $this->Auth->allow('*');
+//        $this->Auth->allow('*');
     }
 }
 

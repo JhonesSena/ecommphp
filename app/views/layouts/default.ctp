@@ -114,7 +114,7 @@
 
            <?php
                $opt_menu = array(
-                'Home' => 'shopps',
+                'Home' => 'pages/index',
                'Produtos'=>array(
                     'Novo'=>'produtos/add',
                     'Listar'=>'produtos',

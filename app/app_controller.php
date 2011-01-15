@@ -42,29 +42,19 @@ class AppController extends Controller {
     //var $components = array('Firephp');
     var $paginate = array('limit' => 10);
     var $redirect = "";
-    var $components = array('Session','Auth','Email');
+    var $components = array('Session','Email');
     var $helpers = array('Html','Form','Jquery', 'Menu');
     var $autentication = false;
+    var $auth = array();
 
     function beforeFilter() {
-        Security::setHash('sha1'); // substitua pelo hash que está usando
-        $this->Auth->userModel = 'User'; // nome do seu modelo de usuario
-        $this->Auth->fields = array('username' => 'username', 'password' => 'password'); // campos correspondentes a usuario e senha
-        $this->Auth->authorize = 'controller';
-        $this->Auth->autoRedirect = true; // auto redirecionar
-        $this->Auth->loginAction = array('admin'=>false, 'controller' => 'users', 'action' => 'login'); // controlador e action de login
-        $this->Auth->loginRedirect = array('controller' => 'shopps', 'action' => 'index'); // controlador e action para enviar o usuario que entrou
-        $this->Auth->logoutRedirect = array('admin'=>true, 'controller' => 'users', 'action' => 'logout'); // controlador e action de logout
-        $this->Auth->loginError = "Login inválido."; // mensagem de erro
-        $this->Auth->authError = "Área restrita, por favor faça login."; // mensagem de acesso restrito
-        $this->Auth->userScope = array("User.ativo"=>true); //Somente usuários ativos
         $clienteSession = $this->Session->read('Usuario');
         $this->set(compact('clienteSession'));
         if(!empty($clienteSession['User']['group_id'])){
             $this->layout = 'default';
-            $this->Autentication(true);
+            $this->autentication = true;
         }else{
-            $this->Autentication(false);
+            $this->autentication = true;
             $this->layout = 'cliente';
         }
 
@@ -74,11 +64,10 @@ class AppController extends Controller {
         }
         $this->set('telas',$telas);
 
-
         if ($this->requiredAutentication() && $this->Autentication() && $this->params['controller'] != 'pages') {
             if (!$this->validateScreens()) {
                 $this->Session->setFlash(__('O Usuário não tem permissão de acesso a página solicitada.', true));
-                $this->redirect(array('controller'=>'pages'));
+                $this->redirect('/pages/index');
             }
         }
 
@@ -105,8 +94,11 @@ class AppController extends Controller {
                 $action = 'view';
                 break;
         }
-        if ($this->Session->check('UserTelas')) {
-            $screens = $this->Session->read('UserTelas');
+        $screens = $this->Session->read('UserTelas');
+        if(!empty ($this->auth)){
+            $screens = Set::merge($screens,$this->auth);
+        }
+        if (!empty($screens)) {
             $currentUrl = $controller . '/' . $action;
             if (array_key_exists($currentUrl, $screens)) {
                 return true;
@@ -502,6 +494,12 @@ class AppController extends Controller {
 
 //        $this->redirect(array('controller'=>'clientes','action'=>'add'));
 
+    }
+
+    function Allow($action = null){
+        if($action != null){
+            $this->auth[$this->params['controller'].'/'.$action] = true;
+        }
     }
 
 }

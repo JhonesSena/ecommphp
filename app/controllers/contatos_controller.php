@@ -6,9 +6,9 @@ class ContatosController extends AppController {
     var $uses = array('Contato','Empresa','Estado');
 
     function  beforeFilter() {
+        $this->Allow('view');//Para visualizar index
+        $this->Allow('add');
         parent::beforeFilter();
-        $this->Auth->allow('index');
-        $this->Auth->allow('add');
     }
     function index() {
         $assuntos = array('Elogio'=>'Elogio','Sugestão'=>'Sugestão','Parceria'=>'Parceria','Outros'=>'Outros');

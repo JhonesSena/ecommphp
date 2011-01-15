@@ -7,10 +7,9 @@ class ClientesController extends AppController {
 
     function beforeFilter () {
         // executa o beforeFilter do AppController
+        $this->Allow('add');
+        $this->Allow('auth');
         parent::beforeFilter();
-        // adicione ao método allow as actions que quer permitir sem o usuário estar logado
-        $this->Auth->allow('add');
-        $this->Auth->allow('auth');
     }
 
     function index() {
@@ -30,9 +29,9 @@ class ClientesController extends AppController {
     function add() {
         if (!empty($this->data)) {
             $this->data['User']['username'] = $this->data['Cliente']['email'];
-            $this->data['User']['password'] = Security::hash($this->data['User']['password'], null, true);
-            $this->data['Cliente']['redigite_senha'] = Security::hash($this->data['Cliente']['redigite_senha'], null, true);
-            $this->data['User']['autenticacao'] = Security::hash($this->data['User']['username'], null, true);
+            $this->data['User']['password'] = sha1($this->data['User']['password']);
+            $this->data['Cliente']['redigite_senha'] = sha1($this->data['Cliente']['redigite_senha']);
+            $this->data['User']['autenticacao'] = sha1($this->data['User']['username'].date('dmYhi'));
             $this->data['User']['ativo'] = false;
             if($this->data['Cliente']['tipo_pessoa']=='f') {
                 unset($this->data['PessoaJuridica']);

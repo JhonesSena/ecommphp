@@ -31,7 +31,7 @@
      <?=$empresa['Empresa']['nome']?>
      <br>
    <?=$empresa['Empresa']['logradouro']?><br>
-   <?=$empresa['Empresa']['cidade']."/".$empresa['Estado']['nome'];?>
+   <?php if(!empty($empresa['Empresa']['cidade'])) echo $empresa['Empresa']['cidade']."/".$empresa['Estado']['nome'];?>
    <br><?=$empresa['Empresa']['cep']?><br>
 <br>
 <br>

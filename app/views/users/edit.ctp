@@ -1,5 +1,5 @@
 
-<? echo $jquery->init_date(); ?>
+<?php echo $jquery->init_date(); ?>
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
@@ -36,7 +36,7 @@
             <table cellspacing="0" class="detailsLogin">
                 <?php
                 echo $jquery->input('autenticacao',array('type'=>'hidden', 'value'=>$this->data['User']['autenticacao'],'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('username',array('label'=>'Email','class'=>'validateRequired', 'label'=>'Email*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                echo $jquery->input('username',array('label'=>'Email','class'=>'validateRequired', 'label'=>'Email*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));                
                 echo $jquery->input('senha',array('id'=>'senha','name'=>'data[User][password]', 'type'=>'password','label'=>'Senha*', 'value'=>'','class'=>'validateRequired','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('redigite_senha',array('id'=>'confirmaSenha','class'=>'validateRequired', 'type'=>'password', 'label'=>'Confirmação Senha*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 ?>

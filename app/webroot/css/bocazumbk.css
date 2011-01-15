@@ -350,21 +350,21 @@ body {
 }
 a:link {
     color:#FFFFFF;
-    text-decoration:none;
+    text-decoration: underline;
 }
 a:active {
     color:#FFFFFF;
-    text-decoration:none;
+    text-decoration: underline;
 }
 a:visited {
     color:#FFFFFF;
-    text-decoration:none;
+    text-decoration: underline;
 }
 a:hover {
-    color:#000000;
+    color:blue;
     padding-left:0;
     padding-right:0;
-    text-decoration:none;
+    text-decoration: underline;
 }
 .div_miolo {
     background-color:#BDE1D3;
