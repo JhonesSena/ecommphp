@@ -13,13 +13,14 @@
     function navegarPasso(sequencia){
         var json = eval('<?php echo $itemReceita; ?>');
         if(sequencia != undefined){
-            anterior = parseInt(sequencia,10)-1;
-            proximo = parseInt(sequencia,10)+1;
+            var anterior = parseInt(sequencia,10)-1;
+            var proximo = parseInt(sequencia,10)+1;
             $("#anterior").attr('value',anterior);
             $("#sequencia").val(sequencia);
             $("#proximo").attr('value',proximo);
         }
 
+        var ultimo = 0;
         $.each(json, function(i,item){
             ultimo = i;
         });

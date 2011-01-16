@@ -13,7 +13,7 @@
         <div class="body">
 
             <div class="linha-centralizada">
-                <div style="padding:0px">
+                <div style="margin-top: 20px;">
                     <?php echo $content_for_layout; ?>
                     <?php //echo $cakeDebug?>
                 </div>

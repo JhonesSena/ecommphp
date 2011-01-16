@@ -2,7 +2,9 @@
 <div class="div_industria_1"><div class="div_linhas_a-d"></div>
 
 
-      <div class="div_industria_b"><span class="titulo_verde_claro"><img width="350" height="1" src="images/verde_claro.jpg">&nbsp;<br>
+      <div class="div_industria_b"><span class="titulo_verde_claro">
+              <?=$html->image('verde_claro.jpg', array('align'=>'center','height'=>'1px','width'=>'350'))?>
+              &nbsp;<br>
       Artigos Técnicos</span>
       <br>
       <br>
@@ -15,7 +17,7 @@
 </div>
 
 <div class="linha">
-      <img width="725" height="102" src="images/industria2.gif">
+      <?=$html->image('industria2.gif', array('align'=>'center','height'=>'102px','width'=>'725'))?>
       </div>
 
 <div class="linha">

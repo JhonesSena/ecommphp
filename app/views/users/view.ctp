@@ -16,8 +16,12 @@
 </script>
 
 <div class="toolbar">
-		<?php echo $html->link(__('Editar', true), array('action'=>'edit_user', $user['User']['id']),array('class'=>'linkbutton linkbtn btn_edit')); ?>
-		<?php echo $html->link(__('Deletar', true), array('action'=>'delete', $user['User']['id']), array('class'=>'linkbutton linkbtn btn_delete'), sprintf(__('Deseja realmente apagar?', true), $user['User']['id'])); ?>
+                <?php if($jquery->verificaPermissao(array('users/edit_user'), $session->read('UserTelas'))):?>
+                    <?php echo $html->link(__('Editar', true), array('action'=>'edit_user', $user['User']['id']),array('class'=>'linkbutton linkbtn btn_edit')); ?>
+                <?php endif;?>
+                <?php if($jquery->verificaPermissao(array('users/delete'), $session->read('UserTelas'))):?>
+                    <?php echo $html->link(__('Deletar', true), array('action'=>'delete', $user['User']['id']), array('class'=>'linkbutton linkbtn btn_delete'), sprintf(__('Deseja realmente apagar?', true), $user['User']['id'])); ?>
+                <?php endif;?>
 		<?php echo $html->link(__('Voltar', true), array('action'=>'index'),array('class'=>'linkbutton linkbtn btn_list')); ?>
 </div>
 
@@ -28,9 +32,9 @@
         <table cellspacing="0" class="details">
             		<tr><td class="left"><?php __('Id'); ?></td><td class="right">		
 			<?php echo $user['User']['id']; ?></td></tr>				
-                        <tr><td class="left"><?php __('Grupo de Acesso'); ?></td><td class="right"><?php echo $user['Group']['name']; ?></td></tr>
-                        <tr><td class="left"><?php __('Username'); ?></td><td class="right">
-			<?php echo $user['User']['username']; ?></td></tr>		            
+                        <tr><td class="left"><?php __('Nome'); ?></td><td class="right"><?php echo $user['Cliente']['nome']; ?></td></tr>
+                        <tr><td class="left"><?php __('Email'); ?></td><td class="right"><?php echo $user['Cliente']['email']; ?></td></tr>
+                        <tr><td class="left"><?php __('Grupo de Acesso'); ?></td><td class="right"><?php echo $user['Group']['name']; ?></td></tr>		            
             
         </table>
     </div>    

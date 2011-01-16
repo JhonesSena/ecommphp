@@ -22,7 +22,10 @@
 
 <div id="tabpanel">
     <ul>
-        <li><a href="#tab1"><span><?php echo __("Visualizar Receita",true) ?></span></a></li><li><a href="#tab2"><span>Etapas</span></a></li></ul>
+        <li><a href="#tab1"><span><?php echo __("Visualizar Receita",true) ?></span></a></li>
+        <li><a href="#tab2"><span><?php echo __("Etapas",true) ?></span></a></li>
+        <li><a href="#tab3"><span><?php echo __("Materiais Utilizados",true) ?></span></a></li>
+    </ul>
     <div id="tab1">
         <table cellspacing="0" class="details">
             		<tr><td class="left"><?php __('Id'); ?></td><td class="right">		
@@ -68,6 +71,37 @@
 		</td>
 		<td>
 			<?php echo $item['descricao'];?>
+		</td>
+	</tr>
+<?php endforeach; ?>
+
+            </tbody>
+        </table>
+    </div>
+    <div id="tab3">
+        <table id="myTable2" class="tablesorter" cellspacing="1">
+            <thead>
+               <tr>
+                    <th><?php echo _('Nome');?></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th><?php echo _('Nome');?></th>
+                </tr>
+            </tfoot>
+            <tbody>
+            <?php
+            $i = 0;
+            foreach ($receita['Material'] as $item):
+                    $class = null;
+                    if ($i++ % 2 == 0) {
+                            $class = ' class="altrow"';
+                    }
+            ?>
+	<tr<?php echo $class;?>>
+		<td>
+			<?php echo $item['nome']; ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

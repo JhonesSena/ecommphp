@@ -1,13 +1,13 @@
-
+<?php ?>
 
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
 
-        $('#cep').blur(function(){
-            if($(this).val() != '__.___-___' && $('#cep').val() != '')
-               validaCep($(this).val());
-        });
+//        $('#cep').blur(function(){
+//            if($(this).val() != '__.___-___' && $('#cep').val() != '')
+//               validaCep($(this).val());
+//        });
 
         $("input[id^='TipoPessoa']").click(function(){
             analisaTipoPessoa();

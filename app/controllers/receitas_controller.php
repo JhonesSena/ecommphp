@@ -93,34 +93,39 @@ class ReceitasController extends AppController {
 
     function salvarItemReceita($idReceita=null) {
         if (!empty($this->data)) {
+            $dados = $this->data;
             $ultimaSequencia = $this->Receita->ItemReceita->find('first', array('fields' => array('ItemReceita.sequencia'), 'conditions' => array('Receita.id' => $idReceita), 'order' => array('ItemReceita.sequencia desc')));
             if(empty($ultimaSequencia)){
                 $sequencia = 0;
             }else{
                 $sequencia = $ultimaSequencia['ItemReceita']['sequencia'] + 1;
             }
-            $this->data['ItemReceita']['sequencia'] = $sequencia;
-            $this->data['ItemReceita']['receita_id'] = $idReceita;
+            $dados['ItemReceita']['sequencia'] = $sequencia;
+            $dados['ItemReceita']['receita_id'] = $idReceita;
 
             $dadosUpload['erros'] = 0;
-            if(!empty($this->data['ItemReceita']['imagem'])){
-                $dadosUpload = $this->salvarArquivo($this->data['ItemReceita']['imagem']);
+            
+            if(!empty($dados['ItemReceita']['imagem'])){
+                $dadosUpload = $this->salvarArquivo($dados['ItemReceita']['imagem']);
             }
-            if(!empty ($this->data['ItemReceita']['id'])){
-                unset($this->data['ItemReceita']['sequencia']);
+            if(!empty ($dados['ItemReceita']['id'])){
+                unset($dados['ItemReceita']['sequencia']);
             }
+            unset($dados['ItemReceita']['imgHide']);
             if(floor($dadosUpload['erros']) > 0){
                 $this->Session->setFlash(__('Ocorreu um erro ao salvar imagem.', true));
             }else{
-                if(!empty($this->data['ItemReceita']['imagem'])){
-                    $this->data['ItemReceita']['imagem'] = $dadosUpload['diretorio'];
+                if(!empty($dados['ItemReceita']['imagem'])){
+                    $dados['ItemReceita']['imagem'] = $dadosUpload['diretorio'];
                 }
                 $this->Receita->create();
-                if ($this->Receita->ItemReceita->save($this->data)) {
+                if ($this->Receita->ItemReceita->save($dados)) {
                     $this->Session->setFlash(__('Item foi salvo com sucesso.', true));
                     $this->redirect(array('action' => "edit", "$idReceita#tab2"));
                 } else {
-                    $this->deletaArquivo($dadosUpload['backup']);
+                    if(!empty ($dados['ItemReceita']['id'])){
+                        $this->deletaArquivo($dadosUpload['backup']);
+                    }
                     $this->Session->setFlash(__('Item não pôde ser salvo. Por favor, tente novamente.', true));
                 }
             }

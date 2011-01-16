@@ -173,8 +173,15 @@
                         if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)){
                             $('#btnForm').addClass('formloginbtnIe');
                         }
-                        else
+                        else{
                             $('#btnForm').addClass('formloginbtn');
+                        }
+                        $('textarea[maxlength]').keyup(function(){
+                            var max = parseInt($(this).attr('maxlength'));
+                            if($(this).val().length > max){
+                                $(this).val($(this).val().substr(0, $(this).attr('maxlength')));
+                            }
+                        });
                     });
 
                 </script>
