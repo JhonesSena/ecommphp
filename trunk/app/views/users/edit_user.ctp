@@ -5,7 +5,7 @@
         $('#tabpanel').tabs();
         $('#confirmaSenha').val($('#senha').val());
 
-        $('#alterar_senha').change(function(){
+        $('#alterar_senha').click(function(){
             if($(this).attr('checked')){
                 $(".senha").show();
             }else{
@@ -62,7 +62,9 @@
                 echo $jquery->input('Cliente.id',array('error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('Cliente.nome',array('class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('username',array('disabled','label'=>'Email','class'=>'validateRequired', 'label'=>'Email*','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                echo $jquery->input('group_id',array('class'=>'validateRequired','label'=>'Grupo de Acesso*','alt'=>'Grupo de Acesso','empty'=>'Selecione','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                if($jquery->verificaPermissao(array('users/campo_group_id'), $session->read('UserTelas'))):
+                    echo $jquery->input('group_id',array('class'=>'validateRequired','label'=>'Grupo de Acesso*','alt'=>'Grupo de Acesso','empty'=>'Selecione','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
+                endif;
                 echo $jquery->input('alterar_senha',array('id'=>'alterar_senha','type'=>'checkbox','checked'=>false,'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('senha',array('id'=>'senha','name'=>'data[User][password]', 'type'=>'password','error' => false,'div'=>false,'before' => '<tr class="senha"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                 echo $jquery->input('redigite_senha',array('id'=>'confirmaSenha', 'type'=>'password', 'label'=>'Confirmação Senha','error' => false,'div'=>false,'before' => '<tr class="senha"><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));

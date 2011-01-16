@@ -9,8 +9,6 @@
         $("#arvoreReceita").tree({
             callback : {
                 onmove : function (NODE,REF_NODE,TYPE,TREE_OBJ,RB) {
-//                    alert(TREE_OBJ.get_text(NODE) + " " + TYPE + " " + TREE_OBJ.get_text(REF_NODE));
-
                     parent = TREE_OBJ.parent(NODE);
                     if(parent == -1){
                         $('#flashMessage').html("Não é possível mover para este nível.");
@@ -46,14 +44,15 @@
                     $("#descricaoItem").val($(obj).attr('descricao'));
                     $(".editar").show();
                     $("#salvar").attr('value','Salvar Alterações');
-                    if($(obj).attr('imagem')!=''){
-                        $("#imagem").hide();
+                    $("#imagemItem").attr('disabled','disabled');
+                    if($(obj).attr('imagem')!=undefined){
+                        $("#trArquivoImagem").hide();
+                        $("#trImagem").show();
                         $("#imagemItem").attr('disabled','disabled');
                         $("#mostraImagem").attr('src',($('#webroot').val()+'/img_receitas/'+$(obj).attr('imagem')));
                         $("#imgHide").val($(obj).attr('imagem'));
                     }else{
-                        $("#imagem").show();
-                        $("#imagemItem").attr('disabled','');
+                        limparCampos();
                     }
                 }
             },
@@ -94,14 +93,7 @@
         });
 
         $("#limpar").click(function(){
-            $("#idItem").val("");
-            $("#nomeItem").val("");
-            $("#descricaoItem").val("");
-            $("#imagem").show();
-            $("#imagemItem").attr('disabled','');
-            $("#mostraImagem").attr('src',($('#webroot').val()+'/img_receitas/?'));
-            $("#salvar").attr('value','Salvar');
-            $(".editar").hide();
+            limparCampos();
         });
 
         $("#btn_excluir").click(function(){
@@ -114,10 +106,13 @@
     
     $(document).ready(function(){
         $('html, body').animate({scrollTop: 0});
+        $("#imagemItem").val("");
         if($("#idItem").val()==""){
+            $("#trImagem").hide();
             $(".editar").hide();
         }else{
-            $("#imagem").hide();
+            $("#trArquivoImagem").hide();
+            $("#imagemItem").val("");
             $("#mostraImagem").attr('src',($('#webroot').val()+'/img_receitas/'+$("#imgHide").val()));
         }
     });
@@ -153,6 +148,16 @@
 
         return retorno;
     };
+    function limparCampos(){
+        $("#idItem").val("");
+        $("#nomeItem").val("");
+        $("#descricaoItem").val("");
+        $("#trArquivoImagem").show();
+        $("#imagemItem").attr('disabled','');
+        $("#trImagem").hide();
+        $("#salvar").attr('value','Salvar');
+        $(".editar").hide();
+    }
 
 //    function selecionados(){
 //		chs = $(".chk").get();
@@ -248,8 +253,8 @@
                                 echo $jquery->input('ItemReceita.id',array('id'=>'idItem','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                                 echo $jquery->input('ItemReceita.nome',array('id'=>'nomeItem','class'=>'validateRequired','label'=>'Nome*','alt'=>'Nome','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
                                 echo $jquery->input('ItemReceita.descricao',array('id'=>'descricaoItem','type'=>'textarea','class'=>'validateRequired','label'=>'Descrição*','alt'=>'Descrição','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
-                                echo $jquery->input('ItemReceita.imagem',array('id'=>'imagemItem','type'=>'file','label'=>'','error' => false,'div'=>false,'before' => '<tr id="imagem"><td class="left">Imagem*','after' => '</td></tr>','between' => '</td><td class="right">'));
-                                echo '<tr><td class="left"></td><td class="right">'.$html->image('/img_receitas/x.jpg', array('id'=>'mostraImagem','align'=>'center','height'=>'100px')).'</td></tr>';
+                                echo $jquery->input('ItemReceita.imagem',array('id'=>'imagemItem','type'=>'file','label'=>'','error' => false,'div'=>false,'before' => '<tr id="trArquivoImagem"><td class="left">Imagem*','after' => '</td></tr>','between' => '</td><td class="right">'));
+                                echo '<tr id="trImagem"><td class="left"></td><td class="right">'.$html->image('/img_receitas/x.jpg', array('id'=>'mostraImagem','align'=>'center','height'=>'100px')).'</td></tr>';
                         ?>
                         <tr><td class="left">
                                 <input type="button" id="limpar" style="font-size:11px" class="formbtn btn_excluir editar" value="Limpar">

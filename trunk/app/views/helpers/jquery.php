@@ -532,6 +532,7 @@ class JqueryHelper extends FormHelper {
                                     codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0' width='$width' height='$height' title='$title'>
                                 <param name='movie' value='$webroot$arquivo'>
                                 <param name='quality' value='$quality'>
+                                <param name='wmode' value='transparent'>
                                 <embed src='$webroot$arquivo' quality='high' pluginspage='http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash' type='application/x-shockwave-flash' width='$width' height='$height' wmode='transparent'></embed>
                             </object>";
 
