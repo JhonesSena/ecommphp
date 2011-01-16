@@ -803,8 +803,11 @@ class FormHelper extends AppHelper {
 			break;
 			case 'textarea':
 			default:
+				$model =& ClassRegistry::getObject($this->model());
+				$type = $model->getColumnType($this->field());
+				$fieldDef = $model->schema();
 				$out = $before . $out . $between . $this->textarea($fieldName, array_merge(
-					array('cols' => '30', 'rows' => '6'), $options
+					array('cols' => '30', 'rows' => '6','maxlength'=>$fieldDef[$this->field()]['length']), $options
 				));
 			break;
 		}
