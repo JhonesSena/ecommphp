@@ -1,6 +1,7 @@
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
+        $('.toolbar').append($('.filtro').html());
     });
 </script>
 
@@ -57,6 +58,7 @@
 		echo $html->link(__(null,true), 'index/page:'.$prox.$sort.$direction,array('class'=>'linkbutton linkbtn btn_go'));
 	}
 	?>
+        
 	</div>
 
 <div id="tabpanel">

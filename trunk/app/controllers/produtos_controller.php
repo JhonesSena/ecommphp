@@ -18,11 +18,11 @@ class ProdutosController extends AppController {
         parent::beforeFilter();
     }
 
-    function index() {
-        $this->Produto->recursive = 1;
-
-        $this->set('produtos', $this->paginate('Produto',array('Produto.ativo'=>true)));
-    }
+//    function index() {
+//        $this->Produto->recursive = 1;
+//
+//        $this->set('produtos', $this->paginate('Produto',array('Produto.ativo'=>true)));
+//    }
 
     function view($id = null) {
         if (!$id) {

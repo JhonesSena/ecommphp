@@ -2,6 +2,7 @@
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
+        $('.toolbar').append($('.filtro').html());
     });
 </script>
 
@@ -82,6 +83,7 @@
 	</div>
 
 
+
 <div class="contextMenu" id="contextMenuList">
     <ul style="font-size:12px">
       <li id="view"><img src="<?php echo $this->webroot;?>css/img/visualizar.gif"/>Visualizar</li>
@@ -101,6 +103,7 @@
                <tr>
 				    <th align="center" style="width:20px;padding: 0px 0px 0px 0px"><input type="checkbox" onclick="selecionarTodos()"></th>
                                         <th><?php echo $paginator->sort('nome');?></th>
+                                        <th><?php echo $paginator->sort('publicado');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </thead> 
@@ -108,6 +111,7 @@
                 <tr>
 					<th style="width:20px"></th>
                                         <th><?php echo $paginator->sort('nome');?></th>
+                                        <th><?php echo $paginator->sort('publicado');?></th>
                                         <th><?php echo $paginator->sort('ativo');?></th>
                                     </tr>
             </tfoot> 
@@ -127,6 +131,9 @@
 						</td>
 		<td>
 			<?php echo $html->link($receita['Receita']['nome'], array('action'=>'view', $receita['Receita']['id']), array('class'=>'ctxmenu','id'=>$receita['Receita']['id'])); ?>
+		</td>
+		<td>
+			<?php if($receita['Receita']['publicar']==1) echo 'Sim'; else echo 'Não';?>
 		</td>
 		<td>
 			<?php if($receita['Receita']['ativo']==1) echo 'Sim'; else echo 'Não';?>

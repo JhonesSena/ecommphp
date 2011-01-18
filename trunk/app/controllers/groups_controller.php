@@ -9,9 +9,26 @@ class GroupsController extends AppController {
         $this->Auth->allowedActions = array('*');
     }
     
-    function index() {
+    function index($inativo = 'off', $nome = '') {
         $this->Group->recursive = 0;
-        $this->set('groups', $this->paginate());
+        if(!empty($this->data))
+        {
+            $inativo = $this->data[$this->Model->name]['inativo'];
+            $nome = $this->data[$this->Model->name]['nome'];
+        }
+        if ($inativo == 'on') {
+            $retorno = $this->paginate(array('upper(Group.name) like' => '%'.mb_strtoupper($nome,"utf-8").'%', 'Group.ativo'=>false));
+            $parametro = array('inativo'=>'on','nome'=>$nome);
+        }
+        else if ($inativo == 'off') {
+            $retorno = $this->paginate(array('upper(Group.name) like' => '%'.mb_strtoupper($nome,"utf-8").'%','Group.ativo'=>true));
+            $parametro = array('inativo'=>'off','nome'=>$nome);
+        }else {
+            $retorno = $this->paginate(array('upper(Group.name) like' => '%'.mb_strtoupper($nome,"utf-8").'%'));
+            $parametro = array('inativo'=>'all','nome'=>$nome);
+        }
+        $this->set('groups',$retorno);
+        $this->set('parametro',$parametro);
     }
 
     function view($id = null) {

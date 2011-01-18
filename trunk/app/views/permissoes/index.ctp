@@ -2,6 +2,7 @@
 <script type="text/javascript">
     $(function(){
         $('#tabpanel').tabs();
+        $('.toolbar').append($('.filtro').html());
     });
 </script>
 

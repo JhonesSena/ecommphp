@@ -1701,7 +1701,7 @@ a:hover {
     padding:5px;
 }
 .toolbar{
-	padding-bottom:5px;
+	padding-bottom:10px;
         text-align: right;
 }
 .conteudo{
@@ -1755,4 +1755,18 @@ a:hover {
     -moz-border-radius-bottomright: 8px;
     -moz-border-radius-topleft: 8px;
     -moz-border-radius-topright: 8px;
+}
+.filter{
+    color:#333;
+    height: 18px;
+    font-size: 12px;
+    font-family: "Trebuchet MS", Trebuchet, Verdana, Helvetica, Arial, sans-serif;
+    border:1px solid;
+}
+.filter_select{
+    color:#333;
+    height: 21px;
+    font-size: 12px;
+    font-family: "Trebuchet MS", Trebuchet, Verdana, Helvetica, Arial, sans-serif;
+    border:1px solid;
 }

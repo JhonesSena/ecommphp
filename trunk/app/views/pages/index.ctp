@@ -1,4 +1,4 @@
-
+<?php ?>
 <div class="div_miolo">
     <div class="div_home_1e3">      	</div>
 
