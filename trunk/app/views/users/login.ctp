@@ -27,6 +27,6 @@
         </table>
         <?php echo $jquery->end();?>
             <?php echo $html->link('Esqueci minha senha', array('controller'=>'users', 'action'=>'edit'));?><br />
-            <?php echo $html->link('Criar conta', array('controller'=>'clientes', 'action'=>'add'));?>
+            <?php //echo $html->link('Criar conta', array('controller'=>'clientes', 'action'=>'add'));?>
     </div>
 </div>
