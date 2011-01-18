@@ -8,10 +8,10 @@ class ItensController extends AppController {
             )
     );
 
-    function index() {
-        $this->Item->recursive = 0;
-        $this->set('itens', $this->paginate());
-    }
+//    function index() {
+//        $this->Item->recursive = 0;
+//        $this->set('itens', $this->paginate());
+//    }
 
     function view($id = null) {
         if (!$id) {

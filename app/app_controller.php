@@ -48,6 +48,8 @@ class AppController extends Controller {
     var $auth = array();
 
     function beforeFilter() {
+        $filtros = array('off' => 'Mostrar Ativos', 'on' => 'Mostrar Inativos', 'all' => 'Mostrar Todos');
+        $this->set(compact('filtros'));
         $clienteSession = $this->Session->read('Usuario');
         $this->set(compact('clienteSession'));
         if(!empty($clienteSession['User']['group_id'])){
@@ -163,10 +165,28 @@ class AppController extends Controller {
         $this->render('/pages/help');
     }
 
-    function index() {
+    function index($inativo = 'off', $nome = '') {
         $this->getInst();
-        $this->Model->recursive = 0;
-        $this->set($this->viewPath, $this->paginate());
+        $this->Model->recursive = 1;
+
+        if(!empty($this->data))
+        {
+            $inativo = $this->data[$this->Model->name]['inativo'];
+            $nome = $this->data[$this->Model->name]['nome'];
+        }
+        if ($inativo == 'on') {
+            $retorno = $this->paginate(array('upper('.$this->Model->name.'.'.$this->Model->displayField.') like' => '%'.mb_strtoupper($nome,"utf-8").'%', $this->Model->name.'.ativo'=>false));
+            $parametro = array('inativo'=>'on','nome'=>$nome);
+        }
+        else if ($inativo == 'off') {
+            $retorno = $this->paginate(array('upper('.$this->Model->name.'.'.$this->Model->displayField.') like' => '%'.mb_strtoupper($nome,"utf-8").'%', $this->Model->name.'.ativo'=>true));
+            $parametro = array('inativo'=>'off','nome'=>$nome);
+        }else {
+            $retorno = $this->paginate(array('upper('.$this->Model->name.'.'.$this->Model->displayField.') like' => '%'.mb_strtoupper($nome,"utf-8").'%'));
+            $parametro = array('inativo'=>'all','nome'=>$nome);
+        }
+        $this->set($this->viewPath,$retorno);
+        $this->set('parametro',$parametro);
     }
 
     function view($id = null) {

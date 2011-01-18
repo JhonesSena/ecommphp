@@ -184,6 +184,12 @@
                         });
                     });
 
+                    function pesquisar(){
+                            var filter = $('#ControleFilterID').val();
+                            var nome = $('#ControleNomeID').val();
+                            window.location="<?php echo $html->url('/'.$this->params['controller'].'/index')?>/"+filter+"/"+nome;
+                    }
+
                 </script>
                 <?php if($content_for_layout):?>
                 <div class="conteudo" style="padding: 8px;">
@@ -266,6 +272,22 @@
                         </tr>
                         <!--fim bloco de exibição das mensagens-->
                     </table>
+                        <div style="display: none;" class="filtro">
+                            <!--Filtro de busca-->
+                            <div style="float: left;">
+                                <?php echo $form->create(array('action'=>'index'))?>
+                                <table>
+                                    <tr>
+                                        <td><label style="font-size:13px;font-family:Trebuchet MS,Verdana,Helvetica,Arial,sans-serif">Filtro  </label></td>
+                                        <td><?php echo $jquery->input('inativo',array('id'=>'ControleFilterID', 'value'=>$parametro['inativo'],'label'=>'', 'class'=>'filter_select','options'=>$filtros,'showEmpty'=>false,'alt'=>'Filtro','error' => false,'div'=>false, 'onchange'=>'pesquisar()'));?></td>
+                                        <td><?php echo $jquery->input('nome',array('id'=>'ControleNomeID','value'=>$parametro['nome'],'label'=>'', 'class'=>'filter','alt'=>'Cliente','error' => false,'div'=>false));?></td>
+                                        <td><?php echo $jquery->submit(__('Pesquisar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_buscar'));?></td>
+                                        <!--<td class="left"></td><td class="right"><input type="button" id="next" value="Pesquisar" style="font-size:11px" class="linkbtn btn_buscar"></td>-->
+                                    </tr>
+                                </table>
+                                <?php echo $form->end();?>
+                           </div>
+                        </div>
                     <div id="dialog" title="Carregando..."></div>
 
                     <span><input id="webroot" type="hidden" value="<?php echo $this->webroot;?>"></span>

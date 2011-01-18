@@ -5,10 +5,10 @@ class CoresController extends AppController {
     var $helpers = array('Html', 'Form', 'Jquery');
     var $components = array('Upload');
 
-    function index() {
-        $this->Cor->recursive = 0;
-        $this->set('cores', $this->paginate());
-    }
+//    function index() {
+//        $this->Cor->recursive = 0;
+//        $this->set('cores', $this->paginate());
+//    }
 
     function view($id = null) {
         if (!$id) {

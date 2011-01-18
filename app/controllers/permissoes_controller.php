@@ -4,10 +4,10 @@ class PermissoesController extends AppController {
 	var $name = 'Permissoes';
 	var $helpers = array('Html', 'Form');
 
-	function index() {
-		$this->Permissao->recursive = 0;
-		$this->set('permissoes', $this->paginate());
-	}
+//	function index() {
+//		$this->Permissao->recursive = 0;
+//		$this->set('permissoes', $this->paginate());
+//	}
 
 	function view($id = null) {
 		if (!$id) {

@@ -12,10 +12,10 @@ class ReceitasController extends AppController {
         parent::beforeFilter();
     }
 
-    function index() {
-        $this->Receita->recursive = 0;
-        $this->set('receitas', $this->paginate());
-    }
+//    function index() {
+//        $this->Receita->recursive = 0;
+//        $this->set('receitas', $this->paginate());
+//    }
 
     function view($id = null) {
         if (!$id) {
@@ -196,11 +196,11 @@ class ReceitasController extends AppController {
 
     function visualizar($id=null){
         $this->layout = 'view_receita';
-        $receitas = $this->Receita->find('all',array('conditions'=>array('Receita.ativo'=>true)));
+        $receitas = $this->Receita->find('all',array('conditions'=>array('Receita.ativo'=>true,'Receita.publicar'=>true)));
         if($id != null){
             $receita = $this->Receita->read(null,$id);
         }else{
-            $receita = $this->Receita->find('first',array('conditions'=>array('Receita.ativo'=>true)));
+            $receita = $this->Receita->find('first',array('conditions'=>array('Receita.ativo'=>true,'Receita.publicar'=>true)));
         }
         $itemReceita = json_encode($receita['ItemReceita']);
         $this->set(compact('receitas','receita','itemReceita'));
