@@ -1,0 +1,2227 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Started on 2011-01-14 18:11:51 BRT
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = off;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET escape_string_warning = off;
+
+--
+-- TOC entry 2064 (class 1262 OID 17632)
+-- Name: ecomm; Type: DATABASE; Schema: -; Owner: -
+--
+
+CREATE DATABASE ecomm WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'pt_BR.utf8' LC_CTYPE = 'pt_BR.utf8';
+
+
+\connect ecomm
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = off;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET escape_string_warning = off;
+
+--
+-- TOC entry 402 (class 2612 OID 17635)
+-- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: -
+--
+
+CREATE PROCEDURAL LANGUAGE plpgsql;
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 19 (class 1255 OID 17636)
+-- Dependencies: 6 402
+-- Name: tr_inativa_preco(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION tr_inativa_preco() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$declare precoativo boolean;
+BEGIN
+	if new.ativo = false then
+		new.expired = current_timestamp;
+	end if;
+	return null;
+END;$$;
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 1589 (class 1259 OID 17637)
+-- Dependencies: 6
+-- Name: agencias; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE agencias (
+    id integer NOT NULL,
+    codigo character varying(10) NOT NULL,
+    codigo_cedente character varying(50) NOT NULL,
+    logradouro character varying(300),
+    bairro character varying(50),
+    telefone character varying(17),
+    banco_id integer NOT NULL,
+    ativo boolean NOT NULL,
+    estado_id integer NOT NULL,
+    cidade character varying(80),
+    contrato character varying(20),
+    convenio_cobranca character varying(10) NOT NULL
+);
+
+
+--
+-- TOC entry 1590 (class 1259 OID 17643)
+-- Dependencies: 1589 6
+-- Name: agencias_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE agencias_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2067 (class 0 OID 0)
+-- Dependencies: 1590
+-- Name: agencias_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE agencias_id_seq OWNED BY agencias.id;
+
+
+--
+-- TOC entry 1591 (class 1259 OID 17645)
+-- Dependencies: 6
+-- Name: bancos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE bancos (
+    id integer NOT NULL,
+    nome character varying(100) NOT NULL,
+    codigo_compensacao character varying(10) NOT NULL,
+    logo character varying(200) NOT NULL
+);
+
+
+--
+-- TOC entry 1592 (class 1259 OID 17648)
+-- Dependencies: 6 1591
+-- Name: bancos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bancos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2068 (class 0 OID 0)
+-- Dependencies: 1592
+-- Name: bancos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE bancos_id_seq OWNED BY bancos.id;
+
+
+--
+-- TOC entry 1593 (class 1259 OID 17650)
+-- Dependencies: 6
+-- Name: bloquetos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE bloquetos (
+    id integer NOT NULL,
+    banco_id integer NOT NULL,
+    local_pagamento character varying(150) NOT NULL,
+    carteira character varying(10) NOT NULL,
+    tipo character varying(70) NOT NULL,
+    ativo boolean NOT NULL,
+    taxa_boleto numeric(10,2),
+    dias_prazo_pagamento integer,
+    nome character varying(70)
+);
+
+
+--
+-- TOC entry 2069 (class 0 OID 0)
+-- Dependencies: 1593
+-- Name: COLUMN bloquetos.tipo; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN bloquetos.tipo IS 'Podem ser eles: COBRANÇA REGISTRADA ou COBRANÇA NÃO REGISTRADA ';
+
+
+--
+-- TOC entry 1594 (class 1259 OID 17653)
+-- Dependencies: 6 1593
+-- Name: bloquetos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bloquetos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2070 (class 0 OID 0)
+-- Dependencies: 1594
+-- Name: bloquetos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE bloquetos_id_seq OWNED BY bloquetos.id;
+
+
+--
+-- TOC entry 1595 (class 1259 OID 17655)
+-- Dependencies: 6
+-- Name: boletos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE boletos (
+    id integer NOT NULL,
+    numero character varying(70) NOT NULL,
+    nosso_numero character varying(70) NOT NULL,
+    emissao date NOT NULL,
+    status character varying(10) NOT NULL,
+    vencimento date NOT NULL,
+    cedente_id integer NOT NULL,
+    cliente_id integer NOT NULL,
+    valor numeric(10,2) NOT NULL
+);
+
+
+--
+-- TOC entry 1596 (class 1259 OID 17658)
+-- Dependencies: 1595 6
+-- Name: boletos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE boletos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2071 (class 0 OID 0)
+-- Dependencies: 1596
+-- Name: boletos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE boletos_id_seq OWNED BY boletos.id;
+
+
+--
+-- TOC entry 1597 (class 1259 OID 17660)
+-- Dependencies: 6
+-- Name: cedentes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE cedentes (
+    id integer NOT NULL,
+    conta_corrente character varying(10) NOT NULL,
+    cliente_id integer NOT NULL,
+    agencia_id integer NOT NULL,
+    bloqueto_id integer NOT NULL,
+    ativo boolean
+);
+
+
+--
+-- TOC entry 1598 (class 1259 OID 17663)
+-- Dependencies: 6 1597
+-- Name: cedentes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE cedentes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2072 (class 0 OID 0)
+-- Dependencies: 1598
+-- Name: cedentes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE cedentes_id_seq OWNED BY cedentes.id;
+
+
+--
+-- TOC entry 1599 (class 1259 OID 17665)
+-- Dependencies: 6
+-- Name: cliente_pedidos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE cliente_pedidos (
+    id integer NOT NULL,
+    cliente_id integer NOT NULL,
+    pedido_id integer NOT NULL
+);
+
+
+--
+-- TOC entry 1600 (class 1259 OID 17668)
+-- Dependencies: 6 1599
+-- Name: cliente_pedidos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE cliente_pedidos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2073 (class 0 OID 0)
+-- Dependencies: 1600
+-- Name: cliente_pedidos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE cliente_pedidos_id_seq OWNED BY cliente_pedidos.id;
+
+
+--
+-- TOC entry 1601 (class 1259 OID 17670)
+-- Dependencies: 6
+-- Name: clientes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE clientes (
+    id integer NOT NULL,
+    telefone character varying(17) NOT NULL,
+    email character varying(70) NOT NULL,
+    logradouro character varying(150) NOT NULL,
+    cep character varying(10) NOT NULL,
+    bairro character varying(45) NOT NULL,
+    cidade character varying(50) NOT NULL,
+    estado_id integer NOT NULL,
+    user_id integer,
+    ativo boolean NOT NULL,
+    nome character varying(200)
+);
+
+
+--
+-- TOC entry 1602 (class 1259 OID 17676)
+-- Dependencies: 1601 6
+-- Name: clientes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clientes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2074 (class 0 OID 0)
+-- Dependencies: 1602
+-- Name: clientes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clientes_id_seq OWNED BY clientes.id;
+
+
+--
+-- TOC entry 1650 (class 1259 OID 23452)
+-- Dependencies: 6
+-- Name: contatos_empresas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE contatos_empresas (
+    id integer NOT NULL,
+    tipo character varying(20) NOT NULL,
+    valor character varying(40) NOT NULL,
+    empresa_id integer NOT NULL
+);
+
+
+--
+-- TOC entry 1649 (class 1259 OID 23450)
+-- Dependencies: 6 1650
+-- Name: contatos_empresas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE contatos_empresas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2075 (class 0 OID 0)
+-- Dependencies: 1649
+-- Name: contatos_empresas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE contatos_empresas_id_seq OWNED BY contatos_empresas.id;
+
+
+--
+-- TOC entry 1603 (class 1259 OID 17678)
+-- Dependencies: 6
+-- Name: cores; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE cores (
+    id integer NOT NULL,
+    nome character varying(100) NOT NULL,
+    diretorio character varying(200) NOT NULL,
+    ativo boolean NOT NULL,
+    codigo integer
+);
+
+
+--
+-- TOC entry 1604 (class 1259 OID 17681)
+-- Dependencies: 1603 6
+-- Name: cores_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE cores_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2076 (class 0 OID 0)
+-- Dependencies: 1604
+-- Name: cores_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE cores_id_seq OWNED BY cores.id;
+
+
+--
+-- TOC entry 1648 (class 1259 OID 23444)
+-- Dependencies: 6
+-- Name: empresas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE empresas (
+    id integer NOT NULL,
+    nome character varying(60) NOT NULL,
+    nome_fantasia character varying(60) NOT NULL,
+    cnpj character varying(19) NOT NULL,
+    logradouro character varying(100) NOT NULL,
+    cep character varying(10) NOT NULL,
+    bairro character varying(35) NOT NULL,
+    cidade character varying(30) NOT NULL,
+    estado_id integer NOT NULL,
+    ativo boolean NOT NULL,
+    email character varying(50)
+);
+
+
+--
+-- TOC entry 1647 (class 1259 OID 23442)
+-- Dependencies: 6 1648
+-- Name: empresas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE empresas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2077 (class 0 OID 0)
+-- Dependencies: 1647
+-- Name: empresas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE empresas_id_seq OWNED BY empresas.id;
+
+
+--
+-- TOC entry 1605 (class 1259 OID 17683)
+-- Dependencies: 6
+-- Name: estados; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE estados (
+    id integer NOT NULL,
+    nome character varying(100) NOT NULL,
+    sigla character varying
+);
+
+
+--
+-- TOC entry 1606 (class 1259 OID 17689)
+-- Dependencies: 6 1605
+-- Name: estados_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE estados_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2078 (class 0 OID 0)
+-- Dependencies: 1606
+-- Name: estados_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE estados_id_seq OWNED BY estados.id;
+
+
+--
+-- TOC entry 1607 (class 1259 OID 17691)
+-- Dependencies: 6
+-- Name: groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE groups (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    ativo boolean
+);
+
+
+--
+-- TOC entry 1608 (class 1259 OID 17694)
+-- Dependencies: 1607 6
+-- Name: groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2079 (class 0 OID 0)
+-- Dependencies: 1608
+-- Name: groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE groups_id_seq OWNED BY groups.id;
+
+
+--
+-- TOC entry 1639 (class 1259 OID 22155)
+-- Dependencies: 6
+-- Name: groups_permissoes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE groups_permissoes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 1640 (class 1259 OID 22157)
+-- Dependencies: 1953 6
+-- Name: groups_permissoes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE groups_permissoes (
+    id integer DEFAULT nextval('groups_permissoes_id_seq'::regclass) NOT NULL,
+    group_id integer NOT NULL,
+    permissao_id integer NOT NULL
+);
+
+
+--
+-- TOC entry 1609 (class 1259 OID 17696)
+-- Dependencies: 6
+-- Name: grupos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE grupos (
+    id integer NOT NULL,
+    nome character varying(100) NOT NULL,
+    ativo boolean NOT NULL
+);
+
+
+--
+-- TOC entry 1610 (class 1259 OID 17699)
+-- Dependencies: 6 1609
+-- Name: grupos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE grupos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2080 (class 0 OID 0)
+-- Dependencies: 1610
+-- Name: grupos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE grupos_id_seq OWNED BY grupos.id;
+
+
+--
+-- TOC entry 1611 (class 1259 OID 17701)
+-- Dependencies: 6
+-- Name: imagens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE imagens (
+    id integer NOT NULL,
+    produto_id integer NOT NULL,
+    nome character varying(70) NOT NULL,
+    diretorio character varying(150) NOT NULL,
+    tamanho_arquivo character varying(20) NOT NULL,
+    ativo boolean NOT NULL
+);
+
+
+--
+-- TOC entry 1612 (class 1259 OID 17704)
+-- Dependencies: 6 1611
+-- Name: imagens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE imagens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2081 (class 0 OID 0)
+-- Dependencies: 1612
+-- Name: imagens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE imagens_id_seq OWNED BY imagens.id;
+
+
+--
+-- TOC entry 1613 (class 1259 OID 17706)
+-- Dependencies: 6
+-- Name: item_cores; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE item_cores (
+    id integer NOT NULL,
+    cor_id integer NOT NULL,
+    itens_cores integer NOT NULL
+);
+
+
+--
+-- TOC entry 1614 (class 1259 OID 17709)
+-- Dependencies: 6 1613
+-- Name: item_cores_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE item_cores_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2082 (class 0 OID 0)
+-- Dependencies: 1614
+-- Name: item_cores_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE item_cores_id_seq OWNED BY item_cores.id;
+
+
+--
+-- TOC entry 1645 (class 1259 OID 23421)
+-- Dependencies: 6
+-- Name: item_receitas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE item_receitas (
+    id integer NOT NULL,
+    nome character varying(30) NOT NULL,
+    descricao character varying(70) NOT NULL,
+    sequencia integer NOT NULL,
+    imagem character varying(35) NOT NULL,
+    receita_id integer
+);
+
+
+--
+-- TOC entry 1644 (class 1259 OID 23419)
+-- Dependencies: 1645 6
+-- Name: item_receitas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE item_receitas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2083 (class 0 OID 0)
+-- Dependencies: 1644
+-- Name: item_receitas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE item_receitas_id_seq OWNED BY item_receitas.id;
+
+
+--
+-- TOC entry 1615 (class 1259 OID 17711)
+-- Dependencies: 6
+-- Name: itens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE itens (
+    id integer NOT NULL,
+    produto_id integer NOT NULL,
+    codigo character varying(10) NOT NULL,
+    titulo character varying(100) NOT NULL,
+    metragem double precision,
+    ativo boolean NOT NULL,
+    cor_id integer,
+    tamanho character varying(50)
+);
+
+
+--
+-- TOC entry 1616 (class 1259 OID 17714)
+-- Dependencies: 1615 6
+-- Name: itens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE itens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2084 (class 0 OID 0)
+-- Dependencies: 1616
+-- Name: itens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE itens_id_seq OWNED BY itens.id;
+
+
+--
+-- TOC entry 1617 (class 1259 OID 17716)
+-- Dependencies: 6
+-- Name: itens_pedidos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE itens_pedidos (
+    id integer NOT NULL,
+    pedido_id integer,
+    produto_id integer,
+    ativo boolean NOT NULL,
+    item_id integer,
+    qtde integer NOT NULL
+);
+
+
+--
+-- TOC entry 1618 (class 1259 OID 17719)
+-- Dependencies: 6 1617
+-- Name: itens_pedidos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE itens_pedidos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2085 (class 0 OID 0)
+-- Dependencies: 1618
+-- Name: itens_pedidos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE itens_pedidos_id_seq OWNED BY itens_pedidos.id;
+
+
+--
+-- TOC entry 1646 (class 1259 OID 23437)
+-- Dependencies: 6
+-- Name: materiais_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE materiais_id_seq
+    START WITH 99
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 1643 (class 1259 OID 23414)
+-- Dependencies: 1955 6
+-- Name: materiais; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE materiais (
+    id integer DEFAULT nextval('materiais_id_seq'::regclass) NOT NULL,
+    nome character varying(50) NOT NULL,
+    receita_id integer NOT NULL
+);
+
+
+--
+-- TOC entry 1619 (class 1259 OID 17721)
+-- Dependencies: 6
+-- Name: pedidos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE pedidos (
+    id integer NOT NULL,
+    valor_frete numeric(10,2),
+    situacao_pedido_id integer NOT NULL,
+    created timestamp without time zone
+);
+
+
+--
+-- TOC entry 1620 (class 1259 OID 17724)
+-- Dependencies: 1619 6
+-- Name: pedidos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pedidos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2086 (class 0 OID 0)
+-- Dependencies: 1620
+-- Name: pedidos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pedidos_id_seq OWNED BY pedidos.id;
+
+
+--
+-- TOC entry 1638 (class 1259 OID 22149)
+-- Dependencies: 6
+-- Name: permissoes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE permissoes (
+    id integer NOT NULL,
+    nome character varying(100) NOT NULL,
+    descricao character varying(100) NOT NULL,
+    ativo boolean NOT NULL
+);
+
+
+--
+-- TOC entry 1637 (class 1259 OID 22147)
+-- Dependencies: 6 1638
+-- Name: permissoes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE permissoes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2087 (class 0 OID 0)
+-- Dependencies: 1637
+-- Name: permissoes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE permissoes_id_seq OWNED BY permissoes.id;
+
+
+--
+-- TOC entry 1621 (class 1259 OID 17726)
+-- Dependencies: 6
+-- Name: pessoa_fisicas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE pessoa_fisicas (
+    id integer NOT NULL,
+    cliente_id integer NOT NULL,
+    cpf character varying(15) NOT NULL
+);
+
+
+--
+-- TOC entry 1622 (class 1259 OID 17729)
+-- Dependencies: 6 1621
+-- Name: pessoa_fisicas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pessoa_fisicas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2088 (class 0 OID 0)
+-- Dependencies: 1622
+-- Name: pessoa_fisicas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pessoa_fisicas_id_seq OWNED BY pessoa_fisicas.id;
+
+
+--
+-- TOC entry 1623 (class 1259 OID 17731)
+-- Dependencies: 6
+-- Name: pessoa_juridicas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE pessoa_juridicas (
+    id integer NOT NULL,
+    cliente_id integer NOT NULL,
+    nome_fantasia character varying(100) NOT NULL,
+    cnpj character varying(19) NOT NULL
+);
+
+
+--
+-- TOC entry 1624 (class 1259 OID 17734)
+-- Dependencies: 6 1623
+-- Name: pessoa_juridicas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pessoa_juridicas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2089 (class 0 OID 0)
+-- Dependencies: 1624
+-- Name: pessoa_juridicas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pessoa_juridicas_id_seq OWNED BY pessoa_juridicas.id;
+
+
+--
+-- TOC entry 1625 (class 1259 OID 17736)
+-- Dependencies: 6
+-- Name: precos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE precos (
+    id integer NOT NULL,
+    created timestamp without time zone,
+    expired timestamp without time zone,
+    preco numeric(10,2) NOT NULL,
+    produto_id integer NOT NULL,
+    ativo boolean NOT NULL,
+    desconto_por_pacote numeric(10,2),
+    pacote integer
+);
+
+
+--
+-- TOC entry 1626 (class 1259 OID 17739)
+-- Dependencies: 6 1625
+-- Name: precos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE precos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2090 (class 0 OID 0)
+-- Dependencies: 1626
+-- Name: precos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE precos_id_seq OWNED BY precos.id;
+
+
+--
+-- TOC entry 1627 (class 1259 OID 17741)
+-- Dependencies: 6
+-- Name: produtos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE produtos (
+    id integer NOT NULL,
+    codigo integer NOT NULL,
+    descricao character varying(100) NOT NULL,
+    grupo_id integer NOT NULL,
+    caixa integer NOT NULL,
+    peso_bruto numeric(10,0) NOT NULL,
+    peso_liquido numeric(10,0) NOT NULL,
+    cubagem numeric(10,5) NOT NULL,
+    obs text,
+    ativo boolean NOT NULL,
+    descricao_abreviada character varying(70),
+    composicao character varying(250),
+    utilizacao character varying(250),
+    distribuicao character varying(250),
+    resumo_tecnico character varying(250)
+);
+
+
+--
+-- TOC entry 1628 (class 1259 OID 17747)
+-- Dependencies: 6 1627
+-- Name: produtos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE produtos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2091 (class 0 OID 0)
+-- Dependencies: 1628
+-- Name: produtos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE produtos_id_seq OWNED BY produtos.id;
+
+
+--
+-- TOC entry 1642 (class 1259 OID 23405)
+-- Dependencies: 6
+-- Name: receitas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE receitas (
+    id integer NOT NULL,
+    nome character varying(30) NOT NULL,
+    modalidade character varying(250) NOT NULL,
+    obs character varying(500) NOT NULL,
+    imagem character varying(35),
+    ativo boolean NOT NULL,
+    saudacao character varying(70)
+);
+
+
+--
+-- TOC entry 1641 (class 1259 OID 23403)
+-- Dependencies: 6 1642
+-- Name: receitas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE receitas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2092 (class 0 OID 0)
+-- Dependencies: 1641
+-- Name: receitas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE receitas_id_seq OWNED BY receitas.id;
+
+
+--
+-- TOC entry 1629 (class 1259 OID 17749)
+-- Dependencies: 6
+-- Name: situacao_pedidos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE situacao_pedidos (
+    id integer NOT NULL,
+    nome character varying(100) NOT NULL,
+    ativo boolean NOT NULL
+);
+
+
+--
+-- TOC entry 1630 (class 1259 OID 17752)
+-- Dependencies: 1629 6
+-- Name: situacao_pedidos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE situacao_pedidos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2093 (class 0 OID 0)
+-- Dependencies: 1630
+-- Name: situacao_pedidos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE situacao_pedidos_id_seq OWNED BY situacao_pedidos.id;
+
+
+--
+-- TOC entry 1631 (class 1259 OID 17754)
+-- Dependencies: 6
+-- Name: situacoes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE situacoes (
+    id integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    ativo boolean NOT NULL,
+    situacao character varying(100)
+);
+
+
+--
+-- TOC entry 1632 (class 1259 OID 17757)
+-- Dependencies: 6 1631
+-- Name: situacoes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE situacoes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2094 (class 0 OID 0)
+-- Dependencies: 1632
+-- Name: situacoes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE situacoes_id_seq OWNED BY situacoes.id;
+
+
+--
+-- TOC entry 1633 (class 1259 OID 17759)
+-- Dependencies: 6
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    password character varying(255) NOT NULL,
+    group_id integer,
+    username character varying(255) NOT NULL,
+    created date NOT NULL,
+    modified date NOT NULL,
+    autenticacao character(400),
+    ativo boolean
+);
+
+
+--
+-- TOC entry 1634 (class 1259 OID 17765)
+-- Dependencies: 1633 6
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2095 (class 0 OID 0)
+-- Dependencies: 1634
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- TOC entry 1635 (class 1259 OID 17767)
+-- Dependencies: 6
+-- Name: vendas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE vendas (
+    id integer NOT NULL,
+    created timestamp without time zone NOT NULL,
+    pedido_id integer NOT NULL,
+    situacao_id integer NOT NULL,
+    boleto_id integer NOT NULL
+);
+
+
+--
+-- TOC entry 1636 (class 1259 OID 17770)
+-- Dependencies: 6 1635
+-- Name: vendas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE vendas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2096 (class 0 OID 0)
+-- Dependencies: 1636
+-- Name: vendas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE vendas_id_seq OWNED BY vendas.id;
+
+
+--
+-- TOC entry 1928 (class 2604 OID 23367)
+-- Dependencies: 1590 1589
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE agencias ALTER COLUMN id SET DEFAULT nextval('agencias_id_seq'::regclass);
+
+
+--
+-- TOC entry 1929 (class 2604 OID 23368)
+-- Dependencies: 1592 1591
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE bancos ALTER COLUMN id SET DEFAULT nextval('bancos_id_seq'::regclass);
+
+
+--
+-- TOC entry 1930 (class 2604 OID 23369)
+-- Dependencies: 1594 1593
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE bloquetos ALTER COLUMN id SET DEFAULT nextval('bloquetos_id_seq'::regclass);
+
+
+--
+-- TOC entry 1931 (class 2604 OID 23370)
+-- Dependencies: 1596 1595
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE boletos ALTER COLUMN id SET DEFAULT nextval('boletos_id_seq'::regclass);
+
+
+--
+-- TOC entry 1932 (class 2604 OID 23371)
+-- Dependencies: 1598 1597
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE cedentes ALTER COLUMN id SET DEFAULT nextval('cedentes_id_seq'::regclass);
+
+
+--
+-- TOC entry 1933 (class 2604 OID 23372)
+-- Dependencies: 1600 1599
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE cliente_pedidos ALTER COLUMN id SET DEFAULT nextval('cliente_pedidos_id_seq'::regclass);
+
+
+--
+-- TOC entry 1934 (class 2604 OID 23373)
+-- Dependencies: 1602 1601
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE clientes ALTER COLUMN id SET DEFAULT nextval('clientes_id_seq'::regclass);
+
+
+--
+-- TOC entry 1958 (class 2604 OID 23455)
+-- Dependencies: 1649 1650 1650
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE contatos_empresas ALTER COLUMN id SET DEFAULT nextval('contatos_empresas_id_seq'::regclass);
+
+
+--
+-- TOC entry 1935 (class 2604 OID 23374)
+-- Dependencies: 1604 1603
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE cores ALTER COLUMN id SET DEFAULT nextval('cores_id_seq'::regclass);
+
+
+--
+-- TOC entry 1957 (class 2604 OID 23447)
+-- Dependencies: 1647 1648 1648
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE empresas ALTER COLUMN id SET DEFAULT nextval('empresas_id_seq'::regclass);
+
+
+--
+-- TOC entry 1936 (class 2604 OID 23375)
+-- Dependencies: 1606 1605
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE estados ALTER COLUMN id SET DEFAULT nextval('estados_id_seq'::regclass);
+
+
+--
+-- TOC entry 1937 (class 2604 OID 23376)
+-- Dependencies: 1608 1607
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE groups ALTER COLUMN id SET DEFAULT nextval('groups_id_seq'::regclass);
+
+
+--
+-- TOC entry 1938 (class 2604 OID 23377)
+-- Dependencies: 1610 1609
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE grupos ALTER COLUMN id SET DEFAULT nextval('grupos_id_seq'::regclass);
+
+
+--
+-- TOC entry 1939 (class 2604 OID 23378)
+-- Dependencies: 1612 1611
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE imagens ALTER COLUMN id SET DEFAULT nextval('imagens_id_seq'::regclass);
+
+
+--
+-- TOC entry 1940 (class 2604 OID 23379)
+-- Dependencies: 1614 1613
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE item_cores ALTER COLUMN id SET DEFAULT nextval('item_cores_id_seq'::regclass);
+
+
+--
+-- TOC entry 1956 (class 2604 OID 23424)
+-- Dependencies: 1644 1645 1645
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE item_receitas ALTER COLUMN id SET DEFAULT nextval('item_receitas_id_seq'::regclass);
+
+
+--
+-- TOC entry 1941 (class 2604 OID 23381)
+-- Dependencies: 1616 1615
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE itens ALTER COLUMN id SET DEFAULT nextval('itens_id_seq'::regclass);
+
+
+--
+-- TOC entry 1942 (class 2604 OID 23382)
+-- Dependencies: 1618 1617
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE itens_pedidos ALTER COLUMN id SET DEFAULT nextval('itens_pedidos_id_seq'::regclass);
+
+
+--
+-- TOC entry 1943 (class 2604 OID 23383)
+-- Dependencies: 1620 1619
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE pedidos ALTER COLUMN id SET DEFAULT nextval('pedidos_id_seq'::regclass);
+
+
+--
+-- TOC entry 1952 (class 2604 OID 23384)
+-- Dependencies: 1638 1637 1638
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE permissoes ALTER COLUMN id SET DEFAULT nextval('permissoes_id_seq'::regclass);
+
+
+--
+-- TOC entry 1944 (class 2604 OID 23385)
+-- Dependencies: 1622 1621
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE pessoa_fisicas ALTER COLUMN id SET DEFAULT nextval('pessoa_fisicas_id_seq'::regclass);
+
+
+--
+-- TOC entry 1945 (class 2604 OID 23386)
+-- Dependencies: 1624 1623
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE pessoa_juridicas ALTER COLUMN id SET DEFAULT nextval('pessoa_juridicas_id_seq'::regclass);
+
+
+--
+-- TOC entry 1946 (class 2604 OID 23387)
+-- Dependencies: 1626 1625
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE precos ALTER COLUMN id SET DEFAULT nextval('precos_id_seq'::regclass);
+
+
+--
+-- TOC entry 1947 (class 2604 OID 23388)
+-- Dependencies: 1628 1627
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE produtos ALTER COLUMN id SET DEFAULT nextval('produtos_id_seq'::regclass);
+
+
+--
+-- TOC entry 1954 (class 2604 OID 23408)
+-- Dependencies: 1641 1642 1642
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE receitas ALTER COLUMN id SET DEFAULT nextval('receitas_id_seq'::regclass);
+
+
+--
+-- TOC entry 1948 (class 2604 OID 23390)
+-- Dependencies: 1630 1629
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE situacao_pedidos ALTER COLUMN id SET DEFAULT nextval('situacao_pedidos_id_seq'::regclass);
+
+
+--
+-- TOC entry 1949 (class 2604 OID 23391)
+-- Dependencies: 1632 1631
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE situacoes ALTER COLUMN id SET DEFAULT nextval('situacoes_id_seq'::regclass);
+
+
+--
+-- TOC entry 1950 (class 2604 OID 23392)
+-- Dependencies: 1634 1633
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- TOC entry 1951 (class 2604 OID 23393)
+-- Dependencies: 1636 1635
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE vendas ALTER COLUMN id SET DEFAULT nextval('vendas_id_seq'::regclass);
+
+
+--
+-- TOC entry 1960 (class 2606 OID 17797)
+-- Dependencies: 1589 1589
+-- Name: agencias_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY agencias
+    ADD CONSTRAINT agencias_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1962 (class 2606 OID 17799)
+-- Dependencies: 1591 1591
+-- Name: bancos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY bancos
+    ADD CONSTRAINT bancos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1964 (class 2606 OID 17801)
+-- Dependencies: 1593 1593
+-- Name: bloquetos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY bloquetos
+    ADD CONSTRAINT bloquetos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1966 (class 2606 OID 17803)
+-- Dependencies: 1595 1595
+-- Name: boletos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY boletos
+    ADD CONSTRAINT boletos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1968 (class 2606 OID 17805)
+-- Dependencies: 1597 1597
+-- Name: cedentes_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY cedentes
+    ADD CONSTRAINT cedentes_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1994 (class 2606 OID 17807)
+-- Dependencies: 1621 1621
+-- Name: cliente_fisicos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY pessoa_fisicas
+    ADD CONSTRAINT cliente_fisicos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1996 (class 2606 OID 17809)
+-- Dependencies: 1623 1623
+-- Name: cliente_juridicos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY pessoa_juridicas
+    ADD CONSTRAINT cliente_juridicos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1970 (class 2606 OID 17811)
+-- Dependencies: 1599 1599
+-- Name: cliente_pedidos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY cliente_pedidos
+    ADD CONSTRAINT cliente_pedidos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1972 (class 2606 OID 17813)
+-- Dependencies: 1601 1601
+-- Name: clientes_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY clientes
+    ADD CONSTRAINT clientes_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2024 (class 2606 OID 23457)
+-- Dependencies: 1650 1650
+-- Name: contatos_empresas_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY contatos_empresas
+    ADD CONSTRAINT contatos_empresas_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2026 (class 2606 OID 23469)
+-- Dependencies: 1650 1650 1650
+-- Name: contatos_uk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY contatos_empresas
+    ADD CONSTRAINT contatos_uk UNIQUE (tipo, valor);
+
+
+--
+-- TOC entry 1976 (class 2606 OID 17815)
+-- Dependencies: 1603 1603
+-- Name: cores_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY cores
+    ADD CONSTRAINT cores_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2022 (class 2606 OID 23449)
+-- Dependencies: 1648 1648
+-- Name: empresas_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY empresas
+    ADD CONSTRAINT empresas_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1978 (class 2606 OID 17817)
+-- Dependencies: 1605 1605
+-- Name: estados_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY estados
+    ADD CONSTRAINT estados_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2012 (class 2606 OID 22162)
+-- Dependencies: 1640 1640
+-- Name: groups_permissoes_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY groups_permissoes
+    ADD CONSTRAINT groups_permissoes_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1980 (class 2606 OID 17819)
+-- Dependencies: 1607 1607
+-- Name: groups_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY groups
+    ADD CONSTRAINT groups_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1982 (class 2606 OID 17821)
+-- Dependencies: 1609 1609
+-- Name: grupos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY grupos
+    ADD CONSTRAINT grupos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1984 (class 2606 OID 17823)
+-- Dependencies: 1611 1611
+-- Name: imagens_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY imagens
+    ADD CONSTRAINT imagens_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1986 (class 2606 OID 17825)
+-- Dependencies: 1613 1613
+-- Name: item_cores_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY item_cores
+    ADD CONSTRAINT item_cores_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2020 (class 2606 OID 23426)
+-- Dependencies: 1645 1645
+-- Name: item_receitas_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY item_receitas
+    ADD CONSTRAINT item_receitas_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1990 (class 2606 OID 17827)
+-- Dependencies: 1617 1617
+-- Name: itens_pedidos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY itens_pedidos
+    ADD CONSTRAINT itens_pedidos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1988 (class 2606 OID 17829)
+-- Dependencies: 1615 1615
+-- Name: itens_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY itens
+    ADD CONSTRAINT itens_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2016 (class 2606 OID 23418)
+-- Dependencies: 1643 1643
+-- Name: materiais_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY materiais
+    ADD CONSTRAINT materiais_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2018 (class 2606 OID 23441)
+-- Dependencies: 1643 1643 1643
+-- Name: materiais_uk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY materiais
+    ADD CONSTRAINT materiais_uk UNIQUE (nome, receita_id);
+
+
+--
+-- TOC entry 1992 (class 2606 OID 17831)
+-- Dependencies: 1619 1619
+-- Name: pedidos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY pedidos
+    ADD CONSTRAINT pedidos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2010 (class 2606 OID 22154)
+-- Dependencies: 1638 1638
+-- Name: permissoes_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY permissoes
+    ADD CONSTRAINT permissoes_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1998 (class 2606 OID 17833)
+-- Dependencies: 1625 1625
+-- Name: precos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY precos
+    ADD CONSTRAINT precos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2000 (class 2606 OID 17835)
+-- Dependencies: 1627 1627
+-- Name: produtos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY produtos
+    ADD CONSTRAINT produtos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2014 (class 2606 OID 23413)
+-- Dependencies: 1642 1642
+-- Name: receitas_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY receitas
+    ADD CONSTRAINT receitas_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2002 (class 2606 OID 17837)
+-- Dependencies: 1629 1629
+-- Name: situacao_pedidos_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY situacao_pedidos
+    ADD CONSTRAINT situacao_pedidos_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2004 (class 2606 OID 17839)
+-- Dependencies: 1631 1631
+-- Name: situacoes_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY situacoes
+    ADD CONSTRAINT situacoes_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1974 (class 2606 OID 17841)
+-- Dependencies: 1601 1601
+-- Name: uk_clientes; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY clientes
+    ADD CONSTRAINT uk_clientes UNIQUE (email);
+
+
+--
+-- TOC entry 2006 (class 2606 OID 17843)
+-- Dependencies: 1633 1633
+-- Name: users_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2008 (class 2606 OID 17845)
+-- Dependencies: 1635 1635
+-- Name: vendas_pk; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY vendas
+    ADD CONSTRAINT vendas_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2032 (class 2606 OID 17846)
+-- Dependencies: 1589 1959 1597
+-- Name: agencias_cedentes_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cedentes
+    ADD CONSTRAINT agencias_cedentes_fk FOREIGN KEY (agencia_id) REFERENCES agencias(id);
+
+
+--
+-- TOC entry 2027 (class 2606 OID 17851)
+-- Dependencies: 1589 1591 1961
+-- Name: bancos_agencias_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY agencias
+    ADD CONSTRAINT bancos_agencias_fk FOREIGN KEY (banco_id) REFERENCES bancos(id);
+
+
+--
+-- TOC entry 2029 (class 2606 OID 17856)
+-- Dependencies: 1961 1591 1593
+-- Name: bancos_bloquetos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bloquetos
+    ADD CONSTRAINT bancos_bloquetos_fk FOREIGN KEY (banco_id) REFERENCES bancos(id);
+
+
+--
+-- TOC entry 2033 (class 2606 OID 17861)
+-- Dependencies: 1597 1963 1593
+-- Name: bloquetos_cedentes_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cedentes
+    ADD CONSTRAINT bloquetos_cedentes_fk FOREIGN KEY (bloqueto_id) REFERENCES bloquetos(id);
+
+
+--
+-- TOC entry 2053 (class 2606 OID 17866)
+-- Dependencies: 1595 1965 1635
+-- Name: boletos_vendas_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY vendas
+    ADD CONSTRAINT boletos_vendas_fk FOREIGN KEY (boleto_id) REFERENCES boletos(id);
+
+
+--
+-- TOC entry 2030 (class 2606 OID 17871)
+-- Dependencies: 1967 1597 1595
+-- Name: cedentes_boletos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY boletos
+    ADD CONSTRAINT cedentes_boletos_fk FOREIGN KEY (cedente_id) REFERENCES cedentes(id);
+
+
+--
+-- TOC entry 2031 (class 2606 OID 17876)
+-- Dependencies: 1971 1601 1595
+-- Name: clientes_boletos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY boletos
+    ADD CONSTRAINT clientes_boletos_fk FOREIGN KEY (cliente_id) REFERENCES clientes(id);
+
+
+--
+-- TOC entry 2034 (class 2606 OID 17881)
+-- Dependencies: 1597 1601 1971
+-- Name: clientes_cedentes_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cedentes
+    ADD CONSTRAINT clientes_cedentes_fk FOREIGN KEY (cliente_id) REFERENCES clientes(id);
+
+
+--
+-- TOC entry 2048 (class 2606 OID 17886)
+-- Dependencies: 1601 1971 1621
+-- Name: clientes_cliente_fisicos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pessoa_fisicas
+    ADD CONSTRAINT clientes_cliente_fisicos_fk FOREIGN KEY (cliente_id) REFERENCES clientes(id);
+
+
+--
+-- TOC entry 2049 (class 2606 OID 17891)
+-- Dependencies: 1601 1971 1623
+-- Name: clientes_cliente_juridicos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pessoa_juridicas
+    ADD CONSTRAINT clientes_cliente_juridicos_fk FOREIGN KEY (cliente_id) REFERENCES clientes(id);
+
+
+--
+-- TOC entry 2035 (class 2606 OID 17896)
+-- Dependencies: 1971 1601 1599
+-- Name: clientes_cliente_pedidos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cliente_pedidos
+    ADD CONSTRAINT clientes_cliente_pedidos_fk FOREIGN KEY (cliente_id) REFERENCES clientes(id);
+
+
+--
+-- TOC entry 2042 (class 2606 OID 17901)
+-- Dependencies: 1603 1615 1975
+-- Name: cores_itens_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY itens
+    ADD CONSTRAINT cores_itens_fk FOREIGN KEY (cor_id) REFERENCES cores(id);
+
+
+--
+-- TOC entry 2040 (class 2606 OID 17906)
+-- Dependencies: 1603 1975 1613
+-- Name: cores_produto_cores_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY item_cores
+    ADD CONSTRAINT cores_produto_cores_fk FOREIGN KEY (cor_id) REFERENCES cores(id);
+
+
+--
+-- TOC entry 2061 (class 2606 OID 23463)
+-- Dependencies: 2021 1648 1650
+-- Name: empresas_contatos_empresas_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contatos_empresas
+    ADD CONSTRAINT empresas_contatos_empresas_fk FOREIGN KEY (empresa_id) REFERENCES empresas(id);
+
+
+--
+-- TOC entry 2028 (class 2606 OID 17911)
+-- Dependencies: 1605 1977 1589
+-- Name: estado_agencias_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY agencias
+    ADD CONSTRAINT estado_agencias_fk FOREIGN KEY (estado_id) REFERENCES estados(id);
+
+
+--
+-- TOC entry 2037 (class 2606 OID 17916)
+-- Dependencies: 1977 1601 1605
+-- Name: estados_clientes_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clientes
+    ADD CONSTRAINT estados_clientes_fk FOREIGN KEY (estado_id) REFERENCES estados(id);
+
+
+--
+-- TOC entry 2060 (class 2606 OID 23458)
+-- Dependencies: 1977 1605 1648
+-- Name: estados_empresas_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY empresas
+    ADD CONSTRAINT estados_empresas_fk FOREIGN KEY (estado_id) REFERENCES estados(id);
+
+
+--
+-- TOC entry 2057 (class 2606 OID 22168)
+-- Dependencies: 1979 1640 1607
+-- Name: groups_groups_permissoes_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY groups_permissoes
+    ADD CONSTRAINT groups_groups_permissoes_fk FOREIGN KEY (group_id) REFERENCES groups(id);
+
+
+--
+-- TOC entry 2052 (class 2606 OID 17921)
+-- Dependencies: 1633 1979 1607
+-- Name: groups_users_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT groups_users_fk FOREIGN KEY (group_id) REFERENCES groups(id);
+
+
+--
+-- TOC entry 2051 (class 2606 OID 17926)
+-- Dependencies: 1627 1981 1609
+-- Name: grupos_produtos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY produtos
+    ADD CONSTRAINT grupos_produtos_fk FOREIGN KEY (grupo_id) REFERENCES grupos(id);
+
+
+--
+-- TOC entry 2044 (class 2606 OID 17931)
+-- Dependencies: 1987 1615 1617
+-- Name: itens_itens_pedidos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY itens_pedidos
+    ADD CONSTRAINT itens_itens_pedidos_fk FOREIGN KEY (item_id) REFERENCES itens(id);
+
+
+--
+-- TOC entry 2041 (class 2606 OID 17936)
+-- Dependencies: 1613 1987 1615
+-- Name: itens_produto_cores_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY item_cores
+    ADD CONSTRAINT itens_produto_cores_fk FOREIGN KEY (itens_cores) REFERENCES itens(id);
+
+
+--
+-- TOC entry 2047 (class 2606 OID 17941)
+-- Dependencies: 1619 2001 1629
+-- Name: pedido_situacao_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pedidos
+    ADD CONSTRAINT pedido_situacao_fk FOREIGN KEY (situacao_pedido_id) REFERENCES situacao_pedidos(id);
+
+
+--
+-- TOC entry 2036 (class 2606 OID 17946)
+-- Dependencies: 1991 1619 1599
+-- Name: pedidos_cliente_pedidos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cliente_pedidos
+    ADD CONSTRAINT pedidos_cliente_pedidos_fk FOREIGN KEY (pedido_id) REFERENCES pedidos(id);
+
+
+--
+-- TOC entry 2045 (class 2606 OID 17951)
+-- Dependencies: 1619 1617 1991
+-- Name: pedidos_itens_pedidos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY itens_pedidos
+    ADD CONSTRAINT pedidos_itens_pedidos_fk FOREIGN KEY (pedido_id) REFERENCES pedidos(id);
+
+
+--
+-- TOC entry 2054 (class 2606 OID 17956)
+-- Dependencies: 1635 1619 1991
+-- Name: pedidos_vendas_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY vendas
+    ADD CONSTRAINT pedidos_vendas_fk FOREIGN KEY (pedido_id) REFERENCES pedidos(id);
+
+
+--
+-- TOC entry 2056 (class 2606 OID 22163)
+-- Dependencies: 1638 2009 1640
+-- Name: permissoes_groups_permissoes_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY groups_permissoes
+    ADD CONSTRAINT permissoes_groups_permissoes_fk FOREIGN KEY (permissao_id) REFERENCES permissoes(id);
+
+
+--
+-- TOC entry 2050 (class 2606 OID 17961)
+-- Dependencies: 1625 1627 1999
+-- Name: produto_precos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY precos
+    ADD CONSTRAINT produto_precos_fk FOREIGN KEY (produto_id) REFERENCES produtos(id);
+
+
+--
+-- TOC entry 2039 (class 2606 OID 17966)
+-- Dependencies: 1611 1627 1999
+-- Name: produtos_imagens_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY imagens
+    ADD CONSTRAINT produtos_imagens_fk FOREIGN KEY (produto_id) REFERENCES produtos(id);
+
+
+--
+-- TOC entry 2043 (class 2606 OID 17971)
+-- Dependencies: 1615 1999 1627
+-- Name: produtos_itens_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY itens
+    ADD CONSTRAINT produtos_itens_fk FOREIGN KEY (produto_id) REFERENCES produtos(id);
+
+
+--
+-- TOC entry 2046 (class 2606 OID 17976)
+-- Dependencies: 1617 1999 1627
+-- Name: produtos_itens_pedidos_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY itens_pedidos
+    ADD CONSTRAINT produtos_itens_pedidos_fk FOREIGN KEY (produto_id) REFERENCES produtos(id);
+
+
+--
+-- TOC entry 2059 (class 2606 OID 23427)
+-- Dependencies: 1645 1642 2013
+-- Name: receitas_item_receitas_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY item_receitas
+    ADD CONSTRAINT receitas_item_receitas_fk FOREIGN KEY (receita_id) REFERENCES receitas(id);
+
+
+--
+-- TOC entry 2058 (class 2606 OID 23432)
+-- Dependencies: 1643 1642 2013
+-- Name: receitas_materiais_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY materiais
+    ADD CONSTRAINT receitas_materiais_fk FOREIGN KEY (receita_id) REFERENCES receitas(id);
+
+
+--
+-- TOC entry 2055 (class 2606 OID 17981)
+-- Dependencies: 2003 1631 1635
+-- Name: situacoes_vendas_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY vendas
+    ADD CONSTRAINT situacoes_vendas_fk FOREIGN KEY (situacao_id) REFERENCES situacoes(id);
+
+
+--
+-- TOC entry 2038 (class 2606 OID 17986)
+-- Dependencies: 1633 1601 2005
+-- Name: users_clientes_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clientes
+    ADD CONSTRAINT users_clientes_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- TOC entry 2066 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: -
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2011-01-14 18:11:52 BRT
+
+--
+-- PostgreSQL database dump complete
+--
+
