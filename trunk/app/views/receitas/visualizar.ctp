@@ -78,7 +78,7 @@
 </div>
 <div class="divCentral">
     <center>
-    <?php echo $html->image('/img_receitas', array('id'=>'imgPasso','align'=>'center','height'=>'240px'));?>
+    <?php echo $html->image('/img_receitas', array('id'=>'imgPasso','align'=>'center','height'=>'240px','width'=>'240px'));?>
         <div id="divDados" class="divDadosReceita">
             <?php if(!empty($receita['Receita']['modalidade'])):?>
                 <label style="font-size: 14px;color: red;">Modalidade:</label><br>
