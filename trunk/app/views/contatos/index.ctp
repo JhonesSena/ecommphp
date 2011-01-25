@@ -10,7 +10,9 @@
 <div class="div_miolo">
 <div class="div_migalha_de_pao"><div class="div_linhas_a-d"></div>
 <span class="migalha_de_pao">Contato</span></div>
-<div><img width="100px" height="6px" src="../images/1x18px.gif"></div>
+<div>
+    <?php echo $html->image('1x18px.gif', array('height'=>'6px','width'=>'100px'));?>
+</div>
 <div class="div_contato_1e3">      	</div>
 	<div class="div_contato_5">
 	  <br>

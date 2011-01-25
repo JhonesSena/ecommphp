@@ -160,9 +160,9 @@ class ProdutosController extends AppController {
     }
 
     function consultar($grupo=null,$id=null){
-        if($grupo==$this->linhas_barbantes){
+        if($grupo==1){
             $this->layout = 'view_produto_linha_barbante';
-        }else if($grupo==$this->limpeza){
+        }else if($grupo==2){
             $this->layout = 'view_produto_limpeza';
         }else{
             $this->redirect(array('action'=>'consultar',1));

@@ -1,5 +1,7 @@
-
-<div><img src="images/1x18px.gif" width="100px" height="3px"></div>
+<?php ?>
+<div>
+    <?php echo $html->image('1x18px.gif', array('height'=>'3px','width'=>'100px'));?>
+</div>
 
 <div class="div_miolo2">
     <div class="div_migalha_de_pao">
