@@ -25,7 +25,7 @@
         ?>
     </div>
     <div class="div_representantes_4">
-        <?=$html->image('/img/mapa.gif', array('height'=>'485px','width'=>'477px'));?>
+        <?=$html->image('/img/mapa.gif', array('height'=>'485px','width'=>'460px'));?>
     </div>
     <!--div class="div_representantes_1e3"> </div-->
 </div>
