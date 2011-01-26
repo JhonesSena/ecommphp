@@ -35,7 +35,7 @@
 			<?php echo $receita['Receita']['modalidade']; ?></td></tr>		<tr><td class="left"><?php __('Obs'); ?></td><td class="right">
 			<?php echo $receita['Receita']['obs']; ?></td></tr>		<tr><td class="left"><?php __('Publicado'); ?></td><td class="right">
 			<?php if($receita['Receita']['publicar']) echo 'Sim'; else echo 'Não'; ?></td></tr>		<tr><td class="left"><?php __('Imagem'); ?></td><td class="right">
-			<?php echo $html->image('/img_receitas/'.$receita['Receita']['imagem'], array('align'=>'center','height'=>'100px'));?></td></tr>		<tr><td class="left"><?php __('Ativo'); ?></td><td class="right">
+			<?php echo $html->image('/img_receitas/'.$receita['Receita']['imagem'], array('align'=>'center','height'=>'100px','width'=>'100px'));?></td></tr>		<tr><td class="left"><?php __('Ativo'); ?></td><td class="right">
 			<?php if($receita['Receita']['ativo']==1) echo 'Sim';else echo 'Não'; ?></td></tr>
             
         </table>
