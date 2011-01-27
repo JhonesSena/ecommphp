@@ -47,14 +47,14 @@
         <table id="myTable" class="tablesorter" cellspacing="1">
             <thead>
                <tr>
-                    <th><?php echo _('Nome');?></th>
-                    <th><?php echo _('Descrição');?></th>
+                    <th><?php echo 'Nome';?></th>
+                    <th><?php echo 'Descrição';?></th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th><?php echo _('Nome');?></th>
-                    <th><?php echo _('Descrição');?></th>
+                    <th><?php echo 'Nome';?></th>
+                    <th><?php echo 'Descrição';?></th>
                 </tr>
             </tfoot>
             <tbody>
@@ -83,12 +83,12 @@
         <table id="myTable2" class="tablesorter" cellspacing="1">
             <thead>
                <tr>
-                    <th><?php echo _('Nome');?></th>
+                    <th><?php echo 'Nome';?></th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th><?php echo _('Nome');?></th>
+                    <th><?php echo 'Nome';?></th>
                 </tr>
             </tfoot>
             <tbody>
