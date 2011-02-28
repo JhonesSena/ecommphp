@@ -16,7 +16,7 @@ class User extends AppModel {
             )
     );
 
-    var $hasOne = array(
+    var $hasMany = array(
             'Cliente' => array(
                             'className' => 'Cliente',
                             'foreignKey' => 'user_id',
