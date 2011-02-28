@@ -48,7 +48,7 @@
 			<?php echo $item['Item']['ativo']; ?></td></tr>            
                         <tr>
                             <td class="left"><?php __('Disponivel'); ?></td><td class="right">
-                            <?php if($item['Item']['ativo']==1) echo 'Sim'; else echo 'Não'; ?></td>
+                            <?php if($item['Item']['disponivel']==1) echo 'Sim'; else echo 'Não'; ?></td>
                         </tr>
             
         </table>
