@@ -119,7 +119,7 @@
                     'Novo'=>'produtos/add',
                     'Listar'=>'produtos',
                     'Item de Produto'=>'itens',
-                    'Grupo'=>'grupos'
+                    'Segmentos'=>'grupos'
                 ),
                 'Administrar' => array(
                     'Grupos de Acessos'=>'groups',

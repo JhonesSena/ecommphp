@@ -10,7 +10,7 @@ class ProdutosController extends AppController {
             'order'=>array('Produto.descricao'=>'asc')
     );
     var $linhas_barbantes = 1;
-    var $limpeza = 3;
+    var $limpeza = 2;
 
     function beforeFilter () {
         // executa o beforeFilter do AppController
@@ -49,7 +49,12 @@ class ProdutosController extends AppController {
                     $this->redirect(array('action'=>'index'));
                 } else {
                     $this->deletaArquivos($this->data['backup'], $path);
-                    $this->Session->setFlash(__('O Produto não pôde ser salvo. Por favor, tente novamente.', true));
+                    $db_error = $this->Produto->getError();
+                    if($db_error){
+                        $this->Session->setFlash(__($db_error, true));
+                    }else{
+                        $this->Session->setFlash(__('O Produto não pôde ser salvo. Por favor, tente novamente.', true));
+                    }
                 }
             }
             else
@@ -94,7 +99,12 @@ class ProdutosController extends AppController {
                     $this->redirect(array('action'=>'index'));
                 } else {
                     $this->deletaArquivos($this->data['backup'], $path);
-                    $this->Session->setFlash(__('O Produto não pode ser salvo, tente novamente.', true));
+                    $db_error = $this->Produto->getError();
+                    if($db_error){
+                        $this->Session->setFlash(__($db_error, true));
+                    }else{
+                        $this->Session->setFlash(__('O Produto não pôde ser salvo. Por favor, tente novamente.', true));
+                    }
                 }
             }
             else

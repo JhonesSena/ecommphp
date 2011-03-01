@@ -39,6 +39,8 @@
 class AppModel extends Model {
     var $displayField = 'nome';
     var $actsAs   = array('transaction', 'Containable');
+    var $dbError;
+    var $useDbConfig = 'producao';
 
 
     function formataDateTime($dateTime) {
@@ -66,6 +68,30 @@ class AppModel extends Model {
     public function verificarRelacao($campo, $tabela, $id) {
         $retorno = $this->query("SELECT COUNT(id) FROM ". $tabela ." WHERE  $campo  =  $id");
         return $retorno[0][0]['count'];
+    }
+    
+    function getError() {
+        $db =& ConnectionManager::getDataSource($this->useDbConfig);
+        $lastError = $db->lastError();
+        if(preg_match_all('/"(.+)"/U',$lastError,$matches, PREG_PATTERN_ORDER)){
+            $this->errorInit();
+            return $this->dbError[$matches[1][0]];
+        }
+        return false;
+    }
+
+    private function errorInit() {
+        $this->dbError['cores_uk'] = 'A operação não pode ser concluída, já existe uma <b>Cor</b> com o código informado.';
+        $this->dbError['cores_uk2'] = 'A operação não pode ser concluída, já existe uma <b>Cor</b> com o nome informado.';
+        $this->dbError['groups_uk'] = 'A operação não pode ser concluída, já existe um <b>Grupo de Acesso</b> com o nome informado.';
+        $this->dbError['grupos_uk'] = 'A operação não pode ser concluída, já existe um <b>Segmento</b> com o nome informado.';
+        $this->dbError['item_receitas_uk'] = 'A operação não pode ser concluída, já existe um <b>Item de Receita</b> com o nome informado.';
+        $this->dbError['itens_uk'] = 'A operação não pode ser concluída, já existe um <b>Item de Produto</b> com o código informado.';
+        $this->dbError['permissoes_uk'] = 'A operação não pode ser concluída, já existe uma <b>Permissão</b> com o nome informado.';
+        $this->dbError['produtos_uk'] = 'A operação não pode ser concluída, já existe um <b>Produto</b> com o código informado.';
+        $this->dbError['produtos_uk2'] = 'A operação não pode ser concluída, já existe um <b>Produto</b> com a descrição informada.';
+        $this->dbError['produtos_uk3'] = 'A operação não pode ser concluída, já existe um <b>Produto</b> com a descrição abreviada informada.';
+        $this->dbError['receitas_uk'] = 'A operação não pode ser concluída, já existe uma <b>Receita</b> com o nome informado.';
     }
 }
 ?>

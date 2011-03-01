@@ -52,7 +52,7 @@
 		echo $jquery->input('estado_id',array('class'=>'validateRequired','alt'=>'Estado','label'=>'Estado*','empty'=>'Selecione','error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 		echo $jquery->input('ativo',array('type'=>'hidden','value'=>1,'error' => false,'div'=>false,'before' => '<tr><td class="left">','after' => '</td></tr>','between' => '</td><td class="right">'));
 	?>
-        <tr><td class="left"></td><td class="right"><input type="button" id="next1" value="Continuar" style="font-size:11px" class="formbtn btn_salvar"></td>
+        <tr><td class="left"></td><td class="right"><?php echo $form->submit(__('Salvar',true),array('style'=>'font-size:11px','class'=>'formbtn btn_salvar'));?></td>
                 </tr>
         </table>
         

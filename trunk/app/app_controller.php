@@ -206,7 +206,13 @@ class AppController extends Controller {
                 $this->Session->setFlash(__($this->modelClass.' foi salvo com sucesso.', true));
                 $this->redirect($this->getRedirect());
             } else {
-                $this->Session->setFlash(__('ERRO ao salvar '.$this->modelClass.'. Verifique os problemas e tente novamente.', true));
+                $model = $this->modelClass;
+                $db_error = $this->$model->getError();
+                if($db_error){
+                    $this->Session->setFlash(__($db_error, true));
+                }else{
+                    $this->Session->setFlash(__('ERRO ao salvar '.$this->modelClass.'. Verifique os problemas e tente novamente.', true));
+                }
             }
         }
         $this->loadbelongsTo($this->Model);
@@ -224,7 +230,13 @@ class AppController extends Controller {
                 $this->Session->setFlash(__($this->modelClass.' foi salvo com sucesso', true));
                 $this->redirect($this->getRedirect());
             } else {
-                $this->Session->setFlash(__('ERRO ao salvar '.$this->modelClass.'. Verifique os problemas e tente novamente.', true));
+                $model = $this->modelClass;
+                $db_error = $this->$model->getError();
+                if($db_error){
+                    $this->Session->setFlash(__($db_error, true));
+                }else{
+                    $this->Session->setFlash(__('ERRO ao salvar '.$this->modelClass.'. Verifique os problemas e tente novamente.', true));
+                }
             }
         }
         if (empty($this->data)) {

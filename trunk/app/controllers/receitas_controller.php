@@ -41,7 +41,12 @@ class ReceitasController extends AppController {
                     $this->redirect(array('action' => 'edit', "$id#tab2"));
                 } else {
                     $this->deletaArquivo($this->data['Receita']['imagem']);
-                    $this->Session->setFlash(__('A Receita não pôde er salva. Por favor tente novamente.', true));
+                    $db_error = $this->Receita->getError();
+                    if($db_error){
+                        $this->Session->setFlash(__($db_error, true));
+                    }else{
+                        $this->Session->setFlash(__('A Receita não pôde er salva. Por favor tente novamente.', true));
+                    }
                 }
             }else{
                 $this->Session->setFlash(__('Extensão de imagem não permitida.', true));
@@ -67,7 +72,12 @@ class ReceitasController extends AppController {
                     $this->redirect(array('action' => 'index'));
                 } else {
                     $this->deletaArquivo($this->data['Receita']['imagem']);
-                    $this->Session->setFlash(__('A Receita não pôde er salva. Por favor tente novamente.', true));
+                    $db_error = $this->Receita->getError();
+                    if($db_error){
+                        $this->Session->setFlash(__($db_error, true));
+                    }else{
+                        $this->Session->setFlash(__('A Receita não pôde er salva. Por favor tente novamente.', true));
+                    }
                 }
             }else{
                 $this->Session->setFlash(__('Extensão de imagem não permitida.', true));
