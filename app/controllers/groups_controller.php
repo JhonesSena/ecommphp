@@ -46,7 +46,12 @@ class GroupsController extends AppController {
                 $this->Session->setFlash(__('O Grupo de Acesso foi salvo com sucesso!', true));
                 $this->redirect(array('action'=>'index'));
             } else {
-                $this->Session->setFlash(__('O Grupo de Acesso não pôde ser salvo. Por favor, tente novamente.', true));
+                $db_error = $this->Group->getError();
+                if($db_error){
+                    $this->Session->setFlash(__($db_error, true));
+                }else{
+                    $this->Session->setFlash(__('O Grupo de Acesso não pôde ser salvo. Por favor, tente novamente.', true));
+                }
             }
         }
 
@@ -64,7 +69,12 @@ class GroupsController extends AppController {
                 $this->Session->setFlash(__('O Grupo de Acesso foi salvo com sucesso!', true));
                 $this->redirect(array('action'=>'index'));
             } else {
-                $this->Session->setFlash(__('O Grupo de Acesso não pôde ser salvo. Por favor, tente novamente.', true));
+                $db_error = $this->Group->getError();
+                if($db_error){
+                    $this->Session->setFlash(__($db_error, true));
+                }else{
+                    $this->Session->setFlash(__('O Grupo de Acesso não pôde ser salvo. Por favor, tente novamente.', true));
+                }
             }
         }
         if (empty($this->data)) {

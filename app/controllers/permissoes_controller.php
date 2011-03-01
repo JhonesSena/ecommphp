@@ -24,7 +24,12 @@ class PermissoesController extends AppController {
 				$this->Session->setFlash(__('A Permissão foi salva com sucesso!', true));
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('A Permissão não pôde ser salva. Por favor, tente novamente.', true));
+                            $db_error = $this->Permissao->getError();
+                            if($db_error){
+                                $this->Session->setFlash(__($db_error, true));
+                            }else{
+                                $this->Session->setFlash(__('A Permissão não pôde ser salva. Por favor, tente novamente.', true));
+                            }
 			}
 		}
 		$groups = $this->Permissao->Group->find('list');
@@ -41,7 +46,12 @@ class PermissoesController extends AppController {
 				$this->Session->setFlash(__('A Permissão foi salva com sucesso!', true));
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('A Permissão não pôde ser salva. Por favor, tente novamente.', true));
+				$db_error = $this->Permissao->getError();
+                                if($db_error){
+                                    $this->Session->setFlash(__($db_error, true));
+                                }else{
+                                    $this->Session->setFlash(__('A Permissão não pôde ser salva. Por favor, tente novamente.', true));
+                                }
 			}
 		}
 		if (empty($this->data)) {

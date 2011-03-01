@@ -58,7 +58,7 @@
 </script>
 
 <div class="toolbar">
-	<?php if(empty($empresas)) echo $html->link(__('Novo Empresa',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>
+	<?php if(empty($empresas)) echo $html->link(__('Nova Empresa',true), 'add',array('class'=>'linkbutton linkbtn btn_add')); ?>
 	
 	<?
 	$total = $paginator->counter(array('format' => '%pages%', true));
