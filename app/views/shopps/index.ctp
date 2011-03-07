@@ -102,6 +102,7 @@
 <div id="divItens" title="Itens">
 </div>
 <div id="tabpanel">
+    
     <!--Filtro de busca-->
     <div style="float: right" >
         <?php echo $form->create(array('action'=>'index'))?>
@@ -114,6 +115,12 @@
         <?php echo $form->end();?>
     </div>
     <table cellspacing="0" class="details">
+        <tr><td colspan="2" style="text-align: center;">
+                <label style="font-size: 20px; margin-bottom: 20px; color: #2E6E9E;">
+                    Simule uma compra
+                </label>
+            </td>
+        </tr>
         <?php
         $i = 0;
         $col = 2;

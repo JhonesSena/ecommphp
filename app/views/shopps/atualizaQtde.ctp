@@ -101,10 +101,10 @@
             <th align="right" colspan="4" style="font-size: 14px">Total em produto</th>
             <th align="left" colspan="3" style="font-size: 14px">R$ <?php echo $totalProduto;?></th>
         </tr>
-        <tr>
+        <!--tr>
             <th align="right" colspan="4" style="font-size: 14px">Valor Frete</th>
-            <th align="left" colspan="3" style="font-size: 14px">R$ <?php echo $frete;?></th>
-        </tr>
+            <th align="left" colspan="3" style="font-size: 14px">R$ <?php //echo $frete;?></th>
+        </tr-->
         <tr>
             <th align="right" colspan="4" style="font-size: 14px">Total</th>
             <th align="left" colspan="3" style="font-size: 14px; color: blue;">R$ <?php echo $total;?></th>
@@ -112,8 +112,8 @@
     </tfoot>
 </table>
 <?php 
-    if($errosFrete['codigo']!=0){
-        echo "<span style='color: red'>Ocorreu um erro ao tentar calcular frete. ".$errosFrete['descricao']."</span>";
-    }
+//    if($errosFrete['codigo']!=0){
+//        echo "<span style='color: red'>Ocorreu um erro ao tentar calcular frete. ".$errosFrete['descricao']."</span>";
+//    }
 ?>
 <?php endif; ?>

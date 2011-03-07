@@ -13,12 +13,15 @@
         </tr>
         <?php
         $qtde_item = 1;
+        if($produto['Preco'][0]['pacote'] == 1){
+            $msgDesconto = 'Desconto de '.$produto['Preco'][0]['desconto_por_pacote'].' % para cada unidade.';
+        }else if($produto['Preco'][0]['pacote'] == 1){
+            $msgDesconto = 'Na soma dos itens acima, múltiplo de '.$produto['Preco'][0]['pacote'].', desconto de '.$produto['Preco'][0]['desconto_por_pacote'].' %.';
+        }
+        
         if(!empty($result)) {
             $qtde_item = 0;
             foreach ($result as $key => $value) {
-                if(!empty ($produto['Preco'][0]['desconto_por_pacote']) && $produto['Preco'][0]['desconto_por_pacote'] > 0) {
-                    $msgDesconto = 'Na soma dos itens acima, múltiplo de '.$produto['Preco'][0]['pacote'].', desconto de '.$produto['Preco'][0]['desconto_por_pacote'].' %.';
-                }
                 echo $jquery->input('id', array('name'=>"data[Item][$key][id]", 'type'=>'hidden', 'value'=>$value['Produto']['id']));
                 echo $jquery->input('codigo', array('name'=>"data[Item][$key][codigo]", 'type'=>'hidden', 'value'=>$value['Produto']['codigo']));
                 echo $jquery->input('codigoitem', array('name'=>"data[Item][$key][codigo_item]", 'type'=>'hidden', 'value'=>$value['Item']['codigo']));
@@ -27,9 +30,6 @@
             }
         }
         else {
-            if(!empty ($produto['Preco'][0]['desconto_por_pacote']) && $produto['Preco'][0]['desconto_por_pacote'] > 0) {
-                $msgDesconto = 'Na soma dos itens acima, múltiplo de '.$produto['Preco'][0]['pacote'].', desconto de '.$produto['Preco'][0]['desconto_por_pacote'].' %.';
-            }
             echo $jquery->input('id', array('name'=>"data[Item][0][id]", 'type'=>'hidden', 'value'=>$produto['Produto']['id']));
             echo $jquery->input('codigo', array('name'=>"data[Item][0][codigo]", 'type'=>'hidden', 'value'=>$produto['Produto']['codigo']));
 //            echo $jquery->input('item', array('name'=>"[Item][$key]['item']", 'type'=>'hidden', 'value'=>$value['Item']['titulo']));

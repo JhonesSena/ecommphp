@@ -66,7 +66,8 @@ class AppController extends Controller {
         }
         $this->set('telas',$telas);
 
-        if ($this->requiredAutentication() && $this->Autentication() && $this->params['controller'] != 'pages') {
+        if ($this->requiredAutentication() && $this->Autentication() && $this->params['controller'] != 'pages'
+                && $this->params['controller'] != 'shopps') {
             if (!$this->validateScreens()) {
                 $this->Session->setFlash(__('O Usuário não tem permissão de acesso a página solicitada.', true));
                 $this->redirect('/pages/index');

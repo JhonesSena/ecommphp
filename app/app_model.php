@@ -40,7 +40,7 @@ class AppModel extends Model {
     var $displayField = 'nome';
     var $actsAs   = array('transaction', 'Containable');
     var $dbError;
-    var $useDbConfig = 'producao';
+    var $useDbConfig = 'homologacao';
 
 
     function formataDateTime($dateTime) {

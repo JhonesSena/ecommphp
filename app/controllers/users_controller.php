@@ -89,7 +89,7 @@ class UsersController extends AppController {
         $this->Session->delete('carrinho');
         $this->Session->delete('UserTelas');
 //        $this->Auth->logout();
-        $this->redirect(array('controller'=>'produtos','action'=>'consultar',1));
+        $this->redirect(array('controller'=>'shopps','action'=>'index'));
 //        print_r($this->Auth);
     }
 
