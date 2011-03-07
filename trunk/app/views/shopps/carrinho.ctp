@@ -100,9 +100,9 @@
 </script>
 
 <div class="toolbar">
-    <?php echo $html->link(__('Continuar compra', true), array('action'=>'index'),array('class'=>'linkbutton linkbtn btn_list')); ?>
+    <?php echo $html->link(__('Continuar simulação', true), array('action'=>'index'),array('class'=>'linkbutton linkbtn btn_list')); ?>
     <?php echo $html->link(__('Limpar carrinho', true), array('action'=>'limparCarrinho'), array('class'=>'linkbutton linkbtn btn_delete'), sprintf(__('Deseja realmente limpar o carrinho?', true))); ?>
-    <?php echo $html->link(__('Fechar pedido', true), array('controller'=>'pedidos','action'=>'add'), array('class'=>'linkbutton linkbtn btn_salvar'), sprintf(__('Deseja realmente fechar o pedido?', true))); ?>
+    <?php //echo $html->link(__('Fechar pedido', true), array('controller'=>'pedidos','action'=>'add'), array('class'=>'linkbutton linkbtn btn_salvar'), sprintf(__('Deseja realmente fechar o pedido?', true))); ?>
 </div>
 <div id="tabpanel">
     <ul>
@@ -212,10 +212,10 @@
                     <th align="right" colspan="4" style="font-size: 14px">Total em produto</th>
                     <th align="left" colspan="3" style="font-size: 14px">R$ <?php echo $totalProduto;?></th>
                 </tr>
-                <tr>
+                <!--tr>
                     <th align="right" colspan="4" style="font-size: 14px">Valor Frete</th>
-                    <th align="left" colspan="3" style="font-size: 14px">R$ <?php echo $frete;?></th>
-                </tr>
+                    <th align="left" colspan="3" style="font-size: 14px">R$ <?php //echo $frete;?></th>
+                </tr-->
                 <tr>
                     <th align="right" colspan="4" style="font-size: 14px">Total</th>
                     <th align="left" colspan="3" style="font-size: 14px; color: blue;">R$ <?php echo $total;?></th>
@@ -223,9 +223,9 @@
             </tfoot>
         </table>
         <?php
-        if($errosFrete['codigo']!=0) {
-            echo "<span style='color: red'>Ocorreu um erro ao tentar calcular frete. ".$errosFrete['descricao']."</span>";
-        }
+//        if($errosFrete['codigo']!=0) {
+//            echo "<span style='color: red'>Ocorreu um erro ao tentar calcular frete. ".$errosFrete['descricao']."</span>";
+//        }
         ?>
     </div>
 </div>

@@ -236,7 +236,7 @@ class ShoppsController extends AppController {
 
     function limparCarrinho() {
         if($this->Session->del('carrinho')) {
-            $this->Session->setFlash(__('Carrinho esvaziado com sucesso!', true));
+            $this->Session->setFlash(__('Carrinho despejado com sucesso!', true));
             $this->redirect(array('action'=>'index'));
         }
         else {
